@@ -22,11 +22,13 @@ abstract class StyleWidget {
 }
 
 //Цвета в приложении
-abstract class StyleColor {
+abstract class ColorApp {
   //Первичный цвет
   static const primary = Color.fromRGBO(82, 182, 255, 1);
   //Вторичный цвет (Прозрачный)
   static const secondary = Color.fromRGBO(82, 182, 255, 0.8);
   //Третичный цвет (Белый)
   static const tertiary = Colors.white;
+  //Прозрачный
+  static final transparent = Colors.white.withOpacity(0);
 }
