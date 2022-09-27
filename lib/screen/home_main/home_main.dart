@@ -23,7 +23,7 @@ class HomeMain extends StatelessWidget {
                 TextLiquidFill(
                   text: 'Карточки для детей',
                   textAlign: TextAlign.center,
-                  waveColor: const Color.fromRGBO(88, 213, 243, 1),
+                  waveColor: ColorsApp.primary,
                   boxBackgroundColor: Colors.white,
                   textStyle: GoogleFonts.lobster(
                     fontSize: 70,
@@ -71,7 +71,7 @@ class ButtonNavigatorScreen extends StatelessWidget {
       height: 40,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromRGBO(88, 213, 243, 1),
+            primary: ColorsApp.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),

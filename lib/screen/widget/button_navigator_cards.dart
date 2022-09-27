@@ -3,7 +3,7 @@ import 'package:busycards/model/menu_cards.dart';
 import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 
-//Кнопка вызову меню катеоорй карточек
+//Кнопка вызову меню категорий карточек
 class ButtonNavigatorCards extends StatelessWidget {
   const ButtonNavigatorCards({Key? key, required this.udatePage})
       : super(key: key);
@@ -72,7 +72,7 @@ class ListBabyCards extends StatelessWidget {
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
             ),
-            color: Color.fromRGBO(88, 213, 243, 0.8),
+            color: ColorsApp.primary,
           ),
           height: 40,
           child: Center(

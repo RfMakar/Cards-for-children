@@ -16,17 +16,16 @@ class DialogImageCard extends StatelessWidget {
         builder: (context) {
           var model = context.read<ProviderDialoImageCard>();
           return SimpleDialog(
-            backgroundColor: Colors.white.withOpacity(0),
+            backgroundColor: ColorsApp.transparent,
             children: [
               //Вверх диалога (Имя карточки)
               Container(
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                  color: Color.fromRGBO(82, 182, 255, 1),
-                ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ),
+                    color: ColorsApp.primary),
                 height: 40,
                 child: Center(
                     child: Text(model.name, style: StyleWidget.textStyleMenu)),
@@ -48,7 +47,7 @@ class DialogImageCard extends StatelessWidget {
                     bottomLeft: Radius.circular(8),
                     bottomRight: Radius.circular(8),
                   ),
-                  color: Color.fromRGBO(82, 182, 255, 0.8),
+                  color: ColorsApp.secondary,
                 ),
                 height: 50,
                 child: Row(
@@ -57,7 +56,7 @@ class DialogImageCard extends StatelessWidget {
                     //Button play audio
                     IconButton(
                       iconSize: 35,
-                      color: Colors.white,
+                      color: ColorsApp.tertiary,
                       splashRadius: 25,
                       onPressed: model.onPressedPlay,
                       icon: const Icon(Icons.music_note),
@@ -67,7 +66,7 @@ class DialogImageCard extends StatelessWidget {
                         ? Container()
                         : IconButton(
                             iconSize: 35,
-                            color: Colors.white,
+                            color: ColorsApp.tertiary,
                             splashRadius: 25,
                             onPressed: model.onPressedPlayRaw,
                             icon: const Icon(Icons.volume_up),
@@ -75,7 +74,7 @@ class DialogImageCard extends StatelessWidget {
                     //Button close dialog
                     IconButton(
                       iconSize: 35,
-                      color: Colors.white,
+                      color: ColorsApp.tertiary,
                       splashRadius: 25,
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.close),

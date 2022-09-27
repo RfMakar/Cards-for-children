@@ -1,4 +1,5 @@
 import 'package:busycards/screen/home_main/home_main.dart';
+import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,12 +35,15 @@ class MyApp extends StatelessWidget {
 
 abstract class MyThemeApp {
   static final themeLight = ThemeData(
+    //Тема карточки
     cardTheme: CardTheme(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        elevation: 3,
-        shadowColor: const Color.fromRGBO(88, 213, 243, 1)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      elevation: 3,
+      shadowColor: ColorsApp.primary,
+    ),
+    //Тема шторки снизу
     bottomSheetTheme: const BottomSheetThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

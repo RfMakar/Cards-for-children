@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
+import 'package:busycards/screen/widget/style_app.dart';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -15,8 +16,7 @@ class ProviderScreenGameMemory extends ChangeNotifier {
   late List<Map<int, BabyCard>> matchCheck; //Сравнение 2х карточек
   late int properlyReply; //Количество правильных ответов
 
-  final firstColorCard =
-      const Color.fromRGBO(88, 213, 243, 0.8); //Цвет карточки
+  final firstColorCard = ColorsApp.primary; //Цвет карточки
   final clickColorCard = Colors.white;
   //Цвет нажатия на карточку
 
