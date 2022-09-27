@@ -4,7 +4,7 @@ import 'package:busycards/screen/game_where/provider_screen_game_where.dart';
 import 'package:busycards/screen/widget/button_navigator_back.dart';
 
 import 'package:busycards/screen/widget/button_navigator_cards.dart';
-import 'package:busycards/screen/widget/style_widget.dart';
+import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

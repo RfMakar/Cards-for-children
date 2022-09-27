@@ -2,7 +2,7 @@ import 'package:busycards/screen/game_find_couple/screen_game_find_couple.dart';
 import 'package:busycards/screen/game_memory/screen_game_memory.dart';
 import 'package:busycards/screen/game_where/sreen_game_where.dart';
 import 'package:busycards/screen/widget/button_navigator_back.dart';
-import 'package:busycards/screen/widget/style_widget.dart';
+import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 
 class ScreenGame extends StatelessWidget {

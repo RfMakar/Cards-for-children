@@ -1,7 +1,7 @@
 import 'package:busycards/screen/baby_card/screen_baby_cards.dart';
 import 'package:busycards/screen/game/screen_game.dart';
 import 'package:busycards/screen/settings/screen_settings.dart';
-import 'package:busycards/screen/widget/style_widget.dart';
+import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';

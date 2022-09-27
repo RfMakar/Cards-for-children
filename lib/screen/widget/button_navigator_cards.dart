@@ -1,6 +1,6 @@
 import 'package:busycards/data/db_menu_cards.dart';
 import 'package:busycards/model/menu_cards.dart';
-import 'package:busycards/screen/widget/style_widget.dart';
+import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 
 //Кнопка вызову меню катеоорй карточек

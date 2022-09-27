@@ -1,4 +1,4 @@
-import 'package:busycards/screen/widget/style_widget.dart';
+import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 
 class ButtonNavigatorBack extends StatelessWidget {
