@@ -18,52 +18,75 @@ class DialogImageCard extends StatelessWidget {
           return SimpleDialog(
             backgroundColor: Colors.white.withOpacity(0),
             children: [
-              Text(
-                model.name,
-                textAlign: TextAlign.center,
-                style: StyleWidget.textStyle,
+              //Вверх диалога (Имя карточки)
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                  color: Color.fromRGBO(82, 182, 255, 1),
+                ),
+                height: 40,
+                child: Center(
+                    child: Text(model.name, style: StyleWidget.textStyleMenu)),
               ),
+              //Центр диалога(Картинка)
               InkWell(
                 onTap: () => Navigator.pop(context),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
                     model.image,
                     fit: BoxFit.fill,
                   ),
                 ),
               ),
-              const Divider(color: Color.fromRGBO(88, 213, 243, 0.8)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    style: StyleWidget.styleIconButton,
-                    onPressed: model.onPressedPlay,
-                    child: const Icon(Icons.music_note),
+              //Низ диалога
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
                   ),
-                  buttonRaw(model),
-                  ElevatedButton(
-                    style: StyleWidget.styleIconButton,
-                    onPressed: () => Navigator.pop(context),
-                    child: const Icon(Icons.close),
-                  ),
-                ],
+                  color: Color.fromRGBO(82, 182, 255, 0.8),
+                ),
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    //Button play audio
+                    IconButton(
+                      iconSize: 35,
+                      color: Colors.white,
+                      splashRadius: 25,
+                      onPressed: model.onPressedPlay,
+                      icon: const Icon(Icons.music_note),
+                    ),
+                    //Button play raw, если нету raw то пустота
+                    model.raw == null
+                        ? Container()
+                        : IconButton(
+                            iconSize: 35,
+                            color: Colors.white,
+                            splashRadius: 25,
+                            onPressed: model.onPressedPlayRaw,
+                            icon: const Icon(Icons.volume_up),
+                          ),
+                    //Button close dialog
+                    IconButton(
+                      iconSize: 35,
+                      color: Colors.white,
+                      splashRadius: 25,
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
               ),
             ],
           );
         },
       ),
     );
-  }
-
-  Widget buttonRaw(ProviderDialoImageCard model) {
-    return model.raw == null
-        ? Container()
-        : ElevatedButton(
-            style: StyleWidget.styleIconButton,
-            onPressed: model.onPressedPlayRaw,
-            child: const Icon(Icons.volume_up),
-          );
   }
 }
