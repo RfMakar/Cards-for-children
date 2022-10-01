@@ -15,7 +15,7 @@ abstract class StyleWidget {
 //Текст в приложении
 abstract class TextApp {
   //Первичный
-  static final primary = GoogleFonts.lobster(fontSize: 18);
+  static final primary = GoogleFonts.lobster(fontSize: 15);
 //Вторичный
   static final secondary =
       GoogleFonts.lobster(fontSize: 25, color: Colors.white);
