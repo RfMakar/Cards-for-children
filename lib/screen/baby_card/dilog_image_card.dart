@@ -49,15 +49,15 @@ class DialogImageCard extends StatelessWidget {
                   ),
                   color: ColorsApp.secondary,
                 ),
-                height: 50,
+                height: 45,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     //Button play audio
                     IconButton(
-                      iconSize: 35,
+                      iconSize: 30,
                       color: ColorsApp.tertiary,
-                      splashRadius: 25,
+                      splashRadius: 20,
                       onPressed: model.onPressedPlay,
                       icon: const Icon(Icons.music_note),
                     ),
@@ -65,17 +65,17 @@ class DialogImageCard extends StatelessWidget {
                     model.raw == null
                         ? Container()
                         : IconButton(
-                            iconSize: 35,
+                            iconSize: 30,
                             color: ColorsApp.tertiary,
-                            splashRadius: 25,
+                            splashRadius: 20,
                             onPressed: model.onPressedPlayRaw,
                             icon: const Icon(Icons.volume_up),
                           ),
                     //Button close dialog
                     IconButton(
-                      iconSize: 35,
+                      iconSize: 30,
                       color: ColorsApp.tertiary,
-                      splashRadius: 25,
+                      splashRadius: 20,
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.close),
                     ),
