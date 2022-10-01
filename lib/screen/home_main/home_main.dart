@@ -18,15 +18,18 @@ class HomeMain extends StatelessWidget {
       );
     });
 
-    return Center(
-      child: TextLiquidFill(
-        loadDuration: const Duration(seconds: 2),
-        text: 'Карточки для детей',
-        textAlign: TextAlign.center,
-        waveColor: ColorsApp.primary,
-        boxBackgroundColor: Colors.white,
-        textStyle: GoogleFonts.lobster(
-          fontSize: 70,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: TextLiquidFill(
+          loadDuration: const Duration(seconds: 2),
+          text: 'Карточки для детей',
+          textAlign: TextAlign.center,
+          waveColor: ColorsApp.primary,
+          boxBackgroundColor: Colors.white,
+          textStyle: GoogleFonts.lobster(
+            fontSize: 70,
+          ),
         ),
       ),
     );
