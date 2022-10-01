@@ -11,7 +11,7 @@ class HomeMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const ScreenBabyCards()),
@@ -22,14 +22,12 @@ class HomeMain extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: TextLiquidFill(
-          loadDuration: const Duration(seconds: 2),
+          loadDuration: const Duration(seconds: 1),
           text: 'Карточки для детей',
           textAlign: TextAlign.center,
           waveColor: ColorsApp.primary,
           boxBackgroundColor: Colors.white,
-          textStyle: GoogleFonts.lobster(
-            fontSize: 70,
-          ),
+          textStyle: GoogleFonts.lobster(fontSize: 70),
         ),
       ),
     );

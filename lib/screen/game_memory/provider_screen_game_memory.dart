@@ -30,7 +30,7 @@ class ProviderScreenGameMemory extends ChangeNotifier {
     colorCard = List.generate(12, (index) => clickColorCard);
     pressedCard = List.generate(12, (index) => false);
 
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 5), () {
       colorCard = List.generate(12, (index) => firstColorCard);
       pressedCard = List.generate(12, (index) => true);
       notifyListeners();

@@ -5,20 +5,20 @@ abstract class StyleWidget {
   static final styleIconButton = ElevatedButton.styleFrom(
     elevation: 3,
     fixedSize: const Size(60, 60),
-    shape: const CircleBorder(),
-    primary: ColorsApp.primary,
+    shape: const StadiumBorder(
+      side: BorderSide(color: Color.fromARGB(255, 255, 255, 255), width: 2),
+    ),
+    primary: ColorsApp.secondary,
   );
+}
 
-  static final textStyle =
-      GoogleFonts.lobster(fontSize: 20, color: Colors.white);
-
-  static final textStyleMenu =
-      GoogleFonts.lobster(fontSize: 30, color: Colors.white);
-  static final textStyleGame = GoogleFonts.lobster(
-      fontSize: 40, color: const Color.fromRGBO(88, 213, 243, 0.8));
-
-  static final textStyleGameMenu = GoogleFonts.lobster(
-      fontSize: 16, color: const Color.fromRGBO(88, 213, 243, 1));
+//Текст в приложении
+abstract class TextApp {
+  //Первичный
+  static final primary = GoogleFonts.lobster(fontSize: 18);
+//Вторичный
+  static final secondary =
+      GoogleFonts.lobster(fontSize: 25, color: Colors.white);
 }
 
 //Цвета в приложении

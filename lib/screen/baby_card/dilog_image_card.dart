@@ -27,8 +27,8 @@ class DialogImageCard extends StatelessWidget {
                     ),
                     color: ColorsApp.primary),
                 height: 40,
-                child: Center(
-                    child: Text(model.name, style: StyleWidget.textStyleMenu)),
+                child:
+                    Center(child: Text(model.name, style: TextApp.secondary)),
               ),
               //Центр диалога(Картинка)
               InkWell(

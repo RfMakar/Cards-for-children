@@ -27,9 +27,7 @@ class ButtonNavigatorCards extends StatelessWidget {
           navigator();
         }
       },
-      child: const Icon(
-        Icons.menu,
-      ),
+      child: const Icon(Icons.menu_book_outlined),
     );
   }
 }
@@ -75,8 +73,7 @@ class ListBabyCards extends StatelessWidget {
             color: ColorsApp.primary,
           ),
           height: 40,
-          child: Center(
-              child: Text('Категории', style: StyleWidget.textStyleMenu)),
+          child: Center(child: Text('Категории', style: TextApp.secondary)),
         ),
       ],
     );
