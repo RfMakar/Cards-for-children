@@ -3,11 +3,11 @@ import 'package:busycards/model/menu_cards.dart';
 import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 
-//Кнопка вызову меню категорий карточек
+//Кнопка вызова меню категорий карточек
 class ButtonNavigatorCards extends StatelessWidget {
-  const ButtonNavigatorCards({Key? key, required this.udatePage})
+  const ButtonNavigatorCards({Key? key, required this.updatePage})
       : super(key: key);
-  final Widget udatePage;
+  final Widget updatePage;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -16,7 +16,7 @@ class ButtonNavigatorCards extends StatelessWidget {
         navigator() => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => udatePage,
+                builder: (context) => updatePage,
               ),
             );
         bool? click = await showModalBottomSheet(

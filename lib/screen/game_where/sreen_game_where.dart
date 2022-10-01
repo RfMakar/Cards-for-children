@@ -2,8 +2,6 @@ import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/screen/game_where/provider_card_image.dart';
 import 'package:busycards/screen/game_where/provider_screen_game_where.dart';
 import 'package:busycards/screen/widget/button_navigator_back.dart';
-
-import 'package:busycards/screen/widget/button_navigator_cards.dart';
 import 'package:busycards/screen/widget/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -74,8 +72,6 @@ class ListBabyCards extends StatelessWidget {
                                   onPressed: model.playQuestion,
                                   child: const Icon(Icons.music_note),
                                 ),
-                                const ButtonNavigatorCards(
-                                    udatePage: ScreenGameWhere()),
                               ],
                             ),
                           ),

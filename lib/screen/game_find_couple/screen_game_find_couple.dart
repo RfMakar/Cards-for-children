@@ -1,7 +1,6 @@
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/screen/game_find_couple/provider_screen_game_find_couple.dart';
 import 'package:busycards/screen/widget/button_navigator_back.dart';
-import 'package:busycards/screen/widget/button_navigator_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -72,8 +71,6 @@ class ListBabyCards extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: const [
                                 ButtonNavigatorBack(),
-                                ButtonNavigatorCards(
-                                    udatePage: ScreenGameFindCouple()),
                               ],
                             ),
                           ),
