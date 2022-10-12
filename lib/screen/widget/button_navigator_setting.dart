@@ -38,6 +38,7 @@ class ListSetting extends StatelessWidget {
             ListTile(
               title: Text('Оставить отзыв', style: TextApp.primary),
               onTap: () async {
+                Navigator.pop(context);
                 final Uri url = Uri.parse(
                     'https://play.google.com/store/apps/details?id=com.dom.busycards');
 
@@ -54,6 +55,7 @@ class ListSetting extends StatelessWidget {
               title:
                   Text('Политика конфиденциальности', style: TextApp.primary),
               onTap: () async {
+                Navigator.pop(context);
                 final Uri url = Uri.parse(
                     'https://sites.google.com/view/ideamight/busycard/privacypolicy');
 
