@@ -43,7 +43,7 @@ class ProviderScreenGameMemory extends ChangeNotifier {
   void restartGame() {
     //Если все пары найдены то обновление игры
     if (properlyReply == 6) {
-      Future.delayed(const Duration(milliseconds: 400), () {
+      Future.delayed(const Duration(milliseconds: 1000), () {
         loadGame();
         notifyListeners();
       });
