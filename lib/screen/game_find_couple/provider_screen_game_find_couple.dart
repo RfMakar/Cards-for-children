@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/screen/widget/style_app.dart';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
+//Игра "Найди пару"
 class ProviderScreenGameFindCouple extends ChangeNotifier {
   ProviderScreenGameFindCouple() {
     loadGame();
@@ -33,7 +33,7 @@ class ProviderScreenGameFindCouple extends ChangeNotifier {
   void restartGame() {
     //Если все пары найдены то обновление игры
     if (properlyReply == 6) {
-      Future.delayed(const Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 1000), () {
         loadGame();
         notifyListeners();
       });
