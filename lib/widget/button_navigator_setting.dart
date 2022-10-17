@@ -31,7 +31,7 @@ class ListSetting extends StatelessWidget {
           children: [
             ListTile(
               title: Text('Версия', style: TextApp.primary),
-              trailing: Text('2.0.2', style: TextApp.primary),
+              trailing: Text('2.0.3', style: TextApp.primary),
               onTap: null,
             ),
             const Divider(),
