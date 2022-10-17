@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
-import 'package:busycards/screen/widget/style_app.dart';
+import 'package:busycards/widget/style_app.dart';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';

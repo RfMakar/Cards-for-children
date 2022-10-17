@@ -1,6 +1,6 @@
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/screen/baby_card/provider_dialog_image_card.dart';
-import 'package:busycards/screen/widget/style_app.dart';
+import 'package:busycards/widget/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

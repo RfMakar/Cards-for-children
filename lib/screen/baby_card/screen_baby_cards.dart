@@ -1,9 +1,9 @@
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/screen/baby_card/dilog_image_card.dart';
-import 'package:busycards/screen/widget/button_navigator_cards.dart';
-import 'package:busycards/screen/widget/button_navigator_game.dart';
-import 'package:busycards/screen/widget/button_navigator_setting.dart';
+import 'package:busycards/widget/button_navigator_cards.dart';
+import 'package:busycards/widget/button_navigator_game.dart';
+import 'package:busycards/widget/button_navigator_setting.dart';
 import 'package:flutter/material.dart';
 
 class ScreenBabyCards extends StatelessWidget {

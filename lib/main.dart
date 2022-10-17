@@ -1,5 +1,5 @@
 import 'package:busycards/screen/home_main/home_main.dart';
-import 'package:busycards/screen/widget/style_app.dart';
+import 'package:busycards/widget/style_app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
