@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:busycards/data/db_menu_cards.dart';
 import 'package:busycards/model/baby_card.dart';
-
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -13,13 +11,13 @@ abstract class DBBabyCards {
 
   static Future<Database> _initDatabase() async {
     var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, 'busycards.db');
+    var path = join(databasesPath, 'busycards_1.3.db');
 
     var exists = await databaseExists(path);
     if (!exists) {
       //Если БД не существует то копируем из ресурсов
       ByteData data =
-          await rootBundle.load(join('assets', 'db', 'busycards.db'));
+          await rootBundle.load(join('assets', 'db', 'busycards_1.3.db'));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
@@ -29,74 +27,121 @@ abstract class DBBabyCards {
     return await openDatabase(path, readOnly: true);
   }
 
-  static Future<List<BabyCard>> getListCards() async {
-    late String nameTable;
-    //Определяет какая кнопка нажата
-    var id = await DBMenuCards.idMenuTable();
-    switch (id) {
-      case 0:
-        nameTable = Table.animals;
-        break;
-      case 1:
-        nameTable = Table.fruitsandvegetables;
-        break;
-      case 2:
-        nameTable = Table.transport;
-        break;
-      case 3:
-        nameTable = Table.street;
-        break;
-      case 4:
-        nameTable = Table.food;
-        break;
-      case 5:
-        nameTable = Table.electronics;
-        break;
-      case 6:
-        nameTable = Table.home;
-        break;
-      case 7:
-        nameTable = Table.clothes;
-        break;
-      case 8:
-        nameTable = Table.human;
-        break;
-      case 9:
-        nameTable = Table.letters;
-        break;
-      case 10:
-        nameTable = Table.figures;
-        break;
-      case 11:
-        nameTable = Table.colors;
-        break;
-      case 12:
-        nameTable = Table.numbers;
-        break;
-      default:
-        nameTable = Table.animals;
-        break;
-    }
+  //Возращает конкретную таблицу карточек(Животные или Птицы ...)
+  static Future<List<BabyCard>> getListBabyCards(int id) async {
+    String nameTable = getNameTable(id);
     final db = await database;
     var maps = await db.rawQuery('SELECT* FROM $nameTable;');
     List<BabyCard> list =
         maps.isNotEmpty ? maps.map((e) => BabyCard.fromMap(e)).toList() : [];
+
     return list;
+  }
+
+  // Возращает name таблицы
+  static String getNameTable(int id) {
+    late String nameTable;
+
+    switch (id) {
+      case 0:
+        nameTable = Table.table0;
+        break;
+      case 1:
+        nameTable = Table.table1;
+        break;
+      case 2:
+        nameTable = Table.table2;
+        break;
+      case 3:
+        nameTable = Table.table3;
+        break;
+      case 4:
+        nameTable = Table.table4;
+        break;
+      case 5:
+        nameTable = Table.table5;
+        break;
+      case 6:
+        nameTable = Table.table6;
+        break;
+      case 7:
+        nameTable = Table.table7;
+        break;
+      case 8:
+        nameTable = Table.table8;
+        break;
+      case 9:
+        nameTable = Table.table9;
+        break;
+      case 10:
+        nameTable = Table.table10;
+        break;
+      case 11:
+        nameTable = Table.table11;
+        break;
+      case 12:
+        nameTable = Table.table12;
+        break;
+      case 13:
+        nameTable = Table.table13;
+        break;
+      case 14:
+        nameTable = Table.table14;
+        break;
+      case 15:
+        nameTable = Table.table15;
+        break;
+      case 16:
+        nameTable = Table.table16;
+        break;
+      case 17:
+        nameTable = Table.table17;
+        break;
+      case 18:
+        nameTable = Table.table18;
+        break;
+      case 19:
+        nameTable = Table.table19;
+        break;
+      case 20:
+        nameTable = Table.table20;
+        break;
+      case 21:
+        nameTable = Table.table21;
+        break;
+      case 22:
+        nameTable = Table.table22;
+        break;
+      default:
+        nameTable = Table.table0;
+        break;
+    }
+    return nameTable;
   }
 }
 
 abstract class Table {
-  static const animals = 'animals';
-  static const fruitsandvegetables = 'fruitsandvegetables';
-  static const transport = 'transport';
-  static const street = 'street';
-  static const food = 'food';
-  static const electronics = 'electronics';
-  static const home = 'home';
-  static const clothes = 'clothes';
-  static const human = 'human';
-  static const letters = 'letters';
-  static const figures = 'figures';
-  static const colors = 'colors';
-  static const numbers = 'numbers';
+  static const table0 = 'table0';
+  static const table1 = 'table1';
+  static const table2 = 'table2';
+  static const table3 = 'table3';
+  static const table4 = 'table4';
+  static const table5 = 'table5';
+  static const table6 = 'table6';
+  static const table7 = 'table7';
+  static const table8 = 'table8';
+  static const table9 = 'table9';
+  static const table10 = 'table10';
+  static const table11 = 'table11';
+  static const table12 = 'table12';
+  static const table13 = 'table13';
+  static const table14 = 'table14';
+  static const table15 = 'table15';
+  static const table16 = 'table16';
+  static const table17 = 'table17';
+  static const table18 = 'table18';
+  static const table19 = 'table19';
+  static const table20 = 'table20';
+  static const table21 = 'table21';
+  static const table22 = 'table22';
 }

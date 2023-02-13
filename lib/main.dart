@@ -1,4 +1,4 @@
-import 'package:busycards/screen/home_main/home_main.dart';
+import 'package:busycards/screen/menu_home/screen_menu_home.dart';
 import 'package:busycards/widget/style_app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +6,8 @@ import 'package:flutter/services.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-    SystemUiOverlay.bottom,
-  ]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom]);
   googleFont();
   runApp(const MyApp());
 }
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: MyThemeApp.themeLight,
       debugShowCheckedModeBanner: false,
-      home: const HomeMain(),
+      home: const ScreenMenuHome(),
     );
   }
 }
@@ -41,7 +40,11 @@ abstract class MyThemeApp {
         borderRadius: BorderRadius.circular(8.0),
       ),
       elevation: 3,
-      shadowColor: ColorsApp.primary,
+    ),
+    //Тема AppBar
+    appBarTheme: const AppBarTheme(
+      toolbarHeight: 50,
+      centerTitle: true,
     ),
     //Тема шторки снизу
     bottomSheetTheme: const BottomSheetThemeData(
@@ -51,6 +54,14 @@ abstract class MyThemeApp {
           topRight: Radius.circular(8),
         ),
       ),
+    ),
+    toggleButtonsTheme: ToggleButtonsThemeData(
+      selectedBorderColor: ColorsApp.secondary,
+      borderColor: ColorsApp.secondary,
+      fillColor: ColorsApp.menuGame,
+      borderWidth: 2,
+      borderRadius: const BorderRadius.all(Radius.circular(9)),
+      constraints: const BoxConstraints(minHeight: 40, minWidth: 100),
     ),
   );
 }
