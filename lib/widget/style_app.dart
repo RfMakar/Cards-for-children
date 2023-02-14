@@ -27,6 +27,7 @@ abstract class TextApp {
   //Золотой для наз-я компании
   static final golden =
       GoogleFonts.lobster(fontSize: 30, color: ColorsApp.golden);
+  static final back = GoogleFonts.lobster(fontSize: 16, color: Colors.black54);
 }
 
 //Цвета в приложении
