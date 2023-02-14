@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/widget/style_app.dart';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -20,8 +19,7 @@ class ProviderScreenMemoryGame extends ChangeNotifier {
   late int properlyReply; //Количество правильных ответов
 
   final firstColorCard = ColorsApp.menuGame; //Цвет карточки
-  final clickColorCard = Colors.white;
-  //Цвет нажатия на карточку
+  final clickColorCard = Colors.white; //Цвет нажатия на карточку
 
   final trueColorCard = Colors.green; //Цвет правильных карточек
   final falseColorCard = Colors.red; //Цвет неверных карточек
