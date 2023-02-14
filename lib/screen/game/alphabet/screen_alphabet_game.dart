@@ -1,7 +1,9 @@
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
+import 'package:busycards/screen/game/alphabet/provider_card_alphabet.dart';
 import 'package:busycards/widget/style_app.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ScreenAlphabetGame extends StatelessWidget {
   const ScreenAlphabetGame({Key? key}) : super(key: key);
@@ -49,45 +51,23 @@ class ListGame extends StatelessWidget {
   }
 }
 
-class CardAlphabet extends StatefulWidget {
+class CardAlphabet extends StatelessWidget {
   const CardAlphabet({Key? key, required this.babyCard}) : super(key: key);
-
   final BabyCard babyCard;
-
-  @override
-  State<CardAlphabet> createState() => _CardAlphabetState();
-}
-
-class _CardAlphabetState extends State<CardAlphabet> {
-  late String path;
-  var click = 0;
-  @override
-  void initState() {
-    path = widget.babyCard.icon;
-    super.initState();
-  }
-
-  void onTap() {
-    if (click == 0) {
-      path = widget.babyCard.image;
-      click = 1;
-    } else {
-      path = widget.babyCard.icon;
-      click = 0;
-    }
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: onTap,
-        child: ClipRRect(
-            child: Image.asset(
-          path,
-          fit: BoxFit.cover,
-        )),
+    return ChangeNotifierProvider(
+      create: (context) => ProviderCardAlphabet(babyCard),
+      child: Consumer<ProviderCardAlphabet>(
+        builder: (_, model, __) {
+          return Card(
+            child: InkWell(
+              onTap: model.onTapCard,
+              child:
+                  ClipRRect(child: Image.asset(model.path, fit: BoxFit.cover)),
+            ),
+          );
+        },
       ),
     );
   }

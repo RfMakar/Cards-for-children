@@ -26,7 +26,7 @@ class ScreenCards extends StatelessWidget {
           }
           final listBabyCards = snapshot.data!;
           return GridView.builder(
-              padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+              padding: const EdgeInsets.all(4),
               itemCount: listBabyCards.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

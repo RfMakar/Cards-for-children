@@ -35,6 +35,7 @@ class ListMenuCards extends StatelessWidget {
         }
         final listMenuCards = snapshot.data!;
         return GridView.builder(
+          padding: const EdgeInsets.all(4),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
           itemCount: listMenuCards.length,

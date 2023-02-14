@@ -77,7 +77,7 @@ class ListMenuHome extends StatelessWidget {
         }
         final listMenuHome = snapshot.data!;
         return Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: Column(
             children: [
               WidgetMenuCard(menu: listMenuHome[0], color: ColorsApp.menuCards),
