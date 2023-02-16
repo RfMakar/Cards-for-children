@@ -21,6 +21,7 @@ class ScreenMenuHome extends StatelessWidget {
     if (boolRunCounter) {
       SharPrefCounterRunApp.incrementCounter();
       var runCounter = await SharPrefCounterRunApp.getIntRunCounter();
+
       if (runCounter == 10 || runCounter == 30) {
         showModalBottomSheet(
             context: context,
@@ -34,6 +35,7 @@ class ScreenMenuHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     runCounterFeedback(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Wrap(
@@ -163,11 +165,10 @@ class WidgetSheetFeedback extends StatelessWidget {
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
             ),
-            color: ColorsApp.primary,
+            color: ColorsApp.golden,
           ),
           height: 40,
-          child:
-              Center(child: Text('Оставить отзыв?', style: TextApp.secondary)),
+          child: Center(child: Text('Оставить отзыв?', style: TextApp.appBar)),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -185,15 +186,12 @@ class WidgetSheetFeedback extends StatelessWidget {
                   throw 'Could not launch $url';
                 }
               },
-              child: Text('Да', style: TextApp.secondary),
+              child: Text('Да', style: TextApp.appBar),
             ),
             OutlinedButton(
               style: OutlinedButton.styleFrom(backgroundColor: Colors.red),
               onPressed: () => Navigator.pop(context),
-              child: Text(
-                'Нет',
-                style: TextApp.secondary,
-              ),
+              child: Text('Нет', style: TextApp.appBar),
             )
           ],
         )
