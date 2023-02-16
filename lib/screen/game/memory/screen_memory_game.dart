@@ -56,6 +56,7 @@ class ListGame extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Text(model.help, style: TextApp.secondary),
                       WidgetTable(listBabyCards: listBabyCards, model: model),
                       ButtonMenuCategoryGame(
                         onPressed: () async {

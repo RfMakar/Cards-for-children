@@ -24,6 +24,7 @@ class ProviderScreenMemoryGame extends ChangeNotifier {
   final trueColorCard = Colors.green; //Цвет правильных карточек
   final falseColorCard = Colors.red; //Цвет неверных карточек
   late AudioPlayer player;
+  var help = 'Запомни';
 
   //Переключает виджеты таблиц
   void onPressedToggleButtons(int index) {
@@ -40,6 +41,7 @@ class ProviderScreenMemoryGame extends ChangeNotifier {
 
   void loadGame() {
     listCard = list();
+
     //Показ начальных карточек, через 5 сек перересовываются
     if (isSelectTable[0] == true) {
       colorCard = List.generate(numberOfCards[0], (index) => clickColorCard);
@@ -63,7 +65,7 @@ class ProviderScreenMemoryGame extends ChangeNotifier {
         colorCard = List.generate(numberOfCards[2], (index) => firstColorCard);
         pressedCard = List.generate(numberOfCards[2], (index) => true);
       }
-
+      help = 'Отгадай';
       notifyListeners();
     });
 
@@ -76,6 +78,7 @@ class ProviderScreenMemoryGame extends ChangeNotifier {
     void _restart() {
       Future.delayed(const Duration(milliseconds: 1000), () {
         loadGame();
+        help = 'Запомни';
         notifyListeners();
       });
     }
@@ -155,12 +158,14 @@ class ProviderScreenMemoryGame extends ChangeNotifier {
     if (isSelectTable[0] == true) {
       listNew.add(listFullCards[0]);
       listNew.add(listFullCards[1]);
+
       listNew.add(listFullCards[0]);
       listNew.add(listFullCards[1]);
     } else if (isSelectTable[1] == true) {
       listNew.add(listFullCards[0]);
       listNew.add(listFullCards[1]);
       listNew.add(listFullCards[2]);
+
       listNew.add(listFullCards[0]);
       listNew.add(listFullCards[1]);
       listNew.add(listFullCards[2]);
@@ -171,6 +176,7 @@ class ProviderScreenMemoryGame extends ChangeNotifier {
       listNew.add(listFullCards[3]);
       listNew.add(listFullCards[4]);
       listNew.add(listFullCards[5]);
+
       listNew.add(listFullCards[0]);
       listNew.add(listFullCards[1]);
       listNew.add(listFullCards[2]);
