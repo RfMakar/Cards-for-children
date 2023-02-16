@@ -21,7 +21,7 @@ class ScreenMenuInfo extends StatelessWidget {
           child: Center(child: Text('Инфо', style: TextApp.appBar)),
         ),
         const CardInfo(
-          title: 'Версия 2.0.3',
+          title: 'Версия 2.0.4',
           onTap: null,
         ),
         CardInfo(
