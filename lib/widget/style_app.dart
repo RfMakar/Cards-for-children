@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-abstract class StyleWidget {
-  static final styleIconButton = ElevatedButton.styleFrom(
-    elevation: 3,
-    maximumSize: const Size.square(60),
-    // fixedSize: const Size(60, 60),
-    shape: const StadiumBorder(
-      side: BorderSide(color: Color.fromARGB(255, 255, 255, 255), width: 2),
-    ),
-    primary: ColorsApp.menuGame,
-  );
-}
-
 //Текст в приложении
 abstract class TextApp {
   //Первичный
@@ -21,12 +9,11 @@ abstract class TextApp {
   static final secondary =
       GoogleFonts.lobster(fontSize: 30, color: Colors.white);
   // Текст для AppBar
-  //Первичный
   static final appBar = GoogleFonts.lobster(fontSize: 24, color: Colors.white);
-  //Вторичный
   //Золотой для наз-я компании
   static final golden =
       GoogleFonts.lobster(fontSize: 30, color: ColorsApp.golden);
+  //Черный
   static final back = GoogleFonts.lobster(fontSize: 16, color: Colors.black54);
 }
 
