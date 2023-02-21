@@ -40,11 +40,7 @@ class ScreenMenuHome extends StatelessWidget {
       appBar: AppBar(
         title: Wrap(
           children: [
-            Image.asset(
-              'assets/icon/0.png',
-              height: 40,
-              width: 40,
-            ),
+            Image.asset('assets/icon/0.png', height: 40, width: 40),
             const SizedBox(width: 10),
             RichText(
               text: TextSpan(

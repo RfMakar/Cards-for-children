@@ -140,12 +140,9 @@ class WidgetTable extends StatelessWidget {
           onTap: model.pressedCard[index]
               ? () => model.onClick(index, babyCard)
               : null,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(4.0),
-            child: model.pressedCard[index]
-                ? Image.asset(pathMemory)
-                : Image.asset(babyCard.icon),
-          ),
+          child: model.pressedCard[index]
+              ? Image.asset(pathMemory)
+              : Image.asset(babyCard.icon),
         ),
       ),
     );

@@ -32,11 +32,9 @@ class DialogImageCard extends StatelessWidget {
               //Центр диалога(Картинка)
               InkWell(
                 onTap: () => Navigator.pop(context),
-                child: ClipRRect(
-                  child: Image.asset(
-                    model.image,
-                    fit: BoxFit.fill,
-                  ),
+                child: Image.asset(
+                  model.image,
+                  fit: BoxFit.fill,
                 ),
               ),
               //Низ диалога

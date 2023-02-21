@@ -56,20 +56,17 @@ class CardImage extends StatelessWidget {
             builder: (context) => DialogImageCard(babyCard: babyCard),
           );
         },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(4.0),
-          child: Stack(
-            children: [
-              Image.asset(babyCard.icon),
-              babyCard.raw == null
-                  ? Container()
-                  : Icon(
-                      Icons.volume_up,
-                      color: ColorsApp.menuCards,
-                      size: 20,
-                    ),
-            ],
-          ),
+        child: Stack(
+          children: [
+            Image.asset(babyCard.icon),
+            babyCard.raw == null
+                ? Container()
+                : Icon(
+                    Icons.volume_up,
+                    color: ColorsApp.menuCards,
+                    size: 20,
+                  ),
+          ],
         ),
       ),
     );

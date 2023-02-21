@@ -137,50 +137,8 @@ class WidgetTable extends StatelessWidget {
             onTap: model.pressedCard[index]
                 ? () => model.onClick(index, listBabyCards[index]!)
                 : null,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(listBabyCards[index]!.icon),
-            ),
+            child: Image.asset(listBabyCards[index]!.icon),
           )),
     );
   }
 }
-
-/*
-class WidgetTable extends StatelessWidget {
-  const WidgetTable(
-      {Key? key, required this.listBabyCards, required this.model})
-      : super(key: key);
-
-  final Map<int, BabyCard> listBabyCards;
-  final ProviderScreenFindCoupleGame model;
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.builder(
-          padding: const EdgeInsets.all(4.0),
-          shrinkWrap: true,
-          itemCount: listBabyCards.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //mainAxisExtent: 140,
-            crossAxisCount: 4,
-          ),
-          itemBuilder: (context, index) {
-            var babyCard = listBabyCards[index]!;
-            return Card(
-              color: model.colorCard[index],
-              child: InkWell(
-                onTap: model.pressedCard[index]
-                    ? () => model.onClick(index, babyCard)
-                    : null,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4.0),
-                  child: Image.asset(babyCard.icon),
-                ),
-              ),
-            );
-          }),
-    );
-  }
-}
-*/

@@ -63,8 +63,12 @@ class CardAlphabet extends StatelessWidget {
           return Card(
             child: InkWell(
               onTap: model.onTapCard,
-              child:
-                  ClipRRect(child: Image.asset(model.path, fit: BoxFit.cover)),
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  child: Image.asset(
+                    model.path,
+                    fit: BoxFit.cover,
+                  )),
             ),
           );
         },
