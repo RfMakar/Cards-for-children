@@ -3,6 +3,7 @@ import 'package:busycards/model/menu.dart';
 import 'package:busycards/screen/cards/screen_cards.dart';
 import 'package:busycards/widget/style_app.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class ScreenMenuCards extends StatelessWidget {
   const ScreenMenuCards({Key? key, required this.menu}) : super(key: key);
@@ -48,37 +49,49 @@ class ListMenuCards extends StatelessWidget {
   }
 }
 
-class WidgetMenuCard extends StatelessWidget {
-  const WidgetMenuCard({
-    Key? key,
-    required this.menu,
-  }) : super(key: key);
+class WidgetMenuCard extends StatefulWidget {
+  const WidgetMenuCard({Key? key, required this.menu}) : super(key: key);
   final Menu menu;
 
+  @override
+  State<WidgetMenuCard> createState() => _WidgetMenuCardState();
+}
+
+class _WidgetMenuCardState extends State<WidgetMenuCard> {
+  final audioPlayer = AudioPlayer();
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        if (widget.menu.audio != null) {
+          audioPlayer.setAsset(widget.menu.audio!);
+          audioPlayer.play();
+        }
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ScreenCards(menu: menu)),
+          MaterialPageRoute(
+              builder: (context) => ScreenCards(menu: widget.menu)),
         );
       },
       child: Card(
         color: ColorsApp.menuCards,
         child: Column(
           children: [
-            Expanded(child: Image.asset(menu.icon)),
-            Text(
-              menu.name,
-              style: TextApp.primary,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            )
+            Expanded(child: Image.asset(widget.menu.icon)),
+            Text(widget.menu.name,
+                style: TextApp.primary,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis)
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
   }
 }

@@ -160,7 +160,8 @@ flutter:
     - assets/busycard/table22/image/
     - assets/busycard/table22/audio/
     - assets/busycard/table22/raw/
-    - assets/menu/cards/
+    - assets/menu/cards/audio/
+    - assets/menu/cards/icon/
     - assets/menu/home/
     - assets/menu/game/
     - assets/busycard/game/audio/no/
