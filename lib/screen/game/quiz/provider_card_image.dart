@@ -17,25 +17,24 @@ class ProviderCardImage extends ChangeNotifier {
   late String pathImage;
 
   var clickCardImage = false; //Нажатие на кнопку
-  var pathImageStack =
-      'assets/busycard/game/image/question.png'; //Путь к картинке
-  var pathImageYes = 'assets/busycard/game/image/yes.png';
-  var pathImageNo = 'assets/busycard/game/image/no.png';
+  var pathImageStack = 'assets/game/image/question.png'; //Путь к картинке
+  var pathImageYes = 'assets/game/image/yes.png';
+  var pathImageNo = 'assets/game/image/no.png';
   final player = AudioPlayer(); //Проигрыватель
   final listYes = [
-    'assets/busycard/game/audio/yes/yescorrectly.mp3',
-    'assets/busycard/game/audio/yes/yesexactly.mp3',
-    'assets/busycard/game/audio/yes/yesexcellent.mp3',
-    'assets/busycard/game/audio/yes/yesgreat.mp3',
-    'assets/busycard/game/audio/yes/yesright.mp3',
-    'assets/busycard/game/audio/yes/yeswelldone.mp3',
+    'assets/game/audio/yes/yescorrectly.mp3',
+    'assets/game/audio/yes/yesexactly.mp3',
+    'assets/game/audio/yes/yesexcellent.mp3',
+    'assets/game/audio/yes/yesgreat.mp3',
+    'assets/game/audio/yes/yesright.mp3',
+    'assets/game/audio/yes/yeswelldone.mp3',
   ];
   final listNo = [
-    'assets/busycard/game/audio/no/no.mp3',
-    'assets/busycard/game/audio/no/nomistake.mp3',
-    'assets/busycard/game/audio/no/notcorrect.mp3',
-    'assets/busycard/game/audio/no/notryagain.mp3',
-    'assets/busycard/game/audio/no/notsure.mp3'
+    'assets/game/audio/no/no.mp3',
+    'assets/game/audio/no/nomistake.mp3',
+    'assets/game/audio/no/notcorrect.mp3',
+    'assets/game/audio/no/notryagain.mp3',
+    'assets/game/audio/no/notsure.mp3'
   ];
 
   void _comparisonYes() async {

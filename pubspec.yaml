@@ -164,11 +164,11 @@ flutter:
     - assets/menu/cards/icon/
     - assets/menu/home/
     - assets/menu/game/
-    - assets/busycard/game/audio/no/
-    - assets/busycard/game/audio/yes/
-    - assets/busycard/game/audio/question/
-    - assets/busycard/game/audio/answer/
-    - assets/busycard/game/image/
+    - assets/game/audio/no/
+    - assets/game/audio/yes/
+    - assets/game/audio/question/
+    - assets/game/audio/answer/
+    - assets/game/image/
     - assets/raw/raw0/
     - assets/raw/raw1/
     - assets/raw/raw2/

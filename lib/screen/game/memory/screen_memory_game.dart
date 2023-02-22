@@ -131,7 +131,7 @@ class WidgetTable extends StatelessWidget {
 
   Widget card(int index) {
     var babyCard = listBabyCards[index]!;
-    const pathMemory = 'assets/busycard/game/image/memory.png';
+    const pathMemory = 'assets/game/image/memory.png';
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Card(

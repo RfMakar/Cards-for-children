@@ -119,13 +119,13 @@ class ProviderScreenFindCoupleGame extends ChangeNotifier {
 
   //Верно
   void playCorrectly() async {
-    await player.setAsset('assets/busycard/game/audio/answer/correctly.mp3');
+    await player.setAsset('assets/game/audio/answer/correctly.mp3');
     player.play();
   }
 
   //Неверно
   void playIncorrectly() async {
-    await player.setAsset('assets/busycard/game/audio/answer/incorrectly.mp3');
+    await player.setAsset('assets/game/audio/answer/incorrectly.mp3');
     player.play();
   }
 

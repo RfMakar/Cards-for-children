@@ -10,9 +10,9 @@ class ProviderScreenQuizGame extends ChangeNotifier {
   late BabyCard babyCardCorrect; //Правильная карточка(выбранная)
   late AudioPlayer playerQuestion;
   final listQuestion = [
-    'assets/busycard/game/audio/question/questionfindwhere.mp3',
-    'assets/busycard/game/audio/question/questionguesswhere.mp3',
-    'assets/busycard/game/audio/question/questionshowwhere.mp3',
+    'assets/game/audio/question/questionfindwhere.mp3',
+    'assets/game/audio/question/questionguesswhere.mp3',
+    'assets/game/audio/question/questionshowwhere.mp3',
   ];
   var isSelectTable = [true, false, false];
 
