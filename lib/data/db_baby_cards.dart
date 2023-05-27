@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:busycards/model/baby_card.dart';
+import 'package:busycards/model/menu.dart';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -11,13 +12,13 @@ abstract class DBBabyCards {
 
   static Future<Database> _initDatabase() async {
     var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, 'busycards_1.3.db');
+    var path = join(databasesPath, 'busycards_1.4.db');
 
     var exists = await databaseExists(path);
     if (!exists) {
       //Если БД не существует то копируем из ресурсов
       ByteData data =
-          await rootBundle.load(join('assets', 'db', 'busycards_1.3.db'));
+          await rootBundle.load(join('assets', 'db', 'busycards_1.4.db'));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
@@ -35,6 +36,15 @@ abstract class DBBabyCards {
     List<BabyCard> list =
         maps.isNotEmpty ? maps.map((e) => BabyCard.fromMap(e)).toList() : [];
 
+    return list;
+  }
+
+  //Меню карточек
+  static Future<List<Menu>> getListMenuCards() async {
+    final db = await database;
+    var maps = await db.rawQuery('SELECT* FROM ${Table.menu};');
+    List<Menu> list =
+        maps.isNotEmpty ? maps.map((e) => Menu.fromMap(e)).toList() : [];
     return list;
   }
 
@@ -144,4 +154,5 @@ abstract class Table {
   static const table20 = 'table20';
   static const table21 = 'table21';
   static const table22 = 'table22';
+  static const menu = 'menu';
 }

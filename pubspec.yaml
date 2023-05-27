@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.0.4+24
+version: 2.0.5+25
 
 environment:
   sdk: ">=2.17.3 <3.0.0"
@@ -33,13 +33,10 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
   sqflite: ^2.0.2
   path: ^1.7.0
   provider: ^6.0.2
-  just_audio: ^0.9.24
-  animated_text_kit: ^4.2.2
-  google_fonts: ^3.0.1
+  just_audio: ^0.9.33
   url_launcher: ^6.1.2
   shared_preferences: ^2.0.13
   
@@ -160,23 +157,14 @@ flutter:
     - assets/busycard/table22/image/
     - assets/busycard/table22/audio/
     - assets/busycard/table22/raw/
-    - assets/menu/cards/audio/
-    - assets/menu/cards/icon/
-    - assets/menu/home/
-    - assets/menu/game/
+    - assets/busycard/menu/audio/
+    - assets/busycard/menu/icon/
     - assets/game/audio/no/
     - assets/game/audio/yes/
     - assets/game/audio/question/
     - assets/game/audio/answer/
     - assets/game/image/
-    - assets/raw/raw0/
-    - assets/raw/raw1/
-    - assets/raw/raw2/
-    - assets/raw/raw3/
-    - assets/raw/raw4/
     - assets/db/
-    - assets/icon/
-    - assets/google_fonts/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
