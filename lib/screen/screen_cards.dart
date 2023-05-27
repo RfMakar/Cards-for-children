@@ -70,13 +70,14 @@ class ButtonNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final idTable = listBabyCard[0].name == 'Буква А';
+    final backgroundColor = menu.colorCard().withOpacity(0.7);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
-            backgroundColor: menu.colorCard(),
+            backgroundColor: backgroundColor,
             heroTag: 2,
             onPressed: () {
               showModalBottomSheet(
@@ -88,7 +89,7 @@ class ButtonNavigator extends StatelessWidget {
           ),
           !idTable
               ? FloatingActionButton(
-                  backgroundColor: menu.colorCard(),
+                  backgroundColor: backgroundColor,
                   heroTag: 1,
                   onPressed: () {
                     Navigator.push(

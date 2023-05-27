@@ -45,14 +45,20 @@ class MenuCategoryCards extends StatelessWidget {
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
             ),
-            color: ColorsApp.color2,
+            color: ColorsApp.color2.withOpacity(0.9),
           ),
           height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const WidgetButtonStar(),
-              Text('Категории', style: TextStyle(color: ColorsApp.color)),
+              Text(
+                'Категории',
+                style: TextStyle(
+                  color: ColorsApp.color,
+                  fontSize: 16,
+                ),
+              ),
               IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: Icon(
