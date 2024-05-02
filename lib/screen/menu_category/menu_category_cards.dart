@@ -1,13 +1,13 @@
+import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/menu.dart';
 import 'package:busycards/screen/widget/button_star.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import '../../style_app.dart';
 import '../screen_cards.dart';
 
 class MenuCategoryCards extends StatelessWidget {
-  const MenuCategoryCards({Key? key}) : super(key: key);
+  const MenuCategoryCards({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +45,25 @@ class MenuCategoryCards extends StatelessWidget {
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
             ),
-            color: ColorsApp.color2.withOpacity(0.9),
+            color: AppColor.color2.withOpacity(0.9),
           ),
           height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const WidgetButtonStar(),
-              Text(
+              const Text(
                 'Категории',
                 style: TextStyle(
-                  color: ColorsApp.color,
+                  color: AppColor.color,
                   fontSize: 16,
                 ),
               ),
               IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: Icon(
+                icon: const Icon(
                   Icons.close,
-                  color: ColorsApp.color,
+                  color: AppColor.color,
                   size: 30,
                 ),
               ),
@@ -76,7 +76,7 @@ class MenuCategoryCards extends StatelessWidget {
 }
 
 class WidgetMenuCard extends StatelessWidget {
-  const WidgetMenuCard({Key? key, required this.menu}) : super(key: key);
+  const WidgetMenuCard({super.key, required this.menu});
   final Menu menu;
 
   void playCard() {
@@ -118,7 +118,7 @@ class WidgetMenuCard extends StatelessWidget {
                   menu.name,
                   textAlign: TextAlign.center,
                   softWrap: true,
-                  style: TextStyle(fontSize: 10, color: ColorsApp.color2),
+                  style: const TextStyle(fontSize: 10, color: AppColor.color2),
                 ),
               ),
             )

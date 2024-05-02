@@ -1,8 +1,6 @@
+import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/screen/game/provider_screen_game.dart';
-
-import 'package:busycards/style_app.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,9 +37,9 @@ class WidgetText extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Text(
         provider.babyCardCorrect.name,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 24,
-          color: ColorsApp.color,
+          color: AppColor.color,
         ),
       ),
     );

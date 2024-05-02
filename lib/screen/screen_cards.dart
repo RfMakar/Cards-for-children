@@ -1,14 +1,14 @@
+import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/model/menu.dart';
 import 'package:busycards/screen/dialog_image/dilog_image_card.dart';
 import 'package:busycards/screen/game/screen_game.dart';
 import 'package:busycards/screen/menu_category/menu_category_cards.dart';
-import 'package:busycards/style_app.dart';
 import 'package:flutter/material.dart';
 
 class ScreenCards extends StatelessWidget {
-  const ScreenCards({Key? key, required this.menu}) : super(key: key);
+  const ScreenCards({super.key, required this.menu});
   final Menu menu;
   @override
   Widget build(BuildContext context) {
@@ -111,8 +111,7 @@ class ButtonNavigator extends StatelessWidget {
 }
 
 class CardImage extends StatelessWidget {
-  const CardImage({Key? key, required this.babyCard, required this.menu})
-      : super(key: key);
+  const CardImage({super.key, required this.babyCard, required this.menu});
   final BabyCard babyCard;
   final Menu menu;
   @override
@@ -147,8 +146,8 @@ class CardImage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   softWrap: true,
-                  style: TextStyle(
-                    color: ColorsApp.color2,
+                  style: const TextStyle(
+                    color: AppColor.color2,
                   ),
                 ),
               ),
