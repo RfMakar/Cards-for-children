@@ -2,13 +2,13 @@ import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/data/db_baby_cards.dart';
 import 'package:busycards/model/baby_card.dart';
 import 'package:busycards/model/menu.dart';
-import 'package:busycards/screen/dialog_image/dilog_image_card.dart';
-import 'package:busycards/screen/game/screen_game.dart';
-import 'package:busycards/screen/menu_category/menu_category_cards.dart';
+import 'package:busycards/presentation/dialogs/image_card/dilog_image_card.dart';
+import 'package:busycards/presentation/screens/game/screen_game.dart';
+import 'package:busycards/presentation/sheets/category_cards.dart';
 import 'package:flutter/material.dart';
 
-class ScreenCards extends StatelessWidget {
-  const ScreenCards({super.key, required this.menu});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key, required this.menu});
   final Menu menu;
   @override
   Widget build(BuildContext context) {
@@ -82,10 +82,13 @@ class ButtonNavigator extends StatelessWidget {
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                builder: (context) => const MenuCategoryCards(),
+                builder: (context) => const CategoryCardsSheet(),
               );
             },
-            child: const Icon(Icons.grid_on),
+            child: const Icon(
+              Icons.grid_on,
+              color: AppColor.color2,
+            ),
           ),
           !idTable
               ? FloatingActionButton(
@@ -101,7 +104,10 @@ class ButtonNavigator extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Icon(Icons.question_mark),
+                  child: const Icon(
+                    Icons.question_mark,
+                    color: AppColor.color2,
+                  ),
                 )
               : const SizedBox(),
         ],
@@ -121,10 +127,11 @@ class CardImage extends StatelessWidget {
         showDialog(
           barrierDismissible: false,
           context: context,
-          builder: (context) => DialogImageCard(babyCard: babyCard),
+          builder: (context) => ImageCardDialog(babyCard: babyCard),
         );
       },
       child: Card(
+        shadowColor: menu.colorCard(),
         child: Column(
           children: [
             Expanded(

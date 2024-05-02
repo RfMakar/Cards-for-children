@@ -28,7 +28,9 @@ CardTheme get _cardTheme => CardTheme(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      elevation: 3,
+      elevation: 2,
+      color: AppColor.color2,
+      surfaceTintColor: AppColor.color2,
     );
 
 BottomSheetThemeData get _bottomSheetThemeData => const BottomSheetThemeData(

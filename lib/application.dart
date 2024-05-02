@@ -1,6 +1,6 @@
 import 'package:busycards/config/theme/theme.dart';
 import 'package:busycards/model/menu.dart';
-import 'package:busycards/screen/screen_cards.dart';
+import 'package:busycards/presentation/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatelessWidget {
@@ -11,7 +11,7 @@ class Application extends StatelessWidget {
     return MaterialApp(
       theme: themeData,
       debugShowCheckedModeBanner: false,
-      home: ScreenCards(
+      home: HomeScreen(
         menu: Menu.start(),
       ),
     );

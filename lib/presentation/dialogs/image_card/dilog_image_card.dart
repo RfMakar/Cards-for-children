@@ -1,11 +1,11 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/model/baby_card.dart';
-import 'package:busycards/screen/dialog_image/provider_dialog_image_card.dart';
+import 'package:busycards/presentation/dialogs/image_card/provider_dialog_image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DialogImageCard extends StatelessWidget {
-  const DialogImageCard({super.key, required this.babyCard});
+class ImageCardDialog extends StatelessWidget {
+  const ImageCardDialog({super.key, required this.babyCard});
   final BabyCard babyCard;
 
   @override
