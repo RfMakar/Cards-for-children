@@ -36,8 +36,10 @@ CardTheme get _cardTheme => CardTheme(
 BottomSheetThemeData get _bottomSheetThemeData => const BottomSheetThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
         ),
       ),
+      surfaceTintColor: AppColor.color2,
+      modalBackgroundColor: AppColor.color2
     );

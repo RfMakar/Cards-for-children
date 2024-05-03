@@ -1,5 +1,5 @@
 import 'package:busycards/config/theme/theme.dart';
-import 'package:busycards/model/menu.dart';
+import 'package:busycards/data/model/menu.dart';
 import 'package:busycards/presentation/screens/home/home.dart';
 import 'package:flutter/material.dart';
 

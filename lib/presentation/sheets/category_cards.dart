@@ -1,6 +1,6 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/data/db_baby_cards.dart';
-import 'package:busycards/model/menu.dart';
+import 'package:busycards/data/data_sources/local/db_baby_cards.dart';
+import 'package:busycards/data/model/menu.dart';
 import 'package:busycards/presentation/widgets/button_star.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -11,73 +11,70 @@ class CategoryCardsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.color2,
-      child: Stack(
-        children: [
-          FutureBuilder<List<Menu>>(
-            future: DBBabyCards.getListMenuCards(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final listMenuCards = snapshot.data!;
-              return GridView.builder(
-                padding: const EdgeInsets.fromLTRB(4, 50, 4, 4),
-                shrinkWrap: true,
-                itemCount: listMenuCards.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisExtent: 150,
-                  crossAxisCount: 3,
-                ),
-                itemBuilder: (context, index) {
-                  return WidgetMenuCard(
-                    menu: listMenuCards[index],
-                  );
-                },
+    return Stack(
+      children: [
+        FutureBuilder<List<Menu>>(
+          future: DBBabyCards.getListMenuCards(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-            },
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+            }
+            if (snapshot.hasError) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final listMenuCards = snapshot.data!;
+            return GridView.builder(
+              padding: const EdgeInsets.fromLTRB(8, 58, 8, 8),
+              shrinkWrap: true,
+              itemCount: listMenuCards.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: 150,
+                crossAxisCount: 3,
               ),
-              color: AppColor.color2.withOpacity(0.9),
+              itemBuilder: (context, index) {
+                return WidgetMenuCard(
+                  menu: listMenuCards[index],
+                );
+              },
+            );
+          },
+        ),
+        Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
             ),
-            height: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const WidgetButtonStar(),
-                const Text(
-                  'Категории',
-                  style: TextStyle(
-                    color: AppColor.color,
-                    fontSize: 16,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.close,
-                    color: AppColor.color,
-                    size: 30,
-                  ),
-                ),
-              ],
-            ),
+            color: AppColor.color2,
           ),
-        ],
-      ),
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const WidgetButtonStar(),
+              const Text(
+                'Категории',
+                style: TextStyle(
+                  color: AppColor.color,
+                  fontSize: 16,
+                ),
+              ),
+              IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.close,
+                  color: AppColor.color,
+                  size: 30,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

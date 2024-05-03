@@ -1,7 +1,7 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/data/db_baby_cards.dart';
-import 'package:busycards/model/baby_card.dart';
-import 'package:busycards/model/menu.dart';
+import 'package:busycards/data/data_sources/local/db_baby_cards.dart';
+import 'package:busycards/data/model/baby_card.dart';
+import 'package:busycards/data/model/menu.dart';
 import 'package:busycards/presentation/dialogs/image_card/dilog_image_card.dart';
 import 'package:busycards/presentation/screens/game/screen_game.dart';
 import 'package:busycards/presentation/sheets/category_cards.dart';
@@ -13,50 +13,43 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: const WidgetButtonStar(),
-      //   backgroundColor: ColorsApp.color2,
-      //   centerTitle: true,
-      //   title: Text(
-      //     'Карточки для детей',
-      //     style: TextStyle(
-      //       color: menu.colorCard(),
-      //     ),
-      //   ),
-      // ),
-      body: FutureBuilder<List<BabyCard>>(
-        future: DBBabyCards.getListBabyCards(menu.id),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final listBabyCards = snapshot.data!;
-          return Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              GridView.builder(
-                  padding: const EdgeInsets.fromLTRB(4, 4, 4, 66),
-                  itemCount: listBabyCards.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisExtent: 230,
-                    crossAxisCount: 2,
-                  ),
-                  itemBuilder: (context, index) {
-                    return CardImage(
-                      babyCard: listBabyCards[index],
-                      menu: menu,
-                    );
-                  }),
-              ButtonNavigator(
-                listBabyCard: listBabyCards,
-                menu: menu,
-              ),
-            ],
-          );
-        },
+      body: SafeArea(
+        bottom: false,
+        child: FutureBuilder<List<BabyCard>>(
+          future: DBBabyCards.getListBabyCards(menu.id),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final listBabyCards = snapshot.data!;
+            return Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                GridView.builder(
+                    padding: const EdgeInsets.fromLTRB(4, 4, 4, 66),
+                    itemCount: listBabyCards.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisExtent: 230,
+                      crossAxisCount: 2,
+                    ),
+                    itemBuilder: (context, index) {
+                      return CardImage(
+                        babyCard: listBabyCards[index],
+                        menu: menu,
+                      );
+                    }),
+                ButtonNavigator(
+                  listBabyCard: listBabyCards,
+                  menu: menu,
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/model/baby_card.dart';
+import 'package:busycards/data/model/baby_card.dart';
 import 'package:busycards/presentation/screens/game/provider_screen_game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
