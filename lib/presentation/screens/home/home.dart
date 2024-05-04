@@ -8,15 +8,15 @@ import 'package:busycards/presentation/sheets/category_cards.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.menu});
-  final Menu menu;
+  const HomeScreen({super.key, required this.idCategory});
+  final int idCategory;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         bottom: false,
         child: FutureBuilder<List<BabyCard>>(
-          future: DBBabyCards.getListBabyCards(menu.id),
+          future: DBBabyCards.getListBabyCards(idCategory),
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return const Center(child: CircularProgressIndicator());
@@ -39,12 +39,12 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return CardImage(
                         babyCard: listBabyCards[index],
-                        menu: menu,
+                        //menu: menu,
                       );
                     }),
                 ButtonNavigator(
                   listBabyCard: listBabyCards,
-                  menu: menu,
+                  //menu: menu,
                 ),
               ],
             );
@@ -57,20 +57,20 @@ class HomeScreen extends StatelessWidget {
 
 class ButtonNavigator extends StatelessWidget {
   const ButtonNavigator(
-      {super.key, required this.listBabyCard, required this.menu});
+      {super.key, required this.listBabyCard});
   final List<BabyCard> listBabyCard;
-  final Menu menu;
+  //final Menu menu;
   @override
   Widget build(BuildContext context) {
     final idTable = listBabyCard[0].name == 'Буква А';
-    final backgroundColor = menu.colorCard().withOpacity(0.7);
+   // final backgroundColor = menu.colorCard().withOpacity(0.7);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
-            backgroundColor: backgroundColor,
+           // backgroundColor: backgroundColor,
             heroTag: 2,
             onPressed: () {
               showModalBottomSheet(
@@ -85,7 +85,7 @@ class ButtonNavigator extends StatelessWidget {
           ),
           !idTable
               ? FloatingActionButton(
-                  backgroundColor: backgroundColor,
+                  //backgroundColor: backgroundColor,
                   heroTag: 1,
                   onPressed: () {
                     Navigator.push(
@@ -110,9 +110,9 @@ class ButtonNavigator extends StatelessWidget {
 }
 
 class CardImage extends StatelessWidget {
-  const CardImage({super.key, required this.babyCard, required this.menu});
+  const CardImage({super.key, required this.babyCard, });
   final BabyCard babyCard;
-  final Menu menu;
+ // final Menu menu;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -124,7 +124,7 @@ class CardImage extends StatelessWidget {
         );
       },
       child: Card(
-        shadowColor: menu.colorCard(),
+        //shadowColor: menu.colorCard(),
         child: Column(
           children: [
             Expanded(
@@ -138,7 +138,7 @@ class CardImage extends StatelessWidget {
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8),
                 ),
-                color: menu.colorCard(),
+               // color: menu.colorCard(),
               ),
               child: Center(
                 child: Text(

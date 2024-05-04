@@ -1,91 +1,100 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/data/data_sources/local/db_baby_cards.dart';
-import 'package:busycards/data/model/menu.dart';
+import 'package:busycards/domain/entities/category_card.dart';
+import 'package:busycards/initialize_dependencie.dart';
+import 'package:busycards/presentation/screens/home/home.dart';
+import 'package:busycards/presentation/sheets/category_cards_store.dart';
 import 'package:busycards/presentation/widgets/button_star.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:just_audio/just_audio.dart';
-import '../screens/home/home.dart';
 
 class CategoryCardsSheet extends StatelessWidget {
   const CategoryCardsSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return const Stack(
       children: [
-        FutureBuilder<List<Menu>>(
-          future: DBBabyCards.getListMenuCards(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasError) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            final listMenuCards = snapshot.data!;
-            return GridView.builder(
-              padding: const EdgeInsets.fromLTRB(8, 58, 8, 8),
-              shrinkWrap: true,
-              itemCount: listMenuCards.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisExtent: 150,
-                crossAxisCount: 3,
-              ),
-              itemBuilder: (context, index) {
-                return WidgetMenuCard(
-                  menu: listMenuCards[index],
-                );
-              },
-            );
-          },
-        ),
-        Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
-            color: AppColor.color2,
-          ),
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const WidgetButtonStar(),
-              const Text(
-                'Категории',
-                style: TextStyle(
-                  color: AppColor.color,
-                  fontSize: 16,
-                ),
-              ),
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.close,
-                  color: AppColor.color,
-                  size: 30,
-                ),
-              ),
-            ],
-          ),
-        ),
+        CategoryCardsList(),
+        TopSheet(),
       ],
     );
   }
 }
 
-class WidgetMenuCard extends StatelessWidget {
-  const WidgetMenuCard({super.key, required this.menu});
-  final Menu menu;
+class CategoryCardsList extends StatelessWidget {
+  const CategoryCardsList({super.key});
 
-  void playCard() {
+  @override
+  Widget build(BuildContext context) {
+    final store = sl<CategoryCardsStore>();
+    return Observer(
+      builder: (_) => store.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : GridView.builder(
+              padding: const EdgeInsets.fromLTRB(8, 58, 8, 8),
+              shrinkWrap: true,
+              itemCount: store.categorysCards.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: 150,
+                crossAxisCount: 3,
+              ),
+              itemBuilder: (context, index) {
+                return CategoryCardWidget(
+                  categoryCard: store.categorysCards[index],
+                );
+              },
+            ),
+    );
+  }
+}
+
+class TopSheet extends StatelessWidget {
+  const TopSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+        color: AppColor.color2,
+      ),
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const WidgetButtonStar(),
+          const Text(
+            'Категории',
+            style: TextStyle(
+              color: AppColor.color,
+              fontSize: 16,
+            ),
+          ),
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(
+              Icons.close,
+              color: AppColor.color,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CategoryCardWidget extends StatelessWidget {
+  const CategoryCardWidget({super.key, required this.categoryCard});
+  final CategoryCard categoryCard;
+
+  void _playCard() {
     final audioPlayer = AudioPlayer();
-    audioPlayer.setAsset(menu.audio);
+    audioPlayer.setUrl(categoryCard.audio);
     audioPlayer.play();
   }
 
@@ -93,11 +102,13 @@ class WidgetMenuCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        playCard();
+        _playCard();
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => HomeScreen(menu: menu),
+              builder: (BuildContext context) => HomeScreen(
+                idCategory: categoryCard.id,
+              ),
             ),
             (route) => false);
       },
@@ -105,7 +116,7 @@ class WidgetMenuCard extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(menu.icon),
+              child: Image.network(categoryCard.icon),
             ),
             Container(
               height: 30,
@@ -115,14 +126,17 @@ class WidgetMenuCard extends StatelessWidget {
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8),
                 ),
-                color: menu.colorCard(),
+                color: Color(categoryCard.color),
               ),
               child: Center(
                 child: Text(
-                  menu.name,
+                  categoryCard.name,
                   textAlign: TextAlign.center,
                   softWrap: true,
-                  style: const TextStyle(fontSize: 10, color: AppColor.color2),
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: AppColor.color2,
+                  ),
                 ),
               ),
             )

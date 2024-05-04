@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAKlR2ylrDuuJqi9LkVIme1Abext5EGEzw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>912082149301</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.dom.cardsForChildren</string>
+	<key>PROJECT_ID</key>
+	<string>cards-for-children</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cards-for-children.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:912082149301:ios:b2c864f79dc20acc58c3fc</string>
+</dict>
+</plist>

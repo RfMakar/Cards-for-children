@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "912082149301",
+    "project_id": "cards-for-children",
+    "storage_bucket": "cards-for-children.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912082149301:android:47dcb42d4144a24558c3fc",
+        "android_client_info": {
+          "package_name": "com.dom.busycards"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbQL6AQWfagbjXDdRx3-XQWC5hmkIahkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
