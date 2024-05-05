@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:busycards/data/model/baby_card.dart';
 import 'package:busycards/data/model/category_card.dart';
-import 'package:busycards/data/model/menu.dart';
+import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -34,20 +34,21 @@ abstract class DBBabyCards {
     String nameTable = getNameTable(id);
     final db = await database;
     var maps = await db.rawQuery('SELECT* FROM $nameTable;');
-    List<BabyCard> list =
-        maps.isNotEmpty ? maps.map((e) => BabyCard.fromMap(e)).toList() : [];
+    // List<BabyCard> list =
+    //     maps.isNotEmpty ? maps.map((e) => BabyCard.fromMap(e)).toList() : [];
 
-    return list;
+    // return list;
+    return [];
   }
 
   //Меню карточек
-  static Future<List<Menu>> getListMenuCards() async {
-    final db = await database;
-    var maps = await db.rawQuery('SELECT* FROM ${Table.menu};');
-    List<Menu> list =
-        maps.isNotEmpty ? maps.map((e) => Menu.fromMap(e)).toList() : [];
-    return list;
-  }
+  // static Future<List<Menu>> getListMenuCards() async {
+  //   final db = await database;
+  //   var maps = await db.rawQuery('SELECT* FROM ${Table.menu};');
+  //   List<Menu> list =
+  //       maps.isNotEmpty ? maps.map((e) => Menu.fromMap(e)).toList() : [];
+  //   return list;
+  // }
 
   static Future<List<CategoryCardModel>> getListCategoryCards() async {
     final db = await database;

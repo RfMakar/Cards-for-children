@@ -1,7 +1,7 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/data/data_sources/local/db_baby_cards.dart';
-import 'package:busycards/data/model/baby_card.dart';
-import 'package:busycards/data/model/menu.dart';
+import 'package:busycards/domain/entities/baby_card.dart';
+import 'package:busycards/domain/repositories/baby_card.dart';
+import 'package:busycards/initialize_dependencie.dart';
 import 'package:busycards/presentation/dialogs/image_card/dilog_image_card.dart';
 import 'package:busycards/presentation/screens/game/screen_game.dart';
 import 'package:busycards/presentation/sheets/category_cards.dart';
@@ -9,14 +9,15 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.idCategory});
-  final int idCategory;
+  final String idCategory;
   @override
   Widget build(BuildContext context) {
+    final repo = sl<BabyCardRepository>();
     return Scaffold(
       body: SafeArea(
         bottom: false,
         child: FutureBuilder<List<BabyCard>>(
-          future: DBBabyCards.getListBabyCards(idCategory),
+          future: repo.getBabysCards(categoryId: int.parse(idCategory)),
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return const Center(child: CircularProgressIndicator());
@@ -124,11 +125,11 @@ class CardImage extends StatelessWidget {
         );
       },
       child: Card(
-        //shadowColor: menu.colorCard(),
+        shadowColor: Color(babyCard.color),
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(babyCard.icon),
+              child: Image.network(babyCard.icon),
             ),
             Container(
               height: 30,
@@ -138,7 +139,7 @@ class CardImage extends StatelessWidget {
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8),
                 ),
-               // color: menu.colorCard(),
+                color: Color(babyCard.color),
               ),
               child: Center(
                 child: Text(

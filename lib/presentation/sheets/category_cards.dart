@@ -6,6 +6,7 @@ import 'package:busycards/presentation/sheets/category_cards_store.dart';
 import 'package:busycards/presentation/widgets/button_star.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 
 class CategoryCardsSheet extends StatelessWidget {
@@ -103,14 +104,9 @@ class CategoryCardWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         _playCard();
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => HomeScreen(
-                idCategory: categoryCard.id,
-              ),
-            ),
-            (route) => false);
+        context.pop();
+        context.go('/${categoryCard.id}');
+        
       },
       child: Card(
         child: Column(

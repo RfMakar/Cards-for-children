@@ -18,9 +18,8 @@ dependencies:
   flutter_mobx: ^2.2.1+1
   get_it: ^7.7.0
   go_router: ^14.0.2
-  firebase_core: ^2.30.1
-  cloud_firestore: ^4.17.2
-  firebase_storage: ^11.7.4
+  supabase_flutter: ^2.5.2
+  flutter_dotenv: ^5.1.0
   
 
 dev_dependencies:
@@ -33,6 +32,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - .env
     - assets/busycard/table0/icon/
     - assets/busycard/table0/image/
     - assets/busycard/table0/audio/
