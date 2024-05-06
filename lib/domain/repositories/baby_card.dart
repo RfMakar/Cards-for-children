@@ -3,5 +3,5 @@ import 'package:busycards/domain/entities/category_card.dart';
 
 abstract class BabyCardRepository {
   Future<List<CategoryCard>> getCategoriesCards();
-  Future<List<BabyCard>> getBabysCards({required int categoryId});
+  Future<List<BabyCard>> getCards({required int categoryId});
 }

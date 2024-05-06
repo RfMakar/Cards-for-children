@@ -29,12 +29,10 @@ class _ImageCardDialogState extends State<ImageCardDialog> {
     player.setAudioSource(
       ConcatenatingAudioSource(
         children: [
-          AudioSource.uri(
-            Uri.parse(widget.babyCard.audio),
-          ),
+          AudioSource.asset(widget.babyCard.audio),
           if (widget.babyCard.raw != null)
-            AudioSource.uri(
-              Uri.parse(widget.babyCard.raw!),
+            AudioSource.asset(
+              widget.babyCard.raw!,
             ),
         ],
       ),
@@ -43,12 +41,12 @@ class _ImageCardDialogState extends State<ImageCardDialog> {
   }
 
   void onPressedPlay() async {
-    await player.setUrl(widget.babyCard.audio);
+    await player.setAsset(widget.babyCard.audio);
     player.play();
   }
 
   void onPressedPlayRaw() async {
-    await player.setUrl(widget.babyCard.raw!);
+    await player.setAsset(widget.babyCard.raw!);
     player.play();
   }
 
@@ -78,7 +76,7 @@ class _ImageCardDialogState extends State<ImageCardDialog> {
         //Центр диалога(Картинка)
         InkWell(
           onTap: () => Navigator.pop(context),
-          child: Image.network(
+          child: Image.asset(
             widget.babyCard.image,
             fit: BoxFit.fill,
           ),

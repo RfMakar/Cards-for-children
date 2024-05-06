@@ -1,7 +1,6 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/initialize_dependencie.dart';
-import 'package:busycards/presentation/screens/home/home.dart';
 import 'package:busycards/presentation/sheets/category_cards_store.dart';
 import 'package:busycards/presentation/widgets/button_star.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +94,7 @@ class CategoryCardWidget extends StatelessWidget {
 
   void _playCard() {
     final audioPlayer = AudioPlayer();
-    audioPlayer.setUrl(categoryCard.audio);
+    audioPlayer.setAsset(categoryCard.audio);
     audioPlayer.play();
   }
 
@@ -109,13 +108,15 @@ class CategoryCardWidget extends StatelessWidget {
         
       },
       child: Card(
+        surfaceTintColor: Color(categoryCard.color),
+        color: Color(categoryCard.color),
         child: Column(
           children: [
             Expanded(
-              child: Image.network(categoryCard.icon),
+              child: Image.asset(categoryCard.icon),
             ),
             Container(
-              height: 30,
+              height: 40,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
@@ -130,7 +131,7 @@ class CategoryCardWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                   softWrap: true,
                   style: const TextStyle(
-                    fontSize: 10,
+                    fontSize: 14,
                     color: AppColor.color2,
                   ),
                 ),

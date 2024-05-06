@@ -18,9 +18,6 @@ dependencies:
   flutter_mobx: ^2.2.1+1
   get_it: ^7.7.0
   go_router: ^14.0.2
-  supabase_flutter: ^2.5.2
-  flutter_dotenv: ^5.1.0
-  
 
 dev_dependencies:
   flutter_test:
@@ -32,94 +29,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - .env
-    - assets/busycard/table0/icon/
-    - assets/busycard/table0/image/
-    - assets/busycard/table0/audio/
-    - assets/busycard/table0/raw/
-    - assets/busycard/table1/icon/
-    - assets/busycard/table1/image/
-    - assets/busycard/table1/audio/
-    - assets/busycard/table1/raw/
-    - assets/busycard/table2/icon/
-    - assets/busycard/table2/image/
-    - assets/busycard/table2/audio/
-    - assets/busycard/table2/raw/
-    - assets/busycard/table3/icon/
-    - assets/busycard/table3/image/
-    - assets/busycard/table3/audio/
-    - assets/busycard/table3/raw/
-    - assets/busycard/table4/icon/
-    - assets/busycard/table4/image/
-    - assets/busycard/table4/audio/
-    - assets/busycard/table4/raw/
-    - assets/busycard/table5/icon/
-    - assets/busycard/table5/image/
-    - assets/busycard/table5/audio/
-    - assets/busycard/table5/raw/
-    - assets/busycard/table6/icon/
-    - assets/busycard/table6/image/
-    - assets/busycard/table6/audio/
-    - assets/busycard/table7/icon/
-    - assets/busycard/table7/image/
-    - assets/busycard/table7/audio/
-    - assets/busycard/table8/icon/
-    - assets/busycard/table8/image/
-    - assets/busycard/table8/audio/
-    - assets/busycard/table9/icon/
-    - assets/busycard/table9/image/
-    - assets/busycard/table9/audio/
-    - assets/busycard/table10/icon/
-    - assets/busycard/table10/image/
-    - assets/busycard/table10/audio/
-    - assets/busycard/table11/icon/
-    - assets/busycard/table11/image/
-    - assets/busycard/table11/audio/
-    - assets/busycard/table11/raw/
-    - assets/busycard/table12/icon/
-    - assets/busycard/table12/image/
-    - assets/busycard/table12/audio/
-    - assets/busycard/table12/raw/
-    - assets/busycard/table13/icon/
-    - assets/busycard/table13/image/
-    - assets/busycard/table13/audio/
-    - assets/busycard/table13/raw/
-    - assets/busycard/table14/icon/
-    - assets/busycard/table14/image/
-    - assets/busycard/table14/audio/
-    - assets/busycard/table15/icon/
-    - assets/busycard/table15/image/
-    - assets/busycard/table15/audio/
-    - assets/busycard/table16/icon/
-    - assets/busycard/table16/image/
-    - assets/busycard/table16/audio/
-    - assets/busycard/table17/icon/
-    - assets/busycard/table17/image/
-    - assets/busycard/table17/audio/
-    - assets/busycard/table18/icon/
-    - assets/busycard/table18/image/
-    - assets/busycard/table18/audio/
-    - assets/busycard/table18/raw/
-    - assets/busycard/table19/icon/
-    - assets/busycard/table19/image/
-    - assets/busycard/table19/audio/
-    - assets/busycard/table20/icon/
-    - assets/busycard/table20/image/
-    - assets/busycard/table20/audio/
-    - assets/busycard/table21/icon/
-    - assets/busycard/table21/image/
-    - assets/busycard/table21/audio/
-    - assets/busycard/table21/raw/
-    - assets/busycard/table22/icon/
-    - assets/busycard/table22/image/
-    - assets/busycard/table22/audio/
-    - assets/busycard/table22/raw/
-    - assets/busycard/menu/audio/
-    - assets/busycard/menu/icon/
+    - assets/cards/audio/
+    - assets/cards/icon/
+    - assets/cards/image/
+    - assets/cards/raw/
+    - assets/db/
     - assets/game/audio/no/
     - assets/game/audio/yes/
     - assets/game/audio/question/
     - assets/game/audio/answer/
     - assets/game/image/
-    - assets/db/
+    - assets/images/
 

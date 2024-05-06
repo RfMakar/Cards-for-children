@@ -1,21 +1,20 @@
+import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/repositories_impl/baby_card.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
 import 'package:busycards/presentation/sheets/category_cards_store.dart';
 import 'package:get_it/get_it.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 final sl = GetIt.instance;
 
 Future<void> initializeDependencie() async {
-  //base
-  sl.registerLazySingleton<SupabaseClient>(
-    () => Supabase.instance.client,
+  //sqflite
+  sl.registerLazySingleton<SqfliteClientApp>(
+    () => SqfliteClientApp(),
   );
-
   //repositories
   sl.registerLazySingleton<BabyCardRepository>(
     () => BabyCardRepositoryImpl(
-      supabase: sl(),
+      sqfliteClientApp: sl(),
     ),
   );
   //stores
@@ -25,3 +24,5 @@ Future<void> initializeDependencie() async {
     )..init(),
   );
 }
+
+class SupabaseClientAp {}

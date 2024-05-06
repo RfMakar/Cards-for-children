@@ -18,4 +18,6 @@ class BabyCardModel extends BabyCard {
         color: json['color'],
         raw: json['raw'],
       );
+
+ 
 }
