@@ -1,7 +1,7 @@
 import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/repositories_impl/baby_card.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
-import 'package:busycards/presentation/sheets/category_cards_store.dart';
+import 'package:busycards/presentation/screens/home/home_store.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -18,11 +18,12 @@ Future<void> initializeDependencie() async {
     ),
   );
   //stores
-  sl.registerLazySingleton<CategoryCardsStore>(
-    () => CategoryCardsStore(
+  sl.registerLazySingleton<HomeStore>(
+    () => HomeStore(
       babyCardRepository: sl(),
     )..init(),
   );
+
 }
 
 class SupabaseClientAp {}

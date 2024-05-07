@@ -1,175 +1,118 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/domain/entities/baby_card.dart';
-import 'package:busycards/domain/repositories/baby_card.dart';
+import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/initialize_dependencie.dart';
-import 'package:busycards/presentation/dialogs/image_card/dilog_image_card.dart';
-import 'package:busycards/presentation/screens/game/screen_game.dart';
-import 'package:busycards/presentation/sheets/category_cards.dart';
+import 'package:busycards/presentation/screens/home/home_store.dart';
+import 'package:busycards/presentation/widgets/cloud.dart';
+import 'package:busycards/presentation/widgets/feedback_settings.dart';
+import 'package:busycards/presentation/widgets/grass.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:just_audio/just_audio.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.idCategory});
-  final String idCategory;
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final repo = sl<BabyCardRepository>();
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage('assets/images/background.png'),
+    return const Scaffold(
+      backgroundColor: AppColor.color3,
+      body: SafeArea(
+        bottom: false,
+        child: Stack(
+          children: [
+            CloudWidget(),
+            CategoriesCardsList(),
+            GrassWidget(),
+            FeedbackAndSettingsWidgets(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CategoriesCardsList extends StatelessWidget {
+  const CategoriesCardsList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final store = sl<HomeStore>();
+    return Observer(
+      builder: (_) => store.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              padding: const EdgeInsets.only(
+                bottom: 100,
+                top: 50,
+                left: 72,
+                right: 72,
               ),
-            ),
-          ),
-          SafeArea(
-            bottom: false,
-            child: FutureBuilder<List<BabyCard>>(
-              future: repo.getCards(categoryId: int.parse(idCategory)),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                final listBabyCards = snapshot.data!;
-                return Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    GridView.builder(
-                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 66),
-                        itemCount: listBabyCards.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: 230,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 8,
-                         mainAxisSpacing: 8
-                        ),
-                        itemBuilder: (context, index) {
-                          return CardImage(
-                            babyCard: listBabyCards[index],
-                            //menu: menu,
-                          );
-                        }),
-                    ButtonNavigator(
-                      listBabyCard: listBabyCards,
-                      //menu: menu,
-                    ),
-                  ],
+              itemCount: store.categorysCards.length,
+              itemBuilder: (context, index) {
+                return CategoryCardWidget(
+                  categoryCard: store.categorysCards[index],
                 );
               },
             ),
-          ),
-        ],
-      ),
     );
   }
 }
 
-class ButtonNavigator extends StatelessWidget {
-  const ButtonNavigator({super.key, required this.listBabyCard});
-  final List<BabyCard> listBabyCard;
-  //final Menu menu;
+class CategoryCardWidget extends StatelessWidget {
+  const CategoryCardWidget({super.key, required this.categoryCard});
+  final CategoryCard categoryCard;
+
+  void _playCard() {
+    final audioPlayer = AudioPlayer();
+    audioPlayer.setAsset(categoryCard.audio);
+    audioPlayer.play();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final idTable = listBabyCard[0].name == 'Буква А';
-    // final backgroundColor = menu.colorCard().withOpacity(0.7);
     return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          FloatingActionButton(
-            // backgroundColor: backgroundColor,
-            heroTag: 2,
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => const CategoryCardsSheet(),
-              );
-            },
-            child: const Icon(
-              Icons.grid_on,
+      padding: const EdgeInsets.symmetric(vertical: 32),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(24),
+        onTap: () {
+          _playCard();
+          //context.go('/${categoryCard.id}');
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(categoryCard.color),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(24),
+            ),
+            border: Border.all(
               color: AppColor.color2,
+              width: 6,
             ),
           ),
-          !idTable
-              ? FloatingActionButton(
-                  //backgroundColor: backgroundColor,
-                  heroTag: 1,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ScreenGame(
-                          listBabyCard: listBabyCard,
-                        ),
-                      ),
-                    );
-                  },
-                  child: const Icon(
-                    Icons.question_mark,
-                    color: AppColor.color2,
-                  ),
-                )
-              : const SizedBox(),
-        ],
-      ),
-    );
-  }
-}
-
-class CardImage extends StatelessWidget {
-  const CardImage({
-    super.key,
-    required this.babyCard,
-  });
-  final BabyCard babyCard;
-  // final Menu menu;
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) => ImageCardDialog(babyCard: babyCard),
-        );
-      },
-      child: Card(
-        shadowColor: Color(babyCard.color),
-        child: Column(
-          children: [
-            Expanded(
-              child: Image.asset(babyCard.icon),
-            ),
-            Container(
-              height: 30,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 230,
+                child: Image.asset(
+                  categoryCard.icon,
                 ),
-                color: Color(babyCard.color),
               ),
-              child: Center(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  babyCard.name,
+                  categoryCard.name,
                   textAlign: TextAlign.center,
-                  maxLines: 2,
                   softWrap: true,
                   style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
                     color: AppColor.color2,
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

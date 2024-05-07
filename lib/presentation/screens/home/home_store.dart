@@ -2,15 +2,15 @@ import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
 import 'package:mobx/mobx.dart';
 
-part 'category_cards_store.g.dart';
+part 'home_store.g.dart';
 
 // ignore: library_private_types_in_public_api
-class CategoryCardsStore = _CategoryCardsStore with _$CategoryCardsStore;
+class HomeStore = _HomeStore with _$HomeStore;
 
-abstract class _CategoryCardsStore with Store {
+abstract class _HomeStore with Store {
   final BabyCardRepository _babyCardRepository;
 
-  _CategoryCardsStore({
+  _HomeStore({
     required BabyCardRepository babyCardRepository,
   }) : _babyCardRepository = babyCardRepository;
 
