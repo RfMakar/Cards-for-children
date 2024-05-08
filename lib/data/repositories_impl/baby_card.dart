@@ -19,7 +19,7 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
   }
 
   @override
-  Future<List<BabyCardModel>> getCards({required int categoryId}) async {
+  Future<List<BabyCardModel>> getBabyCards({required int categoryId}) async {
     final data = await _sqfliteClientApp.getCards(categoryId: categoryId);
     return data.isNotEmpty
         ? data.map((e) => BabyCardModel.fromMap(e)).toList()

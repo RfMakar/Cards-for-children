@@ -1,5 +1,4 @@
 import 'package:busycards/config/router/router.dart';
-import 'package:busycards/config/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatelessWidget {
@@ -9,10 +8,8 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
-      theme: themeData,
       debugShowCheckedModeBanner: false,
-    
-      
+  
     );
   }
 }

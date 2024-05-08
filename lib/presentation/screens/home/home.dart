@@ -1,4 +1,5 @@
 import 'package:busycards/config/UI/app_color.dart';
+import 'package:busycards/config/UI/app_text_style.dart';
 import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/initialize_dependencie.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
@@ -7,6 +8,7 @@ import 'package:busycards/presentation/widgets/feedback_settings.dart';
 import 'package:busycards/presentation/widgets/grass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -71,12 +73,15 @@ class CategoryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 32),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: InkWell(
         borderRadius: BorderRadius.circular(24),
         onTap: () {
           _playCard();
-          //context.go('/${categoryCard.id}');
+          context.pushNamed(
+            'baby_cards_screen',
+            extra: categoryCard.id,
+          );
         },
         child: Container(
           decoration: BoxDecoration(
@@ -91,11 +96,9 @@ class CategoryCardWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SizedBox(
-                height: 230,
-                child: Image.asset(
-                  categoryCard.icon,
-                ),
+              Image.asset(
+                categoryCard.icon,
+               
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -103,12 +106,7 @@ class CategoryCardWidget extends StatelessWidget {
                   categoryCard.name,
                   textAlign: TextAlign.center,
                   softWrap: true,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                    color: AppColor.color2,
-                  ),
+                  style: AppTextStyle.textStyle,
                 ),
               )
             ],
