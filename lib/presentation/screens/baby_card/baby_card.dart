@@ -66,7 +66,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           width: 6,
-          color: AppColor.color2,
+          color: AppColor.white,
         ),
       ),
       child: ClipRRect(

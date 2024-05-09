@@ -116,11 +116,11 @@ class BabyCardCorrectWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Color(store.babyCardCorrect.color),
             borderRadius: const BorderRadius.all(
-              Radius.circular(24),
+              Radius.circular(50),
             ),
             border: Border.all(
-              color: AppColor.color2,
-              width: 6,
+              color: AppColor.white,
+              width: 3,
             ),
           ),
           child: Image.asset(

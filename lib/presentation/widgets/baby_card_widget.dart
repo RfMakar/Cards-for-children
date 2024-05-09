@@ -22,7 +22,7 @@ class BabyCardWidget extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppColor.color2,
+            color: AppColor.white,
             borderRadius: const BorderRadius.all(
               Radius.circular(16),
             ),

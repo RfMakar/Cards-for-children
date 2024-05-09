@@ -37,7 +37,6 @@ flutter:
     - assets/games/audio/answers/
     - assets/games/audio/correctly/
     - assets/games/audio/questions/
-    - assets/games/image/
     - assets/images/
     - assets/icons/
 
