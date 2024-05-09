@@ -1,9 +1,10 @@
 import 'package:busycards/config/UI/app_color.dart';
+import 'package:busycards/data/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
+import 'package:busycards/initialize_dependencie.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:just_audio/just_audio.dart';
 
 class BabyCardScreen extends StatefulWidget {
   const BabyCardScreen({super.key, required this.babyCard});
@@ -14,46 +15,22 @@ class BabyCardScreen extends StatefulWidget {
 }
 
 class _BabyCardScreenState extends State<BabyCardScreen> {
-  final player = AudioPlayer();
+  late AudioPlayerService _audioPlayerService;
   @override
   void initState() {
-    _loadPlay();
+    _audioPlayerService = sl<AudioPlayerService>();
+    final assetsPath = [
+      widget.babyCard.audio,
+      widget.babyCard.raw,
+    ];
+    _audioPlayerService.audioPlayerListPlay(assetsPath);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    player.dispose();
-    super.dispose();
-  }
-
-  void _loadPlay() {
-    player.setAudioSource(
-      ConcatenatingAudioSource(
-        children: [
-          AudioSource.asset(widget.babyCard.audio),
-          if (widget.babyCard.raw != '')
-            AudioSource.asset(widget.babyCard.raw!),
-        ],
-      ),
-    );
-    player.play();
-  }
-
-  void _onPressedPlay() async {
-    await player.setAsset(widget.babyCard.audio);
-    player.play();
-  }
-
-  void _onPressedPlayRaw() async {
-    await player.setAsset(widget.babyCard.raw!);
-    player.play();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(widget.babyCard.color).withOpacity(0.5),
+      backgroundColor: Color(widget.babyCard.color).withOpacity(0.3),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -103,7 +80,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
   }
 
   Widget _bootom() {
-    final isRaw = widget.babyCard.raw != '';
+    final isRaw = widget.babyCard.raw != null;
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(
@@ -112,15 +89,22 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
         children: [
           isRaw
               ? AppButton.raw(
-                  onTap: _onPressedPlayRaw,
+                  onTap: () {
+                    _audioPlayerService.audioPlayerPlay(
+                      widget.babyCard.raw!,
+                    );
+                  },
                 )
               : Container(),
           AppButton.audio(
-            onTap: _onPressedPlay,
+            onTap: () {
+              _audioPlayerService.audioPlayerPlay(
+                widget.babyCard.audio,
+              );
+            },
           ),
         ],
       ),
     );
   }
 }
-

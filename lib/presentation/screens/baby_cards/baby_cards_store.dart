@@ -21,7 +21,7 @@ abstract class _BabyCardsStore with Store {
     await _getBabyCards();
     isLoading = false;
   }
-
+  int get categoryId => _categoryId;
   @observable
   bool isLoading = true;
 

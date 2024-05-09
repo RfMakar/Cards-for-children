@@ -1,34 +1,23 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/UI/app_text_style.dart';
+import 'package:busycards/data/service/audio_player.dart';
 import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/initialize_dependencie.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
-import 'package:busycards/presentation/widgets/cloud.dart';
 import 'package:busycards/presentation/widgets/feedback_settings.dart';
-import 'package:busycards/presentation/widgets/grass.dart';
+import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
-import 'package:just_audio/just_audio.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColor.color3,
-      body: SafeArea(
-        bottom: false,
-        child: Stack(
-          children: [
-            CloudWidget(),
-            CategoriesCardsList(),
-            GrassWidget(),
-            FeedbackAndSettingsWidgets(),
-          ],
-        ),
-      ),
+    return const LayoutScreen(
+      body: CategoriesCardsList(),
+      navigation: FeedbackAndSettingsWidgets(),
     );
   }
 }
@@ -63,13 +52,6 @@ class CategoriesCardsList extends StatelessWidget {
 class CategoryCardWidget extends StatelessWidget {
   const CategoryCardWidget({super.key, required this.categoryCard});
   final CategoryCard categoryCard;
-
-  void _playCard() {
-    final audioPlayer = AudioPlayer();
-    audioPlayer.setAsset(categoryCard.audio);
-    audioPlayer.play();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -77,7 +59,8 @@ class CategoryCardWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(24),
         onTap: () {
-          _playCard();
+          sl<AudioPlayerService>().audioPlayerPlay(categoryCard.audio);
+          //_playCard();
           context.pushNamed(
             'baby_cards_screen',
             extra: categoryCard.id,
@@ -98,7 +81,6 @@ class CategoryCardWidget extends StatelessWidget {
             children: [
               Image.asset(
                 categoryCard.icon,
-               
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

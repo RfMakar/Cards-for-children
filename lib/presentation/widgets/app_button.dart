@@ -21,12 +21,21 @@ class AppButton extends StatelessWidget {
       : assetName = AppAssets.iconRaw;
   const AppButton.audio({super.key, required this.onTap})
       : assetName = AppAssets.iconAudio;
+  const AppButton.from({super.key, required this.onTap})
+      : assetName = AppAssets.iconFrom;
+  const AppButton.to({super.key, required this.onTap})
+      : assetName = AppAssets.iconTo;
+  const AppButton.query({super.key, required this.onTap})
+      : assetName = AppAssets.iconQuery;
+  const AppButton.reset({super.key, required this.onTap})
+      : assetName = AppAssets.iconReset;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(30),
-      splashColor: AppColor.color2,
+      splashColor: AppColor.transparent,
+      focusColor: AppColor.transparent,
+      highlightColor: AppColor.transparent,
       onTap: onTap,
       child: SvgPicture.asset(
         assetName,

@@ -11,9 +11,8 @@ dependencies:
   sqflite: ^2.3.3
   path: ^1.9.0
   provider: ^6.1.2
-  just_audio: ^0.9.37
+  assets_audio_player: ^3.1.1
   url_launcher: ^6.2.6
-  shared_preferences: ^2.2.3
   mobx: ^2.3.3+2
   flutter_mobx: ^2.2.1+1
   get_it: ^7.7.0
@@ -35,11 +34,10 @@ flutter:
     - assets/cards/image/
     - assets/cards/raw/
     - assets/db/
-    - assets/game/audio/no/
-    - assets/game/audio/yes/
-    - assets/game/audio/question/
-    - assets/game/audio/answer/
-    - assets/game/image/
+    - assets/games/audio/answers/
+    - assets/games/audio/correctly/
+    - assets/games/audio/questions/
+    - assets/games/image/
     - assets/images/
     - assets/icons/
 

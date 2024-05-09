@@ -1,13 +1,22 @@
 import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/repositories_impl/baby_card.dart';
+import 'package:busycards/data/repositories_impl/game.dart';
+import 'package:busycards/data/service/audio_player.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
+import 'package:busycards/domain/repositories/game.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards_store.dart';
+import 'package:busycards/presentation/screens/game/game_store.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
 Future<void> initializeDependencie() async {
+  //services
+  sl.registerLazySingleton<AudioPlayerService>(
+    () => AudioPlayerService(),
+    dispose: (audioPlayer) => audioPlayer.dispose(),
+  );
   //sqflite
   sl.registerLazySingleton<SqfliteClientApp>(
     () => SqfliteClientApp(),
@@ -15,6 +24,11 @@ Future<void> initializeDependencie() async {
   //repositories
   sl.registerLazySingleton<BabyCardRepository>(
     () => BabyCardRepositoryImpl(
+      sqfliteClientApp: sl(),
+    ),
+  );
+  sl.registerLazySingleton<GameRepository>(
+    () => GameRepositoryImpl(
       sqfliteClientApp: sl(),
     ),
   );
@@ -30,7 +44,12 @@ Future<void> initializeDependencie() async {
       categoryId: categoryId,
     )..init(),
   );
-  
+  sl.registerFactoryParam<GameStore, int, void>(
+    (categoryId, _) => GameStore(
+      babyCardRepository: sl(),
+      gameRepository: sl(),
+      audioPlayerService: sl(),
+      categoryId: categoryId,
+    )..init(),
+  );
 }
-
-class SupabaseClientAp {}

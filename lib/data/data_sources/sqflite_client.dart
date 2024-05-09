@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -43,15 +41,44 @@ class SqfliteClientApp {
     return await db.query('categories');
   }
 
-  Future<List<Map<String, dynamic>>> getCards({
+  Future<List<Map<String, dynamic>>> getBabyCards({
     required int categoryId,
   }) async {
     final db = await _getDataBase;
     return await db.query(
       'cards',
-      columns: ['name, icon, image, audio, color,raw'],
       where: '"category_id" = ?',
       whereArgs: [categoryId],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getBabyCardsRandom(
+      {required int categoryId, required int limit}) async {
+    final db = await _getDataBase;
+    final sql =
+        'SELECT * FROM cards WHERE category_id = $categoryId ORDER BY RANDOM() LIMIT $limit';
+    return await db.rawQuery(sql);
+  }
+
+  //game
+  Future<List<Map<String, dynamic>>> getAnswersGame({
+    required int gameId,
+    required int result,
+  }) async {
+    final db = await _getDataBase;
+    final sql =
+        'SELECT * FROM answers WHERE game_id = $gameId AND result = $result';
+    return await db.rawQuery(sql);
+  }
+
+  Future<List<Map<String, dynamic>>> getQuestionsGame({
+    required int gameId,
+  }) async {
+    final db = await _getDataBase;
+    return await db.query(
+      'questions',
+      where: '"game_id" = ? ',
+      whereArgs: [gameId],
     );
   }
 }

@@ -19,5 +19,14 @@ class BabyCardModel extends BabyCard {
         raw: json['raw'],
       );
 
- 
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'icon': icon,
+      'image': image,
+      'audio': audio,
+      'color': color,
+      'raw': raw,
+    };
+  }
 }

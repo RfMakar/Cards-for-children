@@ -10,7 +10,7 @@ part of 'baby_cards_store.dart';
 
 mixin _$BabyCardsStore on _BabyCardsStore, Store {
   late final _$isLoadingAtom =
-      Atom(name: '_CardsStore.isLoading', context: context);
+      Atom(name: '_BabyCardsStore.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -26,7 +26,7 @@ mixin _$BabyCardsStore on _BabyCardsStore, Store {
   }
 
   late final _$babyCardsAtom =
-      Atom(name: '_CardsStore.babyCards', context: context);
+      Atom(name: '_BabyCardsStore.babyCards', context: context);
 
   @override
   List<BabyCard> get babyCards {
@@ -42,7 +42,7 @@ mixin _$BabyCardsStore on _BabyCardsStore, Store {
   }
 
   late final _$_getBabyCardsAsyncAction =
-      AsyncAction('_CardsStore._getBabyCards', context: context);
+      AsyncAction('_BabyCardsStore._getBabyCards', context: context);
 
   @override
   Future<void> _getBabyCards() {
