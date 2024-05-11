@@ -5,6 +5,7 @@ import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -16,11 +17,23 @@ class BabyCardsScreen extends StatelessWidget {
     return Provider(
       create: (_) => sl<BabyCardsStore>(param1: categoryId),
       child: const LayoutScreen(
-        body: BabyCardsList(),
+        body: BodyBabyCardsScreen(),
         navigation: ButtomNavigation(),
       ),
     );
-    
+  }
+}
+
+class BodyBabyCardsScreen extends StatelessWidget {
+  const BodyBabyCardsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final store = Provider.of<BabyCardsStore>(context);
+    return Observer(
+        builder: (_) => store.isLoading
+            ? const CircularProgressIndicator()
+            : const BabyCardsList());
   }
 }
 
@@ -30,27 +43,35 @@ class BabyCardsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<BabyCardsStore>(context);
-    return Observer(
-      builder: (_) => store.isLoading
-          ? const CircularProgressIndicator()
-          : GridView.builder(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
-              itemCount: store.babyCards.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) {
-                final babyCard = store.babyCards[index];
-                return BabyCardWidget(
-                  babyCard: babyCard,
-                  onTap: () => context.pushNamed(
-                    'baby_card_screen',
-                    extra: babyCard,
+    return AnimationLimiter(
+      child: GridView.count(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
+       
+        crossAxisCount: 2,
+        children: List.generate(
+          store.babyCards.length,
+          (int index) {
+            return AnimationConfiguration.staggeredGrid(
+              position: index,
+              duration: const Duration(milliseconds: 375),
+              columnCount: 2,
+              child: ScaleAnimation(
+                child: FadeInAnimation(
+                  child: BabyCardWidget(
+                    babyCard: store.babyCards[index],
+                    onTap: () => context.pushNamed(
+                      'baby_card_screen',
+                      extra: store.babyCards[index],
+                    ),
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
+    
   }
 }
 
@@ -60,8 +81,6 @@ class ButtomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<BabyCardsStore>(context);
-    // final store = Provider.of<BabyCardsStore>(context);
-    // final isAlphabet = store.babyCards.first.name == 'Буква А';
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(

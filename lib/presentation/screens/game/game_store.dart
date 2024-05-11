@@ -18,7 +18,7 @@ abstract class _GameStore with Store {
   final AudioPlayerService _audioPlayerService;
   final int _categoryId;
 
-  final int _numberOfCards = 4;
+  final int _numberOfCards = 6;
   final int _gameId = 0;
 
   @observable

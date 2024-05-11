@@ -6,14 +6,12 @@ import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen({
-    super.key,
-    required this.categoryId,
-  });
+  const GameScreen({super.key, required this.categoryId});
   final int categoryId;
 
   @override
@@ -21,8 +19,101 @@ class GameScreen extends StatelessWidget {
     return Provider(
       create: (_) => sl<GameStore>(param1: categoryId),
       child: const LayoutScreen(
-        body: GameCards(),
+        body: BodyGameScreen(),
         navigation: ButtomNavigation(),
+      ),
+    );
+  }
+}
+
+class BodyGameScreen extends StatelessWidget {
+  const BodyGameScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final store = Provider.of<GameStore>(context);
+    return Observer(
+      builder: (_) => store.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : const  BabyCardsList(),
+    );
+  }
+}
+
+class BabyCardsList extends StatelessWidget {
+  const BabyCardsList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final store = Provider.of<GameStore>(context);
+    return Observer(
+      builder: (_) => AnimationLimiter(
+        child: GridView.count(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(16),
+          crossAxisCount: 2,
+          children: List.generate(
+            store.babyCardsRandom.length,
+            (int index) {
+              return AnimationConfiguration.staggeredGrid(
+                position: index,
+                duration: const Duration(milliseconds: 375),
+                columnCount: 2,
+                child: ScaleAnimation(
+                  child: FadeInAnimation(
+                    child: BabyCardWidget(
+                      babyCard: store.babyCardsRandom[index],
+                      onTap: () async {
+                        final isResult = store.onTapCardImage(
+                          store.babyCardsRandom[index],
+                        );
+                        if (isResult) {
+                          await context.pushNamed(
+                            'baby_card_screen',
+                            extra: store.babyCardCorrect,
+                          );
+                          store.restartGame();
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BabyCardCorrectWidget extends StatelessWidget {
+  const BabyCardCorrectWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final store = Provider.of<GameStore>(context);
+
+    return Observer(
+      builder: (_) => Center(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(store.babyCardCorrect.color),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(50),
+            ),
+            border: Border.all(
+              color: AppColor.white,
+              width: 3,
+            ),
+          ),
+          child: Image.asset(
+            store.babyCardCorrect.icon,
+            height: 150,
+            width: 150,
+          ),
+        ),
       ),
     );
   }
@@ -55,79 +146,6 @@ class ButtomNavigation extends StatelessWidget {
               onTap: store.restartGame,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class GameCards extends StatelessWidget {
-  const GameCards({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final store = Provider.of<GameStore>(context);
-    return Observer(
-      builder: (_) => store.isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(16),
-                  itemCount: store.babyCardsRandom.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemBuilder: (context, index) {
-                    final babyCard = store.babyCardsRandom[index];
-                    return BabyCardWidget(
-                      babyCard: babyCard,
-                      onTap: () async {
-                        final isResult = store.onTapCardImage(babyCard);
-                        if (isResult) {
-                          await context.pushNamed(
-                            'baby_card_screen',
-                            extra: store.babyCardCorrect,
-                          );
-                          store.restartGame();
-                        }
-                      },
-                    );
-                  },
-                ),
-                const BabyCardCorrectWidget()
-              ],
-            ),
-    );
-  }
-}
-
-class BabyCardCorrectWidget extends StatelessWidget {
-  const BabyCardCorrectWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final store = Provider.of<GameStore>(context);
-
-    return Observer(
-      builder: (_) => Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(store.babyCardCorrect.color),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(50),
-            ),
-            border: Border.all(
-              color: AppColor.white,
-              width: 3,
-            ),
-          ),
-          child: Image.asset(
-            store.babyCardCorrect.icon,
-            height: 180,
-            width: 180,
-          ),
         ),
       ),
     );

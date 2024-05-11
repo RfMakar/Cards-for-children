@@ -7,6 +7,7 @@ import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,14 +17,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const LayoutScreen(
-      body: CategoriesCardsList(),
+      body: BodyHomeScreen(),
       navigation: ButtomNavigation(),
     );
   }
 }
 
-class CategoriesCardsList extends StatelessWidget {
-  const CategoriesCardsList({super.key});
+class BodyHomeScreen extends StatelessWidget {
+  const BodyHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +32,45 @@ class CategoriesCardsList extends StatelessWidget {
     return Observer(
       builder: (_) => store.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              padding: const EdgeInsets.only(
-                bottom: 100,
-                top: 50,
-                left: 72,
-                right: 72,
+          : const CategoryCardsList(),
+    );
+  }
+}
+
+class CategoryCardsList extends StatelessWidget {
+  const CategoryCardsList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final store = sl<HomeStore>();
+    return AnimationLimiter(
+      child: GridView.count(
+        padding: const EdgeInsets.only(
+          bottom: 100,
+          top: 50,
+          left: 72,
+          right: 72,
+        ),
+        mainAxisSpacing: 32,
+        crossAxisCount: 1,
+        children: List.generate(
+          store.categorysCards.length,
+          (int index) {
+            return AnimationConfiguration.staggeredGrid(
+              position: index,
+              duration: const Duration(milliseconds: 375),
+              columnCount: 1,
+              child: ScaleAnimation(
+                child: FadeInAnimation(
+                  child: CategoryCardWidget(
+                    categoryCard: store.categorysCards[index],
+                  ),
+                ),
               ),
-              itemCount: store.categorysCards.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                mainAxisSpacing: 32,
-              ),
-              itemBuilder: (context, index) {
-                return CategoryCardWidget(
-                  categoryCard: store.categorysCards[index],
-                );
-              },
-            ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

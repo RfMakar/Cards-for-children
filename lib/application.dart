@@ -7,6 +7,7 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: 'Карточки для детей',
       routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
