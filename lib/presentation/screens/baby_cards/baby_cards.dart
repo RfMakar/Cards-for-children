@@ -46,12 +46,13 @@ class BabyCardsList extends StatelessWidget {
     return AnimationLimiter(
       child: GridView.count(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
-       
+       childAspectRatio: 0.85,
         crossAxisCount: 2,
         children: List.generate(
           store.babyCards.length,
           (int index) {
             return AnimationConfiguration.staggeredGrid(
+              
               position: index,
               duration: const Duration(milliseconds: 375),
               columnCount: 2,

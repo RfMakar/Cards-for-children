@@ -10,7 +10,7 @@ class BabyCardModel extends BabyCard {
     required super.raw,
   });
 
-  factory BabyCardModel.fromMap(Map<String, dynamic> json) => BabyCardModel(
+  factory BabyCardModel.fromJson(Map<String, dynamic> json) => BabyCardModel(
         name: json['name'],
         icon: json['icon'],
         image: json['image'],
@@ -19,7 +19,7 @@ class BabyCardModel extends BabyCard {
         raw: json['raw'],
       );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'icon': icon,

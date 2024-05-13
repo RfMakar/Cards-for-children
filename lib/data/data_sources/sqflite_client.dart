@@ -68,14 +68,14 @@ class SqfliteClientApp {
     final db = await _getDataBase;
     final sql =
         'SELECT * FROM answers WHERE game_id = $gameId AND result = $result';
-    return await db.rawQuery(sql);
+    return  db.rawQuery(sql);
   }
 
   Future<List<Map<String, dynamic>>> getQuestionsGame({
     required int gameId,
   }) async {
     final db = await _getDataBase;
-    return await db.query(
+    return  db.query(
       'questions',
       where: '"game_id" = ? ',
       whereArgs: [gameId],

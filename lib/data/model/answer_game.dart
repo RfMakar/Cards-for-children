@@ -6,7 +6,7 @@ class AnswerGameModel extends AnswerGame {
     required super.name,
     required super.audio,
   });
-  factory AnswerGameModel.fromMap(Map<String, dynamic> json) => AnswerGameModel(
+  factory AnswerGameModel.fromJson(Map<String, dynamic> json) => AnswerGameModel(
         id: json['id'],
         name: json['name'],
         audio: json['audio'],

@@ -47,11 +47,12 @@ class CategoryCardsList extends StatelessWidget {
       child: GridView.count(
         padding: const EdgeInsets.only(
           bottom: 100,
-          top: 50,
+          top: 16,
           left: 72,
           right: 72,
         ),
         mainAxisSpacing: 32,
+        childAspectRatio: 0.85,
         crossAxisCount: 1,
         children: List.generate(
           store.categorysCards.length,
@@ -76,8 +77,15 @@ class CategoryCardsList extends StatelessWidget {
 }
 
 class CategoryCardWidget extends StatelessWidget {
-  const CategoryCardWidget({super.key, required this.categoryCard});
+  const CategoryCardWidget({
+    super.key,
+    required this.categoryCard,
+  });
+
   final CategoryCard categoryCard;
+  final radius = 24.0;
+  final borderWidht = 5.0;
+
   void _playAudio() {
     sl<AudioPlayerService>().audioPlayerPlay(
       categoryCard.audio,
@@ -87,7 +95,7 @@ class CategoryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(radius),
       onTap: () {
         _playAudio();
         context.pushNamed(
@@ -98,16 +106,50 @@ class CategoryCardWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Color(categoryCard.color),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(24),
+          borderRadius: BorderRadius.all(
+            Radius.circular(radius),
           ),
           border: Border.all(
             color: AppColor.white,
-            width: 5,
+            width: borderWidht,
           ),
         ),
-        child: Image.asset(
-          categoryCard.icon,
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: Image.asset(categoryCard.icon),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(radius - borderWidht),
+                  bottomRight: Radius.circular(radius - borderWidht),
+                ),
+                border: Border.all(
+                  color: AppColor.white,
+                ),
+                color: AppColor.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Text(
+                  categoryCard.name,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  softWrap: true,
+                  style: TextStyle(
+                    color: Color(categoryCard.color),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -134,12 +176,12 @@ class ButtomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.topCenter,
+      alignment: Alignment.bottomCenter,
       child: Padding(
         padding: const EdgeInsets.only(
-          left: 8,
-          right: 8,
-          top: 8,
+          left: 16,
+          right: 16,
+          bottom: 8,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

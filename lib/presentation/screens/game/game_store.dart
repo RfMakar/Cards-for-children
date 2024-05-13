@@ -124,7 +124,10 @@ abstract class _GameStore with Store {
     final res = await _gameRepository.getQuestionsGame(
       gameId: _gameId,
     );
-    _questionsGame = res;
+    if (res.success) {
+      _questionsGame = res.data!;
+    }
+ 
   }
 
   @action
@@ -133,7 +136,10 @@ abstract class _GameStore with Store {
       gameId: _gameId,
       result: 0,
     );
-    _answersGameNo = res;
+    if (res.success) {
+      _answersGameNo = res.data!;
+    }
+   
   }
 
   @action
@@ -142,6 +148,9 @@ abstract class _GameStore with Store {
       gameId: _gameId,
       result: 1,
     );
-    _answersGameYes = res;
+    if (res.success) {
+      _answersGameYes = res.data!;
+    }
+   
   }
 }

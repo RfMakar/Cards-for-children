@@ -9,7 +9,7 @@ class CategoryCardModel extends CategoryCard {
     required super.color,
   });
 
-  factory CategoryCardModel.fromMap(Map<String, dynamic> json) =>
+  factory CategoryCardModel.fromJson(Map<String, dynamic> json) =>
       CategoryCardModel(
         id: json['id'],
         name: json['name'],
@@ -18,7 +18,7 @@ class CategoryCardModel extends CategoryCard {
         color: json['color'],
       );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,

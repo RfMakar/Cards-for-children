@@ -14,9 +14,4 @@ class AppAssets {
   static const iconQuery = 'assets/icons/icon_query.svg';
   static const iconReset = 'assets/icons/icon_reset.svg';
 
-  //game
-
-  static const imageYes = 'assets/game/image/yes.png';
-  static const imageNo = 'assets/game/image/no.png';
-  static const imageQuestion = 'assets/game/image/question.png';
 }

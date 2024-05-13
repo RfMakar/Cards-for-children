@@ -15,7 +15,7 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
   Future<List<CategoryCardModel>> getCategoriesCards() async {
     final data = await _sqfliteClientApp.getCategoriesCards();
     return data.isNotEmpty
-        ? data.map((e) => CategoryCardModel.fromMap(e)).toList()
+        ? data.map((e) => CategoryCardModel.fromJson(e)).toList()
         : [];
   }
 
@@ -23,7 +23,7 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
   Future<List<BabyCardModel>> getBabyCards({required int categoryId}) async {
     final data = await _sqfliteClientApp.getBabyCards(categoryId: categoryId);
     return data.isNotEmpty
-        ? data.map((e) => BabyCardModel.fromMap(e)).toList()
+        ? data.map((e) => BabyCardModel.fromJson(e)).toList()
         : [];
   }
 
@@ -37,7 +37,7 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
       limit: limit,
     );
     return data.isNotEmpty
-        ? data.map((e) => BabyCardModel.fromMap(e)).toList()
+        ? data.map((e) => BabyCardModel.fromJson(e)).toList()
         : [];
   }
 }
