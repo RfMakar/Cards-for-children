@@ -1,5 +1,5 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/data/service/audio_player.dart';
+import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/initialize_dependencie.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
@@ -87,7 +87,7 @@ class CategoryCardWidget extends StatelessWidget {
   final borderWidht = 5.0;
 
   void _playAudio() {
-    sl<AudioPlayerService>().audioPlayerPlay(
+    sl<AudioPlayerService>().playAudio(
       categoryCard.audio,
     );
   }

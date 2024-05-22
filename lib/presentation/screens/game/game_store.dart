@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:busycards/data/service/audio_player.dart';
+import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/answer_game.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/domain/entities/question_game.dart';
@@ -82,13 +82,13 @@ abstract class _GameStore with Store {
       babyCardCorrect.audio,
       babyCardCorrect.raw,
     ];
-    _audioPlayerService.audioPlayerListPlay(assetsPath);
+    _audioPlayerService.playAudioList(assetsPath);
   }
 
   @action
   Future<void> _comparisonNo() async {
     _answersGameNo.shuffle();
-    _audioPlayerService.audioPlayerPlay(_answersGameNo.first.audio);
+    _audioPlayerService.playAudio(_answersGameNo.first.audio);
   }
 
   void playQuestion() {
@@ -98,7 +98,7 @@ abstract class _GameStore with Store {
       babyCardCorrect.audio,
       babyCardCorrect.raw,
     ];
-    _audioPlayerService.audioPlayerListPlay(assetsPath);
+    _audioPlayerService.playAudioList(assetsPath);
   }
 
   @action

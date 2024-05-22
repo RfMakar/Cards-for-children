@@ -1,5 +1,5 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/data/service/audio_player.dart';
+import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/initialize_dependencie.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -16,6 +16,13 @@ class BabyCardScreen extends StatefulWidget {
 
 class _BabyCardScreenState extends State<BabyCardScreen> {
   late AudioPlayerService _audioPlayerService;
+
+  @override
+  void didUpdateWidget(covariant BabyCardScreen oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
   @override
   void initState() {
     _audioPlayerService = sl<AudioPlayerService>();
@@ -23,10 +30,15 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
       widget.babyCard.audio,
       widget.babyCard.raw,
     ];
-    _audioPlayerService.audioPlayerListPlay(assetsPath);
+    _audioPlayerService.playAudioList(assetsPath);
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _audioPlayerService.pause();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +82,14 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
           color: AppColor.white,
         ),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Image.asset(
-          widget.babyCard.image,
-          fit: BoxFit.fill,
+      child: InkWell(
+        onTap: context.pop,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Image.asset(
+            widget.babyCard.image,
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );
@@ -91,7 +106,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
           isRaw
               ? AppButton.raw(
                   onTap: () {
-                    _audioPlayerService.audioPlayerPlay(
+                    _audioPlayerService.playAudio(
                       widget.babyCard.raw!,
                     );
                   },
@@ -99,7 +114,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
               : Container(),
           AppButton.audio(
             onTap: () {
-              _audioPlayerService.audioPlayerPlay(
+              _audioPlayerService.playAudio(
                 widget.babyCard.audio,
               );
             },
