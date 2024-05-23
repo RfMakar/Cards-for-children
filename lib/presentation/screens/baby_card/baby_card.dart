@@ -18,12 +18,6 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
   late AudioPlayerService _audioPlayerService;
 
   @override
-  void didUpdateWidget(covariant BabyCardScreen oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   void initState() {
     _audioPlayerService = sl<AudioPlayerService>();
     final assetsPath = [
@@ -34,12 +28,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _audioPlayerService.pause();
-    super.dispose();
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

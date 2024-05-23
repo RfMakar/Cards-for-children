@@ -38,10 +38,6 @@ class AudioPlayerService {
     }
   }
 
-  void pause() {
-    _audioPlayer.pause();
-  }
-
   void dispose() {
     _audioPlayer.dispose();
   }
