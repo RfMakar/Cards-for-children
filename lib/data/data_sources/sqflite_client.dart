@@ -11,7 +11,7 @@ class SqfliteClientApp {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'busy_cards_v2.db');
+    String path = join(await getDatabasesPath(), 'baby_cards_ru.db');
     await _copyDatabase(path);
     return await openDatabase(
       path,
@@ -24,7 +24,7 @@ class SqfliteClientApp {
     if (!exists) {
       //Если БД не существует то копируем из ресурсов
       ByteData data = await rootBundle.load(
-        join('assets', 'db', 'busy_cards_v2.db'),
+        join('assets', 'database', 'baby_cards_ru.db'),
       );
       List<int> bytes = data.buffer.asUint8List(
         data.offsetInBytes,
@@ -38,25 +38,38 @@ class SqfliteClientApp {
 
   Future<List<Map<String, dynamic>>> getCategoriesCards() async {
     final db = await _getDataBase;
-    return await db.query('categories');
+    const sql = '''
+    SELECT categories.id, categories.name, categories.icon, categories.audio, colors.value AS color 
+    FROM categories
+    JOIN colors ON colors.id = categories.color_id;
+    ''';
+    return await db.rawQuery(sql);
   }
 
   Future<List<Map<String, dynamic>>> getBabyCards({
     required int categoryId,
   }) async {
     final db = await _getDataBase;
-    return await db.query(
-      'cards',
-      where: '"category_id" = ?',
-      whereArgs: [categoryId],
-    );
+    var sql = '''
+    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color
+    FROM cards
+    JOIN colors ON colors.id = cards.color_id
+    WHERE category_id = $categoryId;
+    ''';
+    return await db.rawQuery(sql);
   }
 
   Future<List<Map<String, dynamic>>> getBabyCardsRandom(
       {required int categoryId, required int limit}) async {
     final db = await _getDataBase;
-    final sql =
-        'SELECT * FROM cards WHERE category_id = $categoryId ORDER BY RANDOM() LIMIT $limit';
+    final sql = '''
+    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color
+    FROM cards
+    JOIN colors ON colors.id = cards.color_id
+    WHERE category_id = $categoryId 
+    ORDER BY RANDOM() 
+    LIMIT $limit;
+    ''';
     return await db.rawQuery(sql);
   }
 
@@ -66,19 +79,23 @@ class SqfliteClientApp {
     required int result,
   }) async {
     final db = await _getDataBase;
-    final sql =
-        'SELECT * FROM answers WHERE game_id = $gameId AND result = $result';
-    return  db.rawQuery(sql);
+    final sql = '''
+    SELECT * 
+    FROM answers 
+    WHERE game_id = $gameId AND result = $result;
+    ''';
+    return db.rawQuery(sql);
   }
 
   Future<List<Map<String, dynamic>>> getQuestionsGame({
     required int gameId,
   }) async {
     final db = await _getDataBase;
-    return  db.query(
-      'questions',
-      where: '"game_id" = ? ',
-      whereArgs: [gameId],
-    );
+    final sql = '''
+    SELECT *
+    FROM questions
+    WHERE game_id = $gameId;
+    ''';
+    return db.rawQuery(sql);
   }
 }
