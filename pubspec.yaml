@@ -11,6 +11,7 @@ dependencies:
   sqflite: ^2.3.3
   intl: ^0.18.1
   path: ^1.9.0
+  flutter_launcher_icons: ^0.13.1
   provider: ^6.1.2
   assets_audio_player: ^3.1.1
   url_launcher: ^6.2.6
@@ -47,4 +48,13 @@ flutter:
     - assets/app/icons/
     - assets/games/audios/answers/ru/
     - assets/games/audios/questions/ru/
+
+flutter_launcher_icons:
+  android: true
+  image_path_android: 'assets/app/icons/icon_app.png'
+  ios: true
+  image_path_ios: 'assets/app/icons/icon_app.png'
+  remove_alpha_ios: true
+  min_sdk_android: 21
+  adaptive_icon_background: '#00B2FF'
 
