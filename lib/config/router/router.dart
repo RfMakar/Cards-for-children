@@ -3,6 +3,7 @@ import 'package:busycards/presentation/screens/baby_card/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards.dart';
 import 'package:busycards/presentation/screens/game/game.dart';
 import 'package:busycards/presentation/screens/home/home.dart';
+import 'package:busycards/presentation/screens/settings/settings.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
@@ -11,6 +12,11 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      name: 'settings_screen',
+      path: '/settings',
+      builder: (context, state) => const SettingsScreen(),
     ),
     GoRoute(
       name: 'baby_cards_screen',

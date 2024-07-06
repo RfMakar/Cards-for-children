@@ -34,7 +34,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
     return Scaffold(
       backgroundColor: Color(widget.babyCard.color).withOpacity(0.3),
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -67,14 +67,14 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          width: 6,
+          width: 4,
           color: AppColor.white,
         ),
       ),
       child: InkWell(
         onTap: context.pop,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(12.0),
           child: Image.asset(
             widget.babyCard.image,
             fit: BoxFit.fill,

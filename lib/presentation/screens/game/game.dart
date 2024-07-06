@@ -51,7 +51,7 @@ class BabyCardsList extends StatelessWidget {
         child: GridView.count(
           //physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 200),
+          padding: const EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 200),
           crossAxisCount: 2,
           childAspectRatio: 0.85,
           children: List.generate(

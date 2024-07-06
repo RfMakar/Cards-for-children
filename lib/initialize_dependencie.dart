@@ -2,7 +2,6 @@ import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/repositories_impl/baby_card.dart';
 import 'package:busycards/data/repositories_impl/game.dart';
 import 'package:busycards/core/service/audio_player.dart';
-import 'package:busycards/core/service/cache_manager.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
 import 'package:busycards/domain/repositories/game.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards_store.dart';
@@ -15,12 +14,10 @@ final sl = GetIt.instance;
 Future<void> initializeDependencie() async {
   //services
   sl.registerLazySingleton<AudioPlayerService>(
-    () => AudioPlayerService(sl(),),
+    () => AudioPlayerService(),
     dispose: (audioPlayer) => audioPlayer.dispose(),
   );
-  sl.registerLazySingleton<CacheManagerAudio>(
-    () => CacheManagerAudio(),
-  );
+
   //sqflite
   sl.registerLazySingleton<SqfliteClientApp>(
     () => SqfliteClientApp(),

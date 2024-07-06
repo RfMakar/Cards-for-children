@@ -11,7 +11,7 @@ class SqfliteClientApp {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'baby_cards_ru.db');
+    String path = join(await getDatabasesPath(), 'baby_cards_ru_v1.db');
     await _copyDatabase(path);
     return await openDatabase(
       path,
@@ -24,7 +24,7 @@ class SqfliteClientApp {
     if (!exists) {
       //Если БД не существует то копируем из ресурсов
       ByteData data = await rootBundle.load(
-        join('assets', 'database', 'baby_cards_ru.db'),
+        join('assets', 'database', 'baby_cards_ru_v1.db'),
       );
       List<int> bytes = data.buffer.asUint8List(
         data.offsetInBytes,

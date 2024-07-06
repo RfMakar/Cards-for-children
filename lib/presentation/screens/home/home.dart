@@ -9,13 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  void _initLocale(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    Intl.defaultLocale = locale.languageCode;
+  }
+
   @override
   Widget build(BuildContext context) {
+    _initLocale(context);
     return const LayoutScreen(
       body: BodyHomeScreen(),
       navigation: ButtomNavigation(),
@@ -47,20 +53,20 @@ class CategoryCardsList extends StatelessWidget {
       child: GridView.count(
         padding: const EdgeInsets.only(
           bottom: 100,
-          top: 16,
-          left: 72,
-          right: 72,
+          top: 4,
+          left: 4,
+          right: 4,
         ),
-        mainAxisSpacing: 32,
-        childAspectRatio: 0.85,
-        crossAxisCount: 1,
+        //mainAxisSpacing: 1,
+        childAspectRatio: 0.80,
+        crossAxisCount: 3,
         children: List.generate(
           store.categorysCards.length,
           (int index) {
             return AnimationConfiguration.staggeredGrid(
               position: index,
               duration: const Duration(milliseconds: 375),
-              columnCount: 1,
+              columnCount: 3,
               child: ScaleAnimation(
                 child: FadeInAnimation(
                   child: CategoryCardWidget(
@@ -83,8 +89,8 @@ class CategoryCardWidget extends StatelessWidget {
   });
 
   final CategoryCard categoryCard;
-  final radius = 24.0;
-  final borderWidht = 5.0;
+  final radius = 12.0;
+  final borderWidht = 2.0;
 
   void _playAudio() {
     sl<AudioPlayerService>().playAudio(
@@ -104,6 +110,7 @@ class CategoryCardWidget extends StatelessWidget {
         );
       },
       child: Container(
+        margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: Color(categoryCard.color),
           borderRadius: BorderRadius.all(
@@ -114,43 +121,7 @@ class CategoryCardWidget extends StatelessWidget {
             width: borderWidht,
           ),
         ),
-        child: Column(
-          children: [
-            Expanded(
-              child: Center(
-                child: Image.asset(categoryCard.icon),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(radius - borderWidht),
-                  bottomRight: Radius.circular(radius - borderWidht),
-                ),
-                border: Border.all(
-                  color: AppColor.white,
-                ),
-                color: AppColor.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Text(
-                  categoryCard.name,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  softWrap: true,
-                  style: TextStyle(
-                    color: Color(categoryCard.color),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+        child: Image.asset(categoryCard.icon),
       ),
     );
   }
@@ -158,20 +129,6 @@ class CategoryCardWidget extends StatelessWidget {
 
 class ButtomNavigation extends StatelessWidget {
   const ButtomNavigation({super.key});
-
-  Future<void> openInBrowser() async {
-    const path =
-        'https://play.google.com/store/apps/details?id=com.dom.busycards';
-    final Uri launchUri = Uri.parse(path);
-    try {
-      await launchUrl(
-        launchUri,
-        mode: LaunchMode.externalApplication,
-      );
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,13 +143,10 @@ class ButtomNavigation extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppButton.feedback(
-              onTap: openInBrowser,
-            ),
-            // AppButton.settings(
-            //   onTap: () {},
-            // ),
             const SizedBox(),
+            AppButton.settings(
+              onTap: () => context.pushNamed('settings_screen'),
+            ),
           ],
         ),
       ),

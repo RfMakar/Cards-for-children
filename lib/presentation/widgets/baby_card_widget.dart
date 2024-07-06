@@ -11,7 +11,7 @@ class BabyCardWidget extends StatelessWidget {
   final BabyCard babyCard;
   final void Function() onTap;
   final radius = 16.0;
-  final borderWidht = 3.0;
+  final borderWidht = 2.0;
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
@@ -22,7 +22,7 @@ class BabyCardWidget extends StatelessWidget {
         splashColor: Color(babyCard.color),
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: AppColor.white.withOpacity(0.8),
             borderRadius: BorderRadius.all(Radius.circular(radius)),
@@ -57,7 +57,7 @@ class BabyCardWidget extends StatelessWidget {
                     softWrap: true,
                     style: const TextStyle(
                       color: AppColor.white,
-                      fontSize: 16,
+                      //fontSize: 16,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.normal,
                     ),

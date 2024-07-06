@@ -45,8 +45,8 @@ class BabyCardsList extends StatelessWidget {
     final store = Provider.of<BabyCardsStore>(context);
     return AnimationLimiter(
       child: GridView.count(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
-       childAspectRatio: 0.85,
+       padding: const EdgeInsets.fromLTRB(4, 4, 4, 120),
+       childAspectRatio: 0.80,
         crossAxisCount: 2,
         children: List.generate(
           store.babyCards.length,

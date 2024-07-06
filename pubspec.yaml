@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   sqflite: ^2.3.3
+  intl: ^0.18.1
   path: ^1.9.0
   provider: ^6.1.2
   assets_audio_player: ^3.1.1
@@ -21,6 +22,8 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   flutter_cache_manager: ^3.3.1
   fluttertoast: ^8.2.4
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -34,8 +37,14 @@ flutter:
   assets:
     - assets/babycards/cards/icons/
     - assets/babycards/cards/images/
+    - assets/babycards/cards/audios/ru/
+    - assets/babycards/cards/raws/default/
+    - assets/babycards/cards/raws/ru/
     - assets/babycards/categories/icons/
+    - assets/babycards/categories/audios/ru/
     - assets/database/
     - assets/app/images/
     - assets/app/icons/
+    - assets/games/audios/answers/ru/
+    - assets/games/audios/questions/ru/
 
