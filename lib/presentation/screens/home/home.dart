@@ -59,14 +59,14 @@ class CategoryCardsList extends StatelessWidget {
         ),
         //mainAxisSpacing: 1,
         childAspectRatio: 0.80,
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         children: List.generate(
           store.categorysCards.length,
           (int index) {
             return AnimationConfiguration.staggeredGrid(
               position: index,
               duration: const Duration(milliseconds: 375),
-              columnCount: 3,
+              columnCount: 2,
               child: ScaleAnimation(
                 child: FadeInAnimation(
                   child: CategoryCardWidget(
@@ -121,7 +121,43 @@ class CategoryCardWidget extends StatelessWidget {
             width: borderWidht,
           ),
         ),
-        child: Image.asset(categoryCard.icon),
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: Image.asset(categoryCard.icon),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(radius - borderWidht),
+                  bottomRight: Radius.circular(radius - borderWidht),
+                ),
+                border: Border.all(
+                  color: AppColor.white,
+                ),
+                color: AppColor.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Text(
+                  categoryCard.name,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  softWrap: true,
+                  style: TextStyle(
+                    color: Color(categoryCard.color),
+                    //fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
