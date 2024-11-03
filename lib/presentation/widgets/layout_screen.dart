@@ -21,8 +21,8 @@ class LayoutScreen extends StatelessWidget {
         child: Stack(
           children: [
             const CloudWidget(),
-            body,
             const GrassWidget(),
+            body,
             navigation,
           ],
         ),

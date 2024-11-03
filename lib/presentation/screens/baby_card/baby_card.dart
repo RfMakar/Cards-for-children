@@ -34,7 +34,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
     return Scaffold(
       backgroundColor: Color(widget.babyCard.color).withOpacity(0.3),
       body: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

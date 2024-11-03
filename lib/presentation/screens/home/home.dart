@@ -51,12 +51,7 @@ class CategoryCardsList extends StatelessWidget {
     final store = sl<HomeStore>();
     return AnimationLimiter(
       child: GridView.count(
-        padding: const EdgeInsets.only(
-          bottom: 100,
-          top: 4,
-          left: 4,
-          right: 4,
-        ),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
         //mainAxisSpacing: 1,
         childAspectRatio: 0.80,
         crossAxisCount: 2,
