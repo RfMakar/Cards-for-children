@@ -1,7 +1,8 @@
 import 'package:busycards/config/UI/app_color.dart';
+import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
-import 'package:busycards/initialize_dependencie.dart';
+
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

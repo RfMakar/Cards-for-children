@@ -1,5 +1,5 @@
 import 'package:busycards/config/UI/app_color.dart';
-import 'package:busycards/initialize_dependencie.dart';
+import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/game/game_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/baby_card_widget.dart';
@@ -35,7 +35,7 @@ class BodyGameScreen extends StatelessWidget {
     return Observer(
       builder: (_) => store.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : const  BabyCardsList(),
+          : const BabyCardsList(),
     );
   }
 }
@@ -51,7 +51,7 @@ class BabyCardsList extends StatelessWidget {
         child: GridView.count(
           //physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-         padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
           crossAxisCount: 2,
           childAspectRatio: 0.85,
           children: List.generate(

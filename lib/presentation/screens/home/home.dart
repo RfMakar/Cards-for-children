@@ -1,7 +1,7 @@
 import 'package:busycards/config/UI/app_color.dart';
+import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/category_card.dart';
-import 'package:busycards/initialize_dependencie.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';

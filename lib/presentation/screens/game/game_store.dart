@@ -77,18 +77,19 @@ abstract class _GameStore with Store {
   @action
   Future<void> _comparisonYes() async {
     _answersGameYes.shuffle();
-    final assetsPath = [
-      _answersGameYes.first.audio,
-      babyCardCorrect.audio,
-      babyCardCorrect.raw,
-    ];
-    _audioPlayerService.playAudioList(assetsPath);
+    // final assetsPath = [
+    //   _answersGameYes.first.audio,
+    //   babyCardCorrect.audio,
+    //   babyCardCorrect.raw,
+    // ];
+    // await _audioPlayerService.playAudioList(assetsPath);
+    
   }
 
   @action
   Future<void> _comparisonNo() async {
     _answersGameNo.shuffle();
-    _audioPlayerService.playAudio(_answersGameNo.first.audio);
+    await _audioPlayerService.playAudio(_answersGameNo.first.audio);
   }
 
   void playQuestion() {
@@ -127,7 +128,6 @@ abstract class _GameStore with Store {
     if (res.success) {
       _questionsGame = res.data!;
     }
- 
   }
 
   @action
@@ -139,7 +139,6 @@ abstract class _GameStore with Store {
     if (res.success) {
       _answersGameNo = res.data!;
     }
-   
   }
 
   @action
@@ -151,6 +150,5 @@ abstract class _GameStore with Store {
     if (res.success) {
       _answersGameYes = res.data!;
     }
-   
   }
 }

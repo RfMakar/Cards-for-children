@@ -1,4 +1,4 @@
-import 'package:busycards/initialize_dependencie.dart';
+import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/baby_card_widget.dart';

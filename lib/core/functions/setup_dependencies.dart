@@ -1,3 +1,4 @@
+
 import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/repositories_impl/baby_card.dart';
 import 'package:busycards/data/repositories_impl/game.dart';
@@ -11,7 +12,7 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
-Future<void> initializeDependencie() async {
+Future<void> setupDependencies() async {
   //services
   sl.registerLazySingleton<AudioPlayerService>(
     () => AudioPlayerService(),
