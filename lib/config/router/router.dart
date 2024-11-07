@@ -54,13 +54,8 @@ final router = GoRouter(
         GoRoute(
             name: 'parental_control',
             path: 'parental_control',
-            pageBuilder: (context, state) {
-              return CustomTransitionPage(
-                fullscreenDialog: true,
-                opaque: false,
-                transitionsBuilder: (_, __, ___, child) => child,
-                child: ParentalControlScreen(),
-              );
+            builder: (context, state) {
+              return const ParentalControlScreen();
             },
             routes: [
               GoRoute(
