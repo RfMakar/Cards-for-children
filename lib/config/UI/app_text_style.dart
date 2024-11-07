@@ -8,4 +8,10 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     color: AppColor.white,
   );
+  static const textStyle2 = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    fontStyle: FontStyle.normal,
+    color: AppColor.color,
+  );
 }

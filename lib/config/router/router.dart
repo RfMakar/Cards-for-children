@@ -3,6 +3,7 @@ import 'package:busycards/presentation/screens/baby_card/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards.dart';
 import 'package:busycards/presentation/screens/game/game.dart';
 import 'package:busycards/presentation/screens/home/home.dart';
+import 'package:busycards/presentation/screens/parental_control/parental_control.dart';
 import 'package:busycards/presentation/screens/settings/settings.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,6 +11,7 @@ final router = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(
+      name: 'nome_screen',
       path: '/',
       builder: (context, state) => const HomeScreen(),
     ),
@@ -40,6 +42,18 @@ final router = GoRouter(
           child: BabyCardScreen(
             babyCard: babyCard,
           ),
+        );
+      },
+    ),
+    GoRoute(
+      name: 'parental_control_screen',
+      path: '/parental_control',
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          fullscreenDialog: true,
+          opaque: false,
+          transitionsBuilder: (_, __, ___, child) => child,
+          child: ParentalControlScreen(),
         );
       },
     ),

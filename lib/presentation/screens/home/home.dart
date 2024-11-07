@@ -176,7 +176,7 @@ class ButtomNavigation extends StatelessWidget {
           children: [
             const SizedBox(),
             AppButton.settings(
-              onTap: () => context.pushNamed('settings_screen'),
+              onTap: () => context.pushNamed('parental_control_screen'),
             ),
           ],
         ),

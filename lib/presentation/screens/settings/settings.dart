@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
 class BodySettingScreen extends StatelessWidget {
   const BodySettingScreen({super.key});
 
-   Future<void> openInBrowser(String path) async {
+  Future<void> openInBrowser(String path) async {
     final Uri launchUri = Uri.parse(path);
     try {
       await launchUrl(
@@ -42,13 +42,13 @@ class BodySettingScreen extends StatelessWidget {
         //   title: 'Язык',
         //   onTap: () {},
         // ),
-        CardsSetting(
-          title: 'Оставить отзыв',
-          onTap: ()=>openInBrowser(urlGooglePlay),
-        ),
+        // CardsSetting(
+        //   title: 'Оставить отзыв',
+        //   onTap: () => openInBrowser(urlGooglePlay),
+        // ),
         CardsSetting(
           title: 'Политика конфиденциальности',
-          onTap:()=> openInBrowser(urlPrivacyPolicy),
+          onTap: () => openInBrowser(urlPrivacyPolicy),
         ),
       ],
     );
@@ -62,7 +62,7 @@ class CardsSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-       borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16),
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.all(4),
@@ -79,11 +79,11 @@ class CardsSetting extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             title,
-            style:const  TextStyle(
-             // color: AppColor.color,
+            style: const TextStyle(
+              // color: AppColor.color,
               fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.normal,
             ),
           ),
         ),
@@ -109,7 +109,7 @@ class ButtomNavigation extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppButton.from(
-              onTap: context.pop,
+              onTap: () => context.pushNamed('nome_screen'),
             ),
             const SizedBox(),
           ],
