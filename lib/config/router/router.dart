@@ -8,64 +8,68 @@ import 'package:busycards/presentation/screens/settings/settings.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/home',
   routes: [
     GoRoute(
-      name: 'nome_screen',
-      path: '/',
+      path: '/home',
       builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      name: 'settings_screen',
-      path: '/settings',
-      builder: (context, state) => const SettingsScreen(),
-    ),
-    GoRoute(
-      name: 'baby_cards_screen',
-      path: '/baby_cards',
-      builder: (context, state) {
-        final categoryId = state.extra as int;
-        return BabyCardsScreen(
-          categoryId: categoryId,
-        );
-      },
-    ),
-    GoRoute(
-      name: 'baby_card_screen',
-      path: '/baby_card',
-      pageBuilder: (context, state) {
-        final babyCard = state.extra as BabyCard;
-        return CustomTransitionPage(
-          fullscreenDialog: true,
-          opaque: false,
-          transitionsBuilder: (_, __, ___, child) => child,
-          child: BabyCardScreen(
-            babyCard: babyCard,
-          ),
-        );
-      },
-    ),
-    GoRoute(
-      name: 'parental_control_screen',
-      path: '/parental_control',
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          fullscreenDialog: true,
-          opaque: false,
-          transitionsBuilder: (_, __, ___, child) => child,
-          child: ParentalControlScreen(),
-        );
-      },
-    ),
-    GoRoute(
-      name: 'game_screen',
-      path: '/game',
-      builder: (context, state) {
-        final categoryId = state.extra as int;
-        return GameScreen(
-          categoryId: categoryId,
-        );
-      },
+      routes: [
+        GoRoute(
+          name: 'baby_cards',
+          path: 'baby_cards',
+          builder: (context, state) {
+            final categoryId = state.extra as int;
+            return BabyCardsScreen(
+              categoryId: categoryId,
+            );
+          },
+          routes: [
+            GoRoute(
+              name: 'baby_card',
+              path: 'baby_card',
+              pageBuilder: (context, state) {
+                final babyCard = state.extra as BabyCard;
+                return CustomTransitionPage(
+                  fullscreenDialog: true,
+                  opaque: false,
+                  transitionsBuilder: (_, __, ___, child) => child,
+                  child: BabyCardScreen(
+                    babyCard: babyCard,
+                  ),
+                );
+              },
+            ),
+            GoRoute(
+              name: 'game',
+              path: 'game',
+              builder: (context, state) {
+                final categoryId = state.extra as int;
+                return GameScreen(
+                  categoryId: categoryId,
+                );
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+            name: 'parental_control',
+            path: 'parental_control',
+            pageBuilder: (context, state) {
+              return CustomTransitionPage(
+                fullscreenDialog: true,
+                opaque: false,
+                transitionsBuilder: (_, __, ___, child) => child,
+                child: ParentalControlScreen(),
+              );
+            },
+            routes: [
+              GoRoute(
+                name: 'settings',
+                path: 'settings',
+                builder: (context, state) => const SettingsScreen(),
+              ),
+            ]),
+      ],
     ),
   ],
 );

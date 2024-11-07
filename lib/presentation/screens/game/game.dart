@@ -71,7 +71,7 @@ class BabyCardsList extends StatelessWidget {
                         );
                         if (isResult) {
                           await context.pushNamed(
-                            'baby_card_screen',
+                            'baby_card',
                             extra: store.babyCardCorrect,
                           );
                           store.restartGame();

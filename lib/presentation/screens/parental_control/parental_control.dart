@@ -89,7 +89,7 @@ class AnswerWidget extends StatelessWidget {
         cursorColor: AppColor.white,
         onChanged: (val) {
           if (store.resultSum(val)) {
-            context.pushNamed('settings_screen');
+            context.replace('/home/parental_control/settings');
           }
         },
         decoration: InputDecoration(

@@ -45,14 +45,13 @@ class BabyCardsList extends StatelessWidget {
     final store = Provider.of<BabyCardsStore>(context);
     return AnimationLimiter(
       child: GridView.count(
-       padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
-       childAspectRatio: 0.80,
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+        childAspectRatio: 0.80,
         crossAxisCount: 2,
         children: List.generate(
           store.babyCards.length,
           (int index) {
             return AnimationConfiguration.staggeredGrid(
-              
               position: index,
               duration: const Duration(milliseconds: 375),
               columnCount: 2,
@@ -61,7 +60,7 @@ class BabyCardsList extends StatelessWidget {
                   child: BabyCardWidget(
                     babyCard: store.babyCards[index],
                     onTap: () => context.pushNamed(
-                      'baby_card_screen',
+                      'baby_card',
                       extra: store.babyCards[index],
                     ),
                   ),
@@ -72,7 +71,6 @@ class BabyCardsList extends StatelessWidget {
         ),
       ),
     );
-    
   }
 }
 
@@ -98,7 +96,7 @@ class ButtomNavigation extends StatelessWidget {
             ),
             AppButton.game(
               onTap: () => context.pushNamed(
-                'game_screen',
+                'game',
                 extra: store.categoryId,
               ),
             ),

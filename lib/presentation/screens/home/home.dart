@@ -100,7 +100,7 @@ class CategoryCardWidget extends StatelessWidget {
       onTap: () {
         _playAudio();
         context.pushNamed(
-          'baby_cards_screen',
+          'baby_cards',
           extra: categoryCard.id,
         );
       },
@@ -176,7 +176,7 @@ class ButtomNavigation extends StatelessWidget {
           children: [
             const SizedBox(),
             AppButton.settings(
-              onTap: () => context.pushNamed('parental_control_screen'),
+              onTap: () => context.pushNamed('parental_control'),
             ),
           ],
         ),

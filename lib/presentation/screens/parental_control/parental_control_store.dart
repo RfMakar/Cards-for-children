@@ -13,7 +13,7 @@ abstract class _ParentalControlStore with Store {
   late String textSum;
 
   Future<void> init() async {
-    textSum = '${_parentalControl.a} + ${_parentalControl.b} =';
+    textSum = '${_parentalControl.a} + ${_parentalControl.b} = ?';
   }
 
   bool resultSum(String val) {
