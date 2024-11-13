@@ -1,10 +1,11 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/core/constants/constants.dart';
+import 'package:busycards/core/functions/get_device.dart';
+import 'package:busycards/core/functions/open_url_in_browser.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -21,15 +22,12 @@ class SettingsScreen extends StatelessWidget {
 class BodySettingScreen extends StatelessWidget {
   const BodySettingScreen({super.key});
 
-  Future<void> openInBrowser(String path) async {
-    final Uri launchUri = Uri.parse(path);
-    try {
-      await launchUrl(
-        launchUri,
-        mode: LaunchMode.externalApplication,
-      );
-    } catch (e) {
-      debugPrint(e.toString());
+  void onTapReview() async {
+    final device = getDevice();
+    if (device == 'android') {
+      openUrlInBrowser(urlGooglePlay);
+    } else {
+      openUrlInBrowser(urlAppStore);
     }
   }
 
@@ -42,13 +40,13 @@ class BodySettingScreen extends StatelessWidget {
         //   title: 'Язык',
         //   onTap: () {},
         // ),
-        // CardsSetting(
-        //   title: 'Оставить отзыв',
-        //   onTap: () => openInBrowser(urlGooglePlay),
-        // ),
+        CardsSetting(
+          title: 'Оставить отзыв',
+          onTap: onTapReview,
+        ),
         CardsSetting(
           title: 'Политика конфиденциальности',
-          onTap: () => openInBrowser(urlPrivacyPolicy),
+          onTap: () => openUrlInBrowser(urlPrivacyPolicy),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:busycards/application.dart';
+import 'package:busycards/core/functions/get_device.dart';
 import 'package:busycards/core/functions/setup_audio_session.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:flutter/material.dart';
@@ -12,5 +13,6 @@ Future<void> main() async {
   );
   await setupDependencies();
   await setupAudioSession();
+  await getDevice();
   runApp(const Application());
 }
