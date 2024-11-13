@@ -58,10 +58,11 @@ abstract class _GameStore with Store {
   }
 
   @action
-  bool onTapCardImage(BabyCard babyCard) {
+  Future<bool> onTapCardImage(BabyCard babyCard) async{
     final isComparison = babyCard.name == babyCardCorrect.name;
     if (isComparison) {
       _comparisonYes();
+      await Future.delayed(Duration(milliseconds: 800));
     } else {
       _comparisonNo();
     }
@@ -77,13 +78,7 @@ abstract class _GameStore with Store {
   @action
   Future<void> _comparisonYes() async {
     _answersGameYes.shuffle();
-    // final assetsPath = [
-    //   _answersGameYes.first.audio,
-    //   babyCardCorrect.audio,
-    //   babyCardCorrect.raw,
-    // ];
-    // await _audioPlayerService.playAudioList(assetsPath);
-    
+    await _audioPlayerService.playAudio(_answersGameYes.first.audio);
   }
 
   @action
@@ -150,5 +145,9 @@ abstract class _GameStore with Store {
     if (res.success) {
       _answersGameYes = res.data!;
     }
+  }
+
+  void dispose() {
+    _audioPlayerService.dispose();
   }
 }

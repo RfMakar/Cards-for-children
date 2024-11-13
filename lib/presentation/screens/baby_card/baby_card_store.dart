@@ -29,7 +29,7 @@ abstract class _BabyCardStore with Store {
   late bool isFavoriteBabyCards;
 
   @action
-  void updateFavoriteBabyCard() async {
+  Future<void> updateFavoriteBabyCard() async {
     final isResultFavorite = !isFavoriteBabyCards;
     final isResultUpdateFavorite = await _babyCardRepository.updateBabyCard(
       babyCardId: babyCard.id,
@@ -52,4 +52,8 @@ abstract class _BabyCardStore with Store {
   void playAudioBabyCard() => _audioPlayerService.playAudio(babyCard.audio);
 
   void playRawBabyCard() => _audioPlayerService.playAudio(babyCard.raw!);
+
+  void dispose(){
+    _audioPlayerService.dispose();
+  }
 }

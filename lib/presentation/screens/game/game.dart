@@ -1,4 +1,3 @@
-import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/game/game_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatelessWidget {
@@ -26,12 +26,25 @@ class GameScreen extends StatelessWidget {
   }
 }
 
-class BodyGameScreen extends StatelessWidget {
+class BodyGameScreen extends StatefulWidget {
   const BodyGameScreen({super.key});
 
   @override
+  State<BodyGameScreen> createState() => _BodyGameScreenState();
+}
+
+class _BodyGameScreenState extends State<BodyGameScreen> {
+  late GameStore store;
+
+  @override
+  void dispose() {
+    store.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final store = Provider.of<GameStore>(context);
+    store = Provider.of<GameStore>(context);
     return Observer(
       builder: (_) => store.isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -66,10 +79,11 @@ class BabyCardsList extends StatelessWidget {
                     child: BabyCardWidget(
                       babyCard: store.babyCardsRandom[index],
                       onTap: () async {
-                        final isResult = store.onTapCardImage(
+                        final isResult = await store.onTapCardImage(
                           store.babyCardsRandom[index],
                         );
-                        if (isResult) {
+
+                        if (isResult && context.mounted) {
                           await context.pushNamed(
                             'baby_card',
                             extra: store.babyCardCorrect,
@@ -89,36 +103,36 @@ class BabyCardsList extends StatelessWidget {
   }
 }
 
-class BabyCardCorrectWidget extends StatelessWidget {
-  const BabyCardCorrectWidget({super.key});
+// class BabyCardCorrectWidget extends StatelessWidget {
+//   const BabyCardCorrectWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final store = Provider.of<GameStore>(context);
+//   @override
+//   Widget build(BuildContext context) {
+//     final store = Provider.of<GameStore>(context);
 
-    return Observer(
-      builder: (_) => Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(store.babyCardCorrect.color),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(50),
-            ),
-            border: Border.all(
-              color: AppColor.white,
-              width: 3,
-            ),
-          ),
-          child: Image.asset(
-            store.babyCardCorrect.icon,
-            height: 150,
-            width: 150,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//     return Observer(
+//       builder: (_) => Center(
+//         child: Container(
+//           decoration: BoxDecoration(
+//             color: Color(store.babyCardCorrect.color),
+//             borderRadius: const BorderRadius.all(
+//               Radius.circular(50),
+//             ),
+//             border: Border.all(
+//               color: AppColor.white,
+//               width: 3,
+//             ),
+//           ),
+//           child: Image.asset(
+//             store.babyCardCorrect.icon,
+//             height: 150,
+//             width: 150,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class ButtomNavigation extends StatelessWidget {
   const ButtomNavigation({super.key});

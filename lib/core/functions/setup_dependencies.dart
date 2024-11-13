@@ -18,9 +18,8 @@ final sl = GetIt.instance;
 
 Future<void> setupDependencies() async {
   //services
-  sl.registerLazySingleton<AudioPlayerService>(
+  sl.registerFactory<AudioPlayerService>(
     () => AudioPlayerService(),
-    dispose: (audioPlayer) => audioPlayer.dispose(),
   );
 
   //sqflite
@@ -42,6 +41,7 @@ Future<void> setupDependencies() async {
   sl.registerLazySingleton<HomeStore>(
     () => HomeStore(
       babyCardRepository: sl(),
+      audioPlayerService: sl(),
     )..init(),
   );
   sl.registerFactoryParam<BabyCardStore, BabyCard, void>(

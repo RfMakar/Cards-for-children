@@ -110,6 +110,15 @@ mixin _$GameStore on _GameStore, Store {
     });
   }
 
+  late final _$onTapCardImageAsyncAction =
+      AsyncAction('_GameStore.onTapCardImage', context: context);
+
+  @override
+  Future<bool> onTapCardImage(BabyCard babyCard) {
+    return _$onTapCardImageAsyncAction
+        .run(() => super.onTapCardImage(babyCard));
+  }
+
   late final _$_comparisonYesAsyncAction =
       AsyncAction('_GameStore._comparisonYes', context: context);
 
@@ -170,17 +179,6 @@ mixin _$GameStore on _GameStore, Store {
 
   late final _$_GameStoreActionController =
       ActionController(name: '_GameStore', context: context);
-
-  @override
-  bool onTapCardImage(BabyCard babyCard) {
-    final _$actionInfo = _$_GameStoreActionController.startAction(
-        name: '_GameStore.onTapCardImage');
-    try {
-      return super.onTapCardImage(babyCard);
-    } finally {
-      _$_GameStoreActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void restartGame() {

@@ -15,22 +15,42 @@ class BabyCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final store = sl<BabyCardStore>(param1: babyCard);
     return Provider(
-      create: (context) => sl<BabyCardStore>(
-        param1: babyCard,
-      ),
-      child: Scaffold(
-        backgroundColor: Color(babyCard.color).withOpacity(0.3),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TopWidgetBabyCard(),
-              ImageWidgetBabyCard(),
-              BottomWidgetBabyCard(),
-            ],
-          ),
+      create: (context) => store,
+      child: BodyBabyCardScreen(store: store),
+    );
+  }
+}
+
+class BodyBabyCardScreen extends StatefulWidget {
+  const BodyBabyCardScreen({super.key, required this.store});
+  final BabyCardStore store;
+
+  @override
+  State<BodyBabyCardScreen> createState() => _BodyBabyCardScreenState();
+}
+
+class _BodyBabyCardScreenState extends State<BodyBabyCardScreen> {
+  @override
+  void dispose() {
+    widget.store.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(widget.store.babyCard.color).withOpacity(0.8),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TopWidgetBabyCard(),
+            ImageWidgetBabyCard(),
+            BottomWidgetBabyCard(),
+          ],
         ),
       ),
     );
@@ -61,7 +81,7 @@ class ImageWidgetBabyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final babyCard = context.read<BabyCardStore>().babyCard;
+    final store = Provider.of<BabyCardStore>(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -76,7 +96,7 @@ class ImageWidgetBabyCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
           child: Image.asset(
-            babyCard.image,
+            store.babyCard.image,
             fit: BoxFit.fill,
           ),
         ),

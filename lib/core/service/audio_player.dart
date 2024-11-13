@@ -4,18 +4,18 @@ import 'package:busycards/core/service/toast.dart';
 class AudioPlayerService {
   final _audioPlayer = AudioPlayer();
 
-  Future<void> playAudio(String path) async {
+  Future<bool> playAudio(String path) async {
     try {
       await _audioPlayer.setAsset(path);
       await _audioPlayer.play();
+      return true;
     } catch (e) {
       ToastService.showToast('Ошибка воспроизведения');
-      return;
+      return false;
     }
   }
 
   Future playAudioList(List<String?> paths) async {
-    
     final pathsList = paths.whereType<String>().toList();
     final audiosSource = <AudioSource>[];
 
@@ -34,6 +34,7 @@ class AudioPlayerService {
       ToastService.showToast('Ошибка воспроизведения');
     }
   }
+
 
   void dispose() {
     _audioPlayer.dispose();

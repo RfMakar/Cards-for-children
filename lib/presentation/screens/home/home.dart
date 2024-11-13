@@ -1,6 +1,5 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
-import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -87,18 +86,14 @@ class CategoryCardWidget extends StatelessWidget {
   final radius = 12.0;
   final borderWidht = 2.0;
 
-  void _playAudio() {
-    sl<AudioPlayerService>().playAudio(
-      categoryCard.audio,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final store = sl<HomeStore>();
     return InkWell(
       borderRadius: BorderRadius.circular(radius),
       onTap: () {
-        _playAudio();
+        store.playAudio(categoryCard);
+
         context.pushNamed(
           'baby_cards',
           extra: categoryCard.id,

@@ -30,18 +30,13 @@ mixin _$BabyCardStore on _BabyCardStore, Store {
     });
   }
 
-  late final _$_BabyCardStoreActionController =
-      ActionController(name: '_BabyCardStore', context: context);
+  late final _$updateFavoriteBabyCardAsyncAction =
+      AsyncAction('_BabyCardStore.updateFavoriteBabyCard', context: context);
 
   @override
-  void updateFavoriteBabyCard() {
-    final _$actionInfo = _$_BabyCardStoreActionController.startAction(
-        name: '_BabyCardStore.updateFavoriteBabyCard');
-    try {
-      return super.updateFavoriteBabyCard();
-    } finally {
-      _$_BabyCardStoreActionController.endAction(_$actionInfo);
-    }
+  Future<void> updateFavoriteBabyCard() {
+    return _$updateFavoriteBabyCardAsyncAction
+        .run(() => super.updateFavoriteBabyCard());
   }
 
   @override
