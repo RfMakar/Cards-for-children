@@ -31,9 +31,10 @@ class BodyBabyCardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = Provider.of<BabyCardsStore>(context);
     return Observer(
-        builder: (_) => store.isLoading
-            ? const CircularProgressIndicator()
-            : const BabyCardsList());
+      builder: (_) => store.isLoading
+          ? const CircularProgressIndicator()
+          : const BabyCardsList(),
+    );
   }
 }
 

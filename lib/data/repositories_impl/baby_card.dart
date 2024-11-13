@@ -28,6 +28,24 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
   }
 
   @override
+  Future<List<BabyCard>> getBabyCardsFavorite() async {
+    final data = await _sqfliteClientApp.getBabyCardsFavorite();
+    return data.isNotEmpty
+        ? data.map((e) => BabyCardModel.fromJson(e)).toList()
+        : [];
+  }
+
+  @override
+  Future<bool> updateBabyCard(
+      {required int babyCardId, required bool isFavorite}) async {
+    final data = await _sqfliteClientApp.putBabyCard(
+      babyCardId,
+      isFavorite ? 1 : 0,
+    );
+    return data > 0 ? true : false;
+  }
+
+  @override
   Future<List<BabyCard>> getBabyCardsRandom({
     required int categoryId,
     required int limit,

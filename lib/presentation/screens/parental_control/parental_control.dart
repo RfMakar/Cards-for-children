@@ -130,7 +130,7 @@ class ButtomNavigation extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppButton.from(
+            AppButton.home(
               onTap: context.pop,
             ),
             const SizedBox(),

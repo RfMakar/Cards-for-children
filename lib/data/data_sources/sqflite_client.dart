@@ -11,7 +11,7 @@ class SqfliteClientApp {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'baby_cards_ru_v1.db');
+    String path = join(await getDatabasesPath(), 'baby_cards_ru_v2.db');
     await _copyDatabase(path);
     return await openDatabase(
       path,
@@ -24,7 +24,7 @@ class SqfliteClientApp {
     if (!exists) {
       //Если БД не существует то копируем из ресурсов
       ByteData data = await rootBundle.load(
-        join('assets', 'database', 'baby_cards_ru_v1.db'),
+        join('assets', 'database', 'baby_cards_ru_v2.db'),
       );
       List<int> bytes = data.buffer.asUint8List(
         data.offsetInBytes,
@@ -51,10 +51,21 @@ class SqfliteClientApp {
   }) async {
     final db = await _getDataBase;
     var sql = '''
-    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color
+    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color, cards.favorite
     FROM cards
     JOIN colors ON colors.id = cards.color_id
     WHERE category_id = $categoryId;
+    ''';
+    return await db.rawQuery(sql);
+  }
+
+  Future<List<Map<String, dynamic>>> getBabyCardsFavorite() async {
+    final db = await _getDataBase;
+    var sql = '''
+    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color, cards.favorite
+    FROM cards
+    JOIN colors ON colors.id = cards.color_id
+    WHERE favorite = 1;
     ''';
     return await db.rawQuery(sql);
   }
@@ -71,6 +82,16 @@ class SqfliteClientApp {
     LIMIT $limit;
     ''';
     return await db.rawQuery(sql);
+  }
+
+  Future<int> putBabyCard(int babyCardId, int isFavorite) async {
+    final db = await _getDataBase;
+    final sql = '''
+    UPDATE cards
+    SET favorite = $isFavorite
+    WHERE id = $babyCardId 
+    ''';
+    return await db.rawUpdate(sql);
   }
 
   //game

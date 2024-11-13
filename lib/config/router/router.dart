@@ -1,6 +1,7 @@
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_card/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards.dart';
+import 'package:busycards/presentation/screens/baby_cards_favorite/baby_cards_favorite.dart';
 import 'package:busycards/presentation/screens/game/game.dart';
 import 'package:busycards/presentation/screens/home/home.dart';
 import 'package:busycards/presentation/screens/parental_control/parental_control.dart';
@@ -52,18 +53,24 @@ final router = GoRouter(
           ],
         ),
         GoRoute(
-            name: 'parental_control',
-            path: 'parental_control',
-            builder: (context, state) {
-              return const ParentalControlScreen();
-            },
-            routes: [
-              GoRoute(
-                name: 'settings',
-                path: 'settings',
-                builder: (context, state) => const SettingsScreen(),
-              ),
-            ]),
+          name: 'parental_control',
+          path: 'parental_control',
+          builder: (context, state) {
+            return const ParentalControlScreen();
+          },
+          routes: [
+            GoRoute(
+              name: 'settings',
+              path: 'settings',
+              builder: (context, state) => const SettingsScreen(),
+            ),
+          ],
+        ),
+        GoRoute(
+          name: 'favorite_baby_cards',
+          path: 'favorite_baby_cards',
+          builder: (context, state) => const BabyCardsFavoriteScreen(),
+        ),
       ],
     ),
   ],

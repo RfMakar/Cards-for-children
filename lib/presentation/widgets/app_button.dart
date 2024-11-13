@@ -7,8 +7,10 @@ class AppButton extends StatelessWidget {
   final void Function() onTap;
   final String assetName;
 
-  const AppButton.feedback({super.key, required this.onTap})
-      : assetName = AppAssets.iconFeedBack;
+  const AppButton.favorite({super.key, required this.onTap})
+      : assetName = AppAssets.iconFavorite;
+       const AppButton.notFavorite({super.key, required this.onTap})
+      : assetName = AppAssets.iconNotFavorite;
   const AppButton.settings({super.key, required this.onTap})
       : assetName = AppAssets.iconSettings;
   const AppButton.home({super.key, required this.onTap})

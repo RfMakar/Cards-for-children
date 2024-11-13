@@ -174,7 +174,9 @@ class ButtomNavigation extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(),
+            AppButton.notFavorite(
+              onTap: () => context.pushNamed('favorite_baby_cards'),
+            ),
             AppButton.settings(
               onTap: () => context.pushNamed('parental_control'),
             ),
