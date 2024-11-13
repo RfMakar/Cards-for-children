@@ -74,7 +74,7 @@ class SqfliteClientApp {
       {required int categoryId, required int limit}) async {
     final db = await _getDataBase;
     final sql = '''
-    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color
+    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color, cards.favorite
     FROM cards
     JOIN colors ON colors.id = cards.color_id
     WHERE category_id = $categoryId 
