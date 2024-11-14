@@ -62,7 +62,7 @@ class BabyCardsList extends StatelessWidget {
     return Observer(
       builder: (_) => AnimationLimiter(
         child: GridView.count(
-          //physics: const NeverScrollableScrollPhysics(),
+          // physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
           crossAxisCount: 2,

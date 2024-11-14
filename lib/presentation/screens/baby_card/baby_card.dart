@@ -41,7 +41,7 @@ class _BodyBabyCardScreenState extends State<BodyBabyCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(widget.store.babyCard.color).withOpacity(0.8),
+      backgroundColor: Color(widget.store.babyCard.color).withOpacity(0.6),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
