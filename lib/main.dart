@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await setupAudioSession();
   await setupSystemUI();
   await setupDependencies();
-  await setupAudioSession();
+  
   runApp(const Application());
 }

@@ -36,6 +36,7 @@ abstract class _HomeStore with Store {
   }
 
   void playAudio(CategoryCard categoryCard) {
-    _audioPlayerService.playAudio(categoryCard.audio);
+    _audioPlayerService.setAndPlayAudio(categoryCard.audio);
   }
+
 }

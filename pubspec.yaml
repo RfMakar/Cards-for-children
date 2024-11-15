@@ -24,6 +24,7 @@ dependencies:
   fluttertoast: ^8.2.4
   just_audio: ^0.9.42
   audio_session: ^0.1.21
+  shared_preferences: ^2.3.3
   flutter_localizations:
     sdk: flutter
 
@@ -45,8 +46,9 @@ flutter:
     - assets/babycards/categories/icons/
     - assets/babycards/categories/audios/ru/
     - assets/database/
-    - assets/app/images/
+    - assets/app/audios/
     - assets/app/icons/
+    - assets/app/images/
     - assets/games/audios/answers/ru/
     - assets/games/audios/questions/ru/
 

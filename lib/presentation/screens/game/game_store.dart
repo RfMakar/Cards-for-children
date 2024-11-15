@@ -78,13 +78,13 @@ abstract class _GameStore with Store {
   @action
   Future<void> _comparisonYes() async {
     _answersGameYes.shuffle();
-    await _audioPlayerService.playAudio(_answersGameYes.first.audio);
+    await _audioPlayerService.setAndPlayAudio(_answersGameYes.first.audio);
   }
 
   @action
   Future<void> _comparisonNo() async {
     _answersGameNo.shuffle();
-    await _audioPlayerService.playAudio(_answersGameNo.first.audio);
+    await _audioPlayerService.setAndPlayAudio(_answersGameNo.first.audio);
   }
 
   void playQuestion() {
@@ -94,7 +94,7 @@ abstract class _GameStore with Store {
       babyCardCorrect.audio,
       babyCardCorrect.raw,
     ];
-    _audioPlayerService.playAudioList(assetsPath);
+    _audioPlayerService.setAndPlayAudioList(assetsPath);
   }
 
   @action

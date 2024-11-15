@@ -15,4 +15,12 @@ class AppAssets {
   static const iconReset = 'assets/app/icons/icon_reset.svg';
   static const iconNotFavorite = 'assets/app/icons/icon_not_favorite.svg';
   static const iconFavorite = 'assets/app/icons/icon_favorite.svg';
+
+  static const iconVolumeOn ='assets/app/icons/icon_volume_on.svg';
+  static const iconVolumeOff ='assets/app/icons/icon_volume_off.svg';
+
+}
+
+class AppAssetsAudio{
+  static const audioBackground= 'assets/app/audios/audio_background.mp3';
 }
