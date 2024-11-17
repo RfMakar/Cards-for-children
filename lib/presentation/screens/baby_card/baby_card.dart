@@ -82,22 +82,23 @@ class ImageWidgetBabyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<BabyCardStore>(context);
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          width: 4,
-          color: AppColor.white,
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            width: 4,
+            color: AppColor.white,
+          ),
         ),
-      ),
-      child: InkWell(
-        onTap: context.pop,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: Image.asset(
-            store.babyCard.image,
-            fit: BoxFit.fill,
+        child: InkWell(
+          onTap: context.pop,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Image.asset(
+              store.babyCard.image,
+              fit: BoxFit.fill,
+            ),
           ),
         ),
       ),
