@@ -1,5 +1,5 @@
 import 'package:just_audio/just_audio.dart';
-import 'package:busycards/core/service/toast.dart';
+
 
 class AudioPlayerService {
   final _audioPlayer = AudioPlayer();
@@ -12,7 +12,7 @@ class AudioPlayerService {
       await _audioPlayer.setAsset(path);
       await play();
     } catch (e) {
-      ToastService.showToast('Ошибка воспроизведения');
+      print('Ошибка воспроизведения');
     }
   }
 
@@ -35,7 +35,7 @@ class AudioPlayerService {
       await _audioPlayer.setAudioSource(playlist);
       await play();
     } catch (e) {
-      ToastService.showToast('Ошибка воспроизведения');
+     print('Ошибка воспроизведения');
     }
   }
 
@@ -46,7 +46,7 @@ class AudioPlayerService {
       await _audioPlayer.setAsset(path);
       await play();
     } catch (e) {
-      ToastService.showToast('Ошибка воспроизведения');
+       print('Ошибка воспроизведения');
     }
   }
 
@@ -60,7 +60,7 @@ class AudioPlayerService {
     try {
       await _audioPlayer.play();
     } catch (e) {
-      ToastService.showToast('Ошибка воспроизведения');
+       print('Ошибка воспроизведения');
     }
   }
 

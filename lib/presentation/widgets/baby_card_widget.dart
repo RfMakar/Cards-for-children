@@ -25,7 +25,7 @@ class BabyCardWidget extends StatelessWidget {
           margin: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: AppColor.white.withOpacity(0.8),
-            borderRadius: BorderRadius.all(Radius.circular(radius)),
+            borderRadius: BorderRadius.circular(radius),
             border: Border.all(
               color: Color(babyCard.color),
               width: borderWidht,
@@ -34,7 +34,9 @@ class BabyCardWidget extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: Image.asset(babyCard.icon),
+                child: Image.asset(
+                  babyCard.icon,
+                ),
               ),
               Container(
                 width: double.infinity,

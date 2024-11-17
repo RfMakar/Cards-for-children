@@ -5,7 +5,6 @@ import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:provider/provider.dart';
@@ -60,79 +59,35 @@ class BabyCardsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = Provider.of<GameStore>(context);
     return Observer(
-      builder: (_) => AnimationLimiter(
-        child: GridView.count(
-          // physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+      builder: (context) => GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.85,
-          children: List.generate(
-            store.babyCardsRandom.length,
-            (int index) {
-              return AnimationConfiguration.staggeredGrid(
-                position: index,
-                duration: const Duration(milliseconds: 375),
-                columnCount: 2,
-                child: ScaleAnimation(
-                  child: FadeInAnimation(
-                    child: BabyCardWidget(
-                      babyCard: store.babyCardsRandom[index],
-                      onTap: () async {
-                        final isResult = await store.onTapCardImage(
-                          store.babyCardsRandom[index],
-                        );
-
-                        if (isResult && context.mounted) {
-                          await context.pushNamed(
-                            'baby_card',
-                            extra: store.babyCardCorrect,
-                          );
-                          store.restartGame();
-                        }
-                      },
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
+          childAspectRatio: 0.80,
         ),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+        itemCount: store.babyCardsRandom.length,
+        itemBuilder: (context, index) {
+          return BabyCardWidget(
+            babyCard: store.babyCardsRandom[index],
+            onTap: () async {
+              final isResult = await store.onTapCardImage(
+                store.babyCardsRandom[index],
+              );
+
+              if (isResult && context.mounted) {
+                await context.pushNamed(
+                  'baby_card',
+                  extra: store.babyCardCorrect,
+                );
+                store.restartGame();
+              }
+            },
+          );
+        },
       ),
     );
   }
 }
-
-// class BabyCardCorrectWidget extends StatelessWidget {
-//   const BabyCardCorrectWidget({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final store = Provider.of<GameStore>(context);
-
-//     return Observer(
-//       builder: (_) => Center(
-//         child: Container(
-//           decoration: BoxDecoration(
-//             color: Color(store.babyCardCorrect.color),
-//             borderRadius: const BorderRadius.all(
-//               Radius.circular(50),
-//             ),
-//             border: Border.all(
-//               color: AppColor.white,
-//               width: 3,
-//             ),
-//           ),
-//           child: Image.asset(
-//             store.babyCardCorrect.icon,
-//             height: 150,
-//             width: 150,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class ButtomNavigation extends StatelessWidget {
   const ButtomNavigation({super.key});

@@ -6,7 +6,6 @@ import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +49,6 @@ class BabyCardsFvoriteList extends StatelessWidget {
 
     return babyCardsFavorite.isEmpty
         ? Column(
-          
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
@@ -63,33 +61,22 @@ class BabyCardsFvoriteList extends StatelessWidget {
               ),
             ],
           )
-        : AnimationLimiter(
-            child: GridView.count(
-              padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
-              childAspectRatio: 0.80,
+        : GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              children: List.generate(
-                babyCardsFavorite.length,
-                (int index) {
-                  return AnimationConfiguration.staggeredGrid(
-                    position: index,
-                    duration: const Duration(milliseconds: 375),
-                    columnCount: 2,
-                    child: ScaleAnimation(
-                      child: FadeInAnimation(
-                        child: BabyCardWidget(
-                          babyCard: babyCardsFavorite[index],
-                          onTap: () => context.pushNamed(
-                            'baby_card',
-                            extra: babyCardsFavorite[index],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+              childAspectRatio: 0.80,
             ),
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+            itemCount: babyCardsFavorite.length,
+            itemBuilder: (context, index) {
+              return BabyCardWidget(
+                babyCard: babyCardsFavorite[index],
+                onTap: () => context.pushNamed(
+                  'baby_card',
+                  extra: babyCardsFavorite[index],
+                ),
+              );
+            },
           );
   }
 }

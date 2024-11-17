@@ -6,7 +6,6 @@ import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -48,30 +47,19 @@ class CategoryCardsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = sl<HomeStore>();
-    return AnimationLimiter(
-      child: GridView.count(
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
-        //mainAxisSpacing: 1,
-        childAspectRatio: 0.80,
+
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        children: List.generate(
-          store.categorysCards.length,
-          (int index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: const Duration(milliseconds: 375),
-              columnCount: 2,
-              child: ScaleAnimation(
-                child: FadeInAnimation(
-                  child: CategoryCardWidget(
-                    categoryCard: store.categorysCards[index],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
+        childAspectRatio: 0.80,
       ),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+      itemCount: store.categorysCards.length,
+      itemBuilder: (context, index) {
+        return CategoryCardWidget(
+          categoryCard: store.categorysCards[index],
+        );
+      },
     );
   }
 }
@@ -100,12 +88,10 @@ class CategoryCardWidget extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.all(2),
+        margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: Color(categoryCard.color),
-          borderRadius: BorderRadius.all(
-            Radius.circular(radius),
-          ),
+          borderRadius: BorderRadius.circular(radius),
           border: Border.all(
             color: AppColor.white,
             width: borderWidht,
@@ -115,7 +101,9 @@ class CategoryCardWidget extends StatelessWidget {
           children: [
             Expanded(
               child: Center(
-                child: Image.asset(categoryCard.icon),
+                child: Image.asset(
+                  categoryCard.icon,
+                ),
               ),
             ),
             Container(

@@ -5,7 +5,6 @@ import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -44,33 +43,22 @@ class BabyCardsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<BabyCardsStore>(context);
-    return AnimationLimiter(
-      child: GridView.count(
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
-        childAspectRatio: 0.80,
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        children: List.generate(
-          store.babyCards.length,
-          (int index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: const Duration(milliseconds: 375),
-              columnCount: 2,
-              child: ScaleAnimation(
-                child: FadeInAnimation(
-                  child: BabyCardWidget(
-                    babyCard: store.babyCards[index],
-                    onTap: () => context.pushNamed(
-                      'baby_card',
-                      extra: store.babyCards[index],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
+        childAspectRatio: 0.80,
       ),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+      itemCount: store.babyCards.length,
+      itemBuilder: (context, index) {
+        return BabyCardWidget(
+          babyCard: store.babyCards[index],
+          onTap: () => context.pushNamed(
+            'baby_card',
+            extra: store.babyCards[index],
+          ),
+        );
+      },
     );
   }
 }

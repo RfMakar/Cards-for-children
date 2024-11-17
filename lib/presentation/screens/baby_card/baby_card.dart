@@ -43,7 +43,10 @@ class _BodyBabyCardScreenState extends State<BodyBabyCardScreen> {
     return Scaffold(
       backgroundColor: Color(widget.store.babyCard.color).withOpacity(0.6),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 16),
+        padding: const EdgeInsets.symmetric(
+          vertical: 80,
+          horizontal: 16,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -85,7 +88,7 @@ class ImageWidgetBabyCard extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(36.0),
           border: Border.all(
             width: 4,
             color: AppColor.white,
@@ -94,12 +97,10 @@ class ImageWidgetBabyCard extends StatelessWidget {
         child: InkWell(
           onTap: context.pop,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(32.0),
             child: Image.asset(
               store.babyCard.image,
-              
               fit: BoxFit.fitHeight,
-            
             ),
           ),
         ),
@@ -145,12 +146,8 @@ class ButtonFavoriteBabyCard extends StatelessWidget {
     final store = context.read<BabyCardStore>();
     return Observer(
       builder: (context) => store.isFavoriteBabyCards
-          ? AppButton.favorite(
-              onTap: store.updateFavoriteBabyCard,
-            )
-          : AppButton.notFavorite(
-              onTap: store.updateFavoriteBabyCard,
-            ),
+          ? AppButton.favorite(onTap: store.updateFavoriteBabyCard)
+          : AppButton.notFavorite(onTap: store.updateFavoriteBabyCard),
     );
   }
 }
