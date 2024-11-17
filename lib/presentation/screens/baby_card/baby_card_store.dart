@@ -54,6 +54,6 @@ abstract class _BabyCardStore with Store {
   void playRawBabyCard() => _audioPlayerService.setAndPlayAudio(babyCard.raw!);
 
   void dispose(){
-    _audioPlayerService.dispose();
+   _audioPlayerService.stop();
   }
 }

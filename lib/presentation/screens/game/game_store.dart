@@ -15,7 +15,7 @@ class GameStore = _GameStore with _$GameStore;
 abstract class _GameStore with Store {
   final BabyCardRepository _babyCardRepository;
   final GameRepository _gameRepository;
-  final AudioPlayerService _audioPlayerService;
+  final AudioPlayerService _audioPlayerServiceGame;
   final int _categoryId;
 
   final int _numberOfCards = 6;
@@ -42,7 +42,7 @@ abstract class _GameStore with Store {
     required int categoryId,
   })  : _babyCardRepository = babyCardRepository,
         _gameRepository = gameRepository,
-        _audioPlayerService = audioPlayerService,
+        _audioPlayerServiceGame = audioPlayerService,
         _categoryId = categoryId;
 
   Future<void> init() async {
@@ -78,13 +78,13 @@ abstract class _GameStore with Store {
   @action
   Future<void> _comparisonYes() async {
     _answersGameYes.shuffle();
-    await _audioPlayerService.setAndPlayAudio(_answersGameYes.first.audio);
+    await _audioPlayerServiceGame.setAndPlayAudio(_answersGameYes.first.audio);
   }
 
   @action
   Future<void> _comparisonNo() async {
     _answersGameNo.shuffle();
-    await _audioPlayerService.setAndPlayAudio(_answersGameNo.first.audio);
+    await _audioPlayerServiceGame.setAndPlayAudio(_answersGameNo.first.audio);
   }
 
   void playQuestion() {
@@ -94,7 +94,7 @@ abstract class _GameStore with Store {
       babyCardCorrect.audio,
       babyCardCorrect.raw,
     ];
-    _audioPlayerService.setAndPlayAudioList(assetsPath);
+    _audioPlayerServiceGame.setAndPlayAudioList(assetsPath);
   }
 
   @action
@@ -148,6 +148,6 @@ abstract class _GameStore with Store {
   }
 
   void dispose() {
-    _audioPlayerService.dispose();
+    _audioPlayerServiceGame.stop();
   }
 }

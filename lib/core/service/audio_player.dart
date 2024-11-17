@@ -6,6 +6,9 @@ class AudioPlayerService {
 
   Future<void> setAndPlayAudio(String path) async {
     try {
+      if (_audioPlayer.playing) {
+        await _audioPlayer.pause();
+      }
       await _audioPlayer.setAsset(path);
       await play();
     } catch (e) {
@@ -26,6 +29,9 @@ class AudioPlayerService {
     );
 
     try {
+      if (_audioPlayer.playing) {
+        await _audioPlayer.pause();
+      }
       await _audioPlayer.setAudioSource(playlist);
       await play();
     } catch (e) {
@@ -46,7 +52,7 @@ class AudioPlayerService {
 
   Future<void> pause() async {
     if (_audioPlayer.playing) {
-      await _audioPlayer.pause();
+       _audioPlayer.pause();
     }
   }
 

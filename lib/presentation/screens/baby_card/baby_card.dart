@@ -43,7 +43,7 @@ class _BodyBabyCardScreenState extends State<BodyBabyCardScreen> {
     return Scaffold(
       backgroundColor: Color(widget.store.babyCard.color).withOpacity(0.6),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -97,7 +97,9 @@ class ImageWidgetBabyCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
             child: Image.asset(
               store.babyCard.image,
-              fit: BoxFit.fill,
+              
+              fit: BoxFit.fitHeight,
+            
             ),
           ),
         ),

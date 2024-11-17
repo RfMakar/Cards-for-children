@@ -25,9 +25,13 @@ Future<void> setupDependencies() async {
   sl.registerLazySingleton<StorageLocalService>(
     () => StorageLocalService(),
   );
-  sl.registerFactory<AudioPlayerService>(
+  sl.registerLazySingleton<AudioPlayerService>(
     () => AudioPlayerService(),
     instanceName: keyAudioPlayer,
+  );
+  sl.registerLazySingleton<AudioPlayerService>(
+    () => AudioPlayerService(),
+    instanceName: keyAudioPlayerGame,
   );
   sl.registerLazySingleton<AudioPlayerService>(
     () => AudioPlayerService(),
@@ -92,7 +96,7 @@ Future<void> setupDependencies() async {
       babyCardRepository: sl(),
       gameRepository: sl(),
       audioPlayerService: sl.get(
-        instanceName: keyAudioPlayer,
+        instanceName: keyAudioPlayerGame,
       ),
       categoryId: categoryId,
     )..init(),
