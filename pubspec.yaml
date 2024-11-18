@@ -21,6 +21,8 @@ dependencies:
   flutter_svg: ^2.0.14
   just_audio: ^0.9.42
   shared_preferences: ^2.3.3
+  flutter_native_splash: ^2.4.3
+  
   flutter_localizations:
     sdk: flutter
 
@@ -57,3 +59,10 @@ flutter_launcher_icons:
   min_sdk_android: 21
   adaptive_icon_background: '#00B2FF'
 
+flutter_native_splash:
+  color: '#ffffff'
+  image: assets/app/icons/icon_splash.png
+  android_12:
+    color: '#ffffff'
+    image: assets/app/icons/icon_splash.png
+  web: false
