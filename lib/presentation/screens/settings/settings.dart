@@ -7,6 +7,7 @@ import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/settings/settings_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
+import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
@@ -32,7 +33,7 @@ class BodySettingScreen extends StatelessWidget {
     final store = sl<SettingsStore>();
     return Observer(
       builder: (context) => store.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingWidget()
           : const ButtonsSettings(),
     );
   }

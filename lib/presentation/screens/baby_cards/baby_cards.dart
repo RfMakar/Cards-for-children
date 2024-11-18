@@ -3,6 +3,7 @@ import 'package:busycards/presentation/screens/baby_cards/baby_cards_store.dart'
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
+import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +32,7 @@ class BodyBabyCardsScreen extends StatelessWidget {
     final store = Provider.of<BabyCardsStore>(context);
     return Observer(
       builder: (_) => store.isLoading
-          ? const CircularProgressIndicator()
+          ? const LoadingWidget()
           : const BabyCardsList(),
     );
   }

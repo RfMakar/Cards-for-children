@@ -16,6 +16,9 @@ class AppAssets {
   static const iconNotFavorite = 'assets/app/icons/icon_not_favorite.svg';
   static const iconFavorite = 'assets/app/icons/icon_favorite.svg';
 
+  //app
+   static const iconLoading = 'assets/app/icons/icon_loading.svg';
+
   static const iconVolumeOn ='assets/app/icons/icon_volume_on.svg';
   static const iconVolumeOff ='assets/app/icons/icon_volume_off.svg';
 

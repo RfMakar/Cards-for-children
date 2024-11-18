@@ -3,6 +3,7 @@ import 'package:busycards/presentation/screens/game/game_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
+import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -46,7 +47,7 @@ class _BodyGameScreenState extends State<BodyGameScreen> {
     store = Provider.of<GameStore>(context);
     return Observer(
       builder: (_) => store.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingWidget()
           : const BabyCardsList(),
     );
   }

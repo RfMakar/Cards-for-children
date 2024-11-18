@@ -4,6 +4,7 @@ import 'package:busycards/presentation/screens/baby_cards_favorite/baby_cards_fa
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
+import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,7 +34,7 @@ class BodyBabyCardsFavorite extends StatelessWidget {
     final store = Provider.of<BabyCardsFavoriteStore>(context);
     return Observer(
       builder: (_) => store.isLoading
-          ? const CircularProgressIndicator()
+          ? const LoadingWidget()
           : const BabyCardsFvoriteList(),
     );
   }

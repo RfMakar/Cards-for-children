@@ -4,6 +4,7 @@ import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
+import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -35,7 +36,7 @@ class BodyHomeScreen extends StatelessWidget {
     final store = sl<HomeStore>();
     return Observer(
       builder: (_) => store.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingWidget()
           : const CategoryCardsList(),
     );
   }
