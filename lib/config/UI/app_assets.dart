@@ -17,13 +17,13 @@ class AppAssets {
   static const iconFavorite = 'assets/app/icons/icon_favorite.svg';
 
   //app
-   static const iconLoading = 'assets/app/icons/icon_loading.svg';
+  static const iconLoading = 'assets/app/icons/icon_loading.svg';
 
-  static const iconVolumeOn ='assets/app/icons/icon_volume_on.svg';
-  static const iconVolumeOff ='assets/app/icons/icon_volume_off.svg';
+  static const iconVolumeOn = 'assets/app/icons/icon_volume_on.svg';
+  static const iconVolumeOff = 'assets/app/icons/icon_volume_off.svg';
 
 }
 
-class AppAssetsAudio{
-  static const audioBackground= 'assets/app/audios/audio_background.mp3';
+class AppAssetsAudio {
+  static const audioBackground = 'assets/app/audios/audio_background.mp3';
 }

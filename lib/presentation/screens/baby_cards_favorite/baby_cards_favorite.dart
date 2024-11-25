@@ -1,4 +1,5 @@
 import 'package:busycards/config/UI/app_assets.dart';
+import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/baby_cards_favorite/baby_cards_favorite_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -73,7 +74,7 @@ class BabyCardsFvoriteList extends StatelessWidget {
               return BabyCardWidget(
                 babyCard: babyCardsFavorite[index],
                 onTap: () => context.pushNamed(
-                  'baby_card',
+                  RouterPath.pathBabyCardScreen,
                   extra: babyCardsFavorite[index],
                 ),
               );

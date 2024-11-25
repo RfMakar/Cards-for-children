@@ -1,3 +1,4 @@
+import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -55,7 +56,7 @@ class BabyCardsList extends StatelessWidget {
         return BabyCardWidget(
           babyCard: store.babyCards[index],
           onTap: () => context.pushNamed(
-            'baby_card',
+            RouterPath.pathBabyCardScreen,
             extra: store.babyCards[index],
           ),
         );
@@ -86,7 +87,7 @@ class ButtomNavigation extends StatelessWidget {
             ),
             AppButton.game(
               onTap: () => context.pushNamed(
-                'game',
+                RouterPath.pathGamesMenuScreen,
                 extra: store.categoryId,
               ),
             ),

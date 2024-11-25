@@ -1,3 +1,4 @@
+import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/game/game_store.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -77,7 +78,7 @@ class BabyCardsList extends StatelessWidget {
 
               if (isResult && context.mounted) {
                 await context.pushNamed(
-                  'baby_card',
+                  RouterPath.pathBabyCardScreen,
                   extra: store.babyCardCorrect,
                 );
                 store.restartGame();

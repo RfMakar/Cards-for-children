@@ -13,6 +13,7 @@ import 'package:busycards/presentation/screens/baby_card/baby_card_store.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards_store.dart';
 import 'package:busycards/presentation/screens/baby_cards_favorite/baby_cards_favorite_store.dart';
 import 'package:busycards/presentation/screens/game/game_store.dart';
+import 'package:busycards/presentation/screens/games_menu/games_menu_store.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
 import 'package:busycards/presentation/screens/parental_control/parental_control_store.dart';
 import 'package:busycards/presentation/screens/settings/settings_store.dart';
@@ -111,5 +112,11 @@ Future<void> setupDependencies() async {
     () => SettingsStore(
       audioPlayerBackgroundStore: sl(),
     ),
+  );
+  sl.registerFactoryParam<GamesMenuStore, int, void>(
+    (categoryId, _) => GamesMenuStore(
+      babyCardRepository: sl(),
+      categoryId: categoryId,
+    )..init(),
   );
 }

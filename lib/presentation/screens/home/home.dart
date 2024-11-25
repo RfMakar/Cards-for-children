@@ -1,4 +1,5 @@
 import 'package:busycards/config/UI/app_color.dart';
+import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/presentation/screens/home/home_store.dart';
@@ -35,9 +36,8 @@ class BodyHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = sl<HomeStore>();
     return Observer(
-      builder: (_) => store.isLoading
-          ? const LoadingWidget()
-          : const CategoryCardsList(),
+      builder: (_) =>
+          store.isLoading ? const LoadingWidget() : const CategoryCardsList(),
     );
   }
 }
@@ -84,7 +84,7 @@ class CategoryCardWidget extends StatelessWidget {
         store.playAudio(categoryCard);
 
         context.pushNamed(
-          'baby_cards',
+          RouterPath.pathBabyCardsScreen,
           extra: categoryCard.id,
         );
       },
@@ -159,10 +159,14 @@ class ButtomNavigation extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppButton.notFavorite(
-              onTap: () => context.pushNamed('favorite_baby_cards'),
+              onTap: () => context.pushNamed(
+                RouterPath.pathFavoriteBabyCardsScreen,
+              ),
             ),
             AppButton.settings(
-              onTap: () => context.pushNamed('parental_control'),
+              onTap: () => context.pushNamed(
+                RouterPath.pathParentalControlScreen,
+              ),
             ),
           ],
         ),
