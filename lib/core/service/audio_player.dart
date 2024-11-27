@@ -2,8 +2,9 @@ import 'package:audioplayers/audioplayers.dart';
 
 class AudioPlayerService {
   final _audioPlayer = AudioPlayer();
- 
+
   Future<void> setAndPlayAudio(String path) async {
+    await _audioPlayer.stop();
     await _audioPlayer.play(AssetSource(path));
   }
 
@@ -34,9 +35,9 @@ class AudioPlayerService {
   Future<void> pause() async {
     await _audioPlayer.pause();
   }
-  
+
   Future<void> stop() async {
-    _audioPlayer.stop();
+    await _audioPlayer.stop();
   }
 
   Future<void> dispose() async {

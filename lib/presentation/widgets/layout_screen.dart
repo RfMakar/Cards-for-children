@@ -15,7 +15,7 @@ class LayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.color,
+      backgroundColor: AppColor.colorMain,
       body: SafeArea(
         bottom: false,
         child: Stack(

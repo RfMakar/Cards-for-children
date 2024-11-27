@@ -18,4 +18,8 @@ class BabyCard {
     required this.raw,
     required this.isFavorite,
   });
+
+  List<String> audioAndRaw() {
+    return [audio, raw].whereType<String>().toList();
+  }
 }

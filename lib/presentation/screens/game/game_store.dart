@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:busycards/core/service/audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:busycards/domain/entities/answer_game.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/domain/entities/question_game.dart';
@@ -15,7 +15,7 @@ class GameStore = _GameStore with _$GameStore;
 abstract class _GameStore with Store {
   final BabyCardRepository _babyCardRepository;
   final GameRepository _gameRepository;
-  final AudioPlayerService _audioPlayerServiceGame;
+  final AudioPlayer _audioPlayer;
   final int _categoryId;
 
   final int _numberOfCards = 6;
@@ -38,11 +38,11 @@ abstract class _GameStore with Store {
   _GameStore({
     required BabyCardRepository babyCardRepository,
     required GameRepository gameRepository,
-    required AudioPlayerService audioPlayerService,
+    required AudioPlayer audioPlayer,
     required int categoryId,
   })  : _babyCardRepository = babyCardRepository,
         _gameRepository = gameRepository,
-        _audioPlayerServiceGame = audioPlayerService,
+        _audioPlayer = audioPlayer,
         _categoryId = categoryId;
 
   Future<void> init() async {
@@ -58,7 +58,7 @@ abstract class _GameStore with Store {
   }
 
   @action
-  Future<bool> onTapCardImage(BabyCard babyCard) async{
+  Future<bool> onTapCardImage(BabyCard babyCard) async {
     final isComparison = babyCard.name == babyCardCorrect.name;
     if (isComparison) {
       _comparisonYes();
@@ -78,23 +78,41 @@ abstract class _GameStore with Store {
   @action
   Future<void> _comparisonYes() async {
     _answersGameYes.shuffle();
-    await _audioPlayerServiceGame.setAndPlayAudio(_answersGameYes.first.audio);
+    final source = AssetSource(_answersGameYes.first.audio);
+    await _audioPlayer.play(source);
   }
 
   @action
   Future<void> _comparisonNo() async {
     _answersGameNo.shuffle();
-    await _audioPlayerServiceGame.setAndPlayAudio(_answersGameNo.first.audio);
+    final source = AssetSource(_answersGameNo.first.audio);
+    await _audioPlayer.play(source);
   }
 
-  void playQuestion() {
+  void playQuestion() async {
     _questionsGame.shuffle();
+
     final assetsPath = [
       _questionsGame.first.audio,
       babyCardCorrect.audio,
       babyCardCorrect.raw,
-    ];
-    _audioPlayerServiceGame.setAndPlayAudioList(assetsPath);
+    ].whereType<String>().toList();
+    final assetsSource = <AssetSource>[];
+
+    for (var path in assetsPath) {
+      assetsSource.add(AssetSource(path));
+    }
+
+    await _audioPlayer.play(assetsSource.first);
+    int i = 1;
+    _audioPlayer.onPlayerComplete.listen(
+      (_) async {
+        if (i < assetsSource.length) {
+          await _audioPlayer.play(assetsSource[i]);
+          i++;
+        }
+      },
+    );
   }
 
   @action
@@ -148,6 +166,6 @@ abstract class _GameStore with Store {
   }
 
   void dispose() {
-    _audioPlayerServiceGame.stop();
+    _audioPlayer.dispose();
   }
 }

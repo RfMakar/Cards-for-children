@@ -34,7 +34,7 @@ class BodyBabyCardScreen extends StatefulWidget {
 class _BodyBabyCardScreenState extends State<BodyBabyCardScreen> {
   @override
   void dispose() {
-    widget.store.dispose();
+    widget.store.disposeAudioPlayer();
     super.dispose();
   }
 

@@ -116,7 +116,7 @@ class CardsSetting extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  color: AppColor.color,
+                  color: AppColor.colorMain,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.normal,
@@ -127,7 +127,7 @@ class CardsSetting extends StatelessWidget {
                       pathIcon!,
                       fit: BoxFit.fill,
                       colorFilter: ColorFilter.mode(
-                        AppColor.color,
+                        AppColor.colorMain,
                         BlendMode.srcIn,
                       ),
                     )

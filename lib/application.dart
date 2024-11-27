@@ -4,17 +4,15 @@ import 'package:busycards/domain/state/audio_player_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
-
 class Application extends StatefulWidget {
   const Application({super.key});
- 
+
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> with WidgetsBindingObserver {
- final audioPlayerBackgroundStore = sl<AudioPlayerBackgroundStore>();
+  final audioPlayerBackgroundStore = sl<AudioPlayerBackgroundStore>();
   @override
   void initState() {
     super.initState();
@@ -34,7 +32,7 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
       audioPlayerBackgroundStore.pauseAudioPlayerBackround();
     }
     if (state == AppLifecycleState.resumed) {
-      audioPlayerBackgroundStore.playAudioPlayerBackround();
+      audioPlayerBackgroundStore.resumeAudioPlayerBackround();
     }
     super.didChangeAppLifecycleState(state);
   }

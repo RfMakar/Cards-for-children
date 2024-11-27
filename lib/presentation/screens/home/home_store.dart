@@ -1,4 +1,4 @@
-import 'package:busycards/core/service/audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
 import 'package:mobx/mobx.dart';
@@ -10,13 +10,13 @@ class HomeStore = _HomeStore with _$HomeStore;
 
 abstract class _HomeStore with Store {
   final BabyCardRepository _babyCardRepository;
-  final AudioPlayerService _audioPlayerService;
+  final AudioPlayer _audioPlayer;
 
   _HomeStore({
     required BabyCardRepository babyCardRepository,
-    required AudioPlayerService audioPlayerService,
+    required AudioPlayer audioPlayer,
   })  : _babyCardRepository = babyCardRepository,
-        _audioPlayerService = audioPlayerService;
+        _audioPlayer = audioPlayer;
 
   Future<void> init() async {
     await _getCategoriesCards();
@@ -35,8 +35,12 @@ abstract class _HomeStore with Store {
     categorysCards = res;
   }
 
-  void playAudio(CategoryCard categoryCard) {
-    _audioPlayerService.setAndPlayAudio(categoryCard.audio);
+  void playAudioPlayer(CategoryCard categoryCard) {
+    final source = AssetSource(categoryCard.audio);
+    _audioPlayer.play(source);
   }
 
+  void disposeAudioPlayer() {
+    _audioPlayer.dispose();
+  }
 }

@@ -12,6 +12,6 @@ class AppTextStyle {
     fontSize: 24,
     fontWeight: FontWeight.bold,
     fontStyle: FontStyle.normal,
-    color: AppColor.color,
+    color: AppColor.colorMain,
   );
 }

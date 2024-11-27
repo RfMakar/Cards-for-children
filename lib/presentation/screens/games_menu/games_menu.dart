@@ -50,8 +50,8 @@ class GamesMenu extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
       children: [
         ButtonGameShowMe(),
-        ButtonGameShowMe(),
-        ButtonGameShowMe(),
+        // ButtonGameShowMe(),
+        // ButtonGameShowMe(),
       ],
     );
   }
@@ -87,62 +87,40 @@ class ButtonGameShowMe extends StatelessWidget {
           ),
           physics: NeverScrollableScrollPhysics(),
           children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.all(margin),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(color),
-                  ),
-                ),
-                Text(
-                  '?',
-                  style: TextStyle(
-                    fontSize: 34,
-                    color: AppColor.white,
-                  ),
-                )
-              ],
+            _card(
+              color: AppColor.colorSecondary,
+              assets: store.babyCards[2].icon,
             ),
-            Container(
-              margin: EdgeInsets.all(margin),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(color),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  store.babyCards[0].icon,
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
+            _card(
+              color: Color(color),
+              assets: store.babyCards[0].icon,
             ),
-            Container(
-              margin: EdgeInsets.all(margin),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(color),
-              ),
-              child: Image.asset(
-                store.babyCards[1].icon,
-                fit: BoxFit.fitHeight,
-              ),
+            _card(
+              color: Color(color),
+              assets: store.babyCards[1].icon,
             ),
-            Container(
-              margin: EdgeInsets.all(margin),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(color),
-              ),
-              child: Image.asset(
-                store.babyCards[2].icon,
-                fit: BoxFit.fitHeight,
-              ),
+            _card(
+              color: Color(color),
+              assets: store.babyCards[2].icon,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _card({required Color color, required String assets}) {
+    return Container(
+      margin: EdgeInsets.all(margin),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Image.asset(
+          assets,
+          fit: BoxFit.fitHeight,
         ),
       ),
     );

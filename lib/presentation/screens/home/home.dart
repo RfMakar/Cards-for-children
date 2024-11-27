@@ -29,12 +29,23 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class BodyHomeScreen extends StatelessWidget {
+class BodyHomeScreen extends StatefulWidget {
   const BodyHomeScreen({super.key});
 
   @override
+  State<BodyHomeScreen> createState() => _BodyHomeScreenState();
+}
+
+class _BodyHomeScreenState extends State<BodyHomeScreen> {
+  final store = sl<HomeStore>();
+  @override
+  void dispose() {
+    store.disposeAudioPlayer();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final store = sl<HomeStore>();
     return Observer(
       builder: (_) =>
           store.isLoading ? const LoadingWidget() : const CategoryCardsList(),
@@ -48,7 +59,6 @@ class CategoryCardsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = sl<HomeStore>();
-
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -81,8 +91,7 @@ class CategoryCardWidget extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(radius),
       onTap: () {
-        store.playAudio(categoryCard);
-
+        store.playAudioPlayer(categoryCard);
         context.pushNamed(
           RouterPath.pathBabyCardsScreen,
           extra: categoryCard.id,

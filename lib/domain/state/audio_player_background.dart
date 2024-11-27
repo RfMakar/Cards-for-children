@@ -1,5 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:busycards/config/UI/app_assets.dart';
-import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/core/service/storage_local.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,13 +11,13 @@ class AudioPlayerBackgroundStore = _AudioPlayerBackgroundStore
 
 abstract class _AudioPlayerBackgroundStore with Store {
   final StorageLocalService _storageLocalService;
-  final AudioPlayerService _audioPlayerServiceBackground;
+  final AudioPlayer _audioPlayer;
 
   _AudioPlayerBackgroundStore({
     required StorageLocalService storageLocalService,
-    required AudioPlayerService audioPlayerServiceBackground,
+    required AudioPlayer audioPlayer,
   })  : _storageLocalService = storageLocalService,
-        _audioPlayerServiceBackground = audioPlayerServiceBackground;
+        _audioPlayer = audioPlayer;
 
   Future<void> init() async {
     await _getAudioBackground();
@@ -37,38 +37,38 @@ abstract class _AudioPlayerBackgroundStore with Store {
 
   Future<void> _playAudioBackground() async {
     if (isAudioBackground) {
-      _audioPlayerServiceBackground.setAndPlayAudioBacground(
-        AppAssetsAudio.audioBackground,
-      );
+      final source = AssetSource(AppAssetsAudio.audioBackground);
+      await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+      _audioPlayer.play(source, volume: 0.1);
     }
   }
 
   @action
   Future<void> onOffAudioPlayerBackround() async {
     if (isAudioBackground) {
-      _audioPlayerServiceBackground.stop();
+      _audioPlayer.stop();
+      await _storageLocalService.setAudioBackground(!isAudioBackground);
+      isAudioBackground = !isAudioBackground;
     } else {
-      _audioPlayerServiceBackground.setAndPlayAudioBacground(
-        AppAssetsAudio.audioBackground,
-      );
+      await _storageLocalService.setAudioBackground(!isAudioBackground);
+      isAudioBackground = !isAudioBackground;
+      _playAudioBackground();
     }
-    await _storageLocalService.setAudioBackground(!isAudioBackground);
-    isAudioBackground = !isAudioBackground;
   }
 
   Future<void> pauseAudioPlayerBackround() async {
-    _audioPlayerServiceBackground.pause();
+    if (isAudioBackground) {
+      _audioPlayer.pause();
+    }
   }
 
-  Future<void> playAudioPlayerBackround() async {
+  Future<void> resumeAudioPlayerBackround() async {
     if (isAudioBackground) {
-     _audioPlayerServiceBackground.setAndPlayAudioBacground(
-        AppAssetsAudio.audioBackground,
-      );
+      _audioPlayer.resume();
     }
   }
 
   Future<void> disposeAudioPlayer() async {
-    await _audioPlayerServiceBackground.dispose();
+    _audioPlayer.dispose();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:busycards/core/service/audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
 import 'package:mobx/mobx.dart';
@@ -10,15 +10,15 @@ class BabyCardStore = _BabyCardStore with _$BabyCardStore;
 
 abstract class _BabyCardStore with Store {
   final BabyCardRepository _babyCardRepository;
-  final AudioPlayerService _audioPlayerService;
+  final AudioPlayer _audioPlayer;
   final BabyCard babyCard;
 
   _BabyCardStore({
     required BabyCardRepository babyCardRepository,
-    required AudioPlayerService audioPlayerService,
+    required AudioPlayer audioPlayer,
     required this.babyCard,
   })  : _babyCardRepository = babyCardRepository,
-        _audioPlayerService = audioPlayerService;
+        _audioPlayer = audioPlayer;
 
   Future<void> init() async {
     _playAudioAndRawBabyCard();
@@ -42,18 +42,35 @@ abstract class _BabyCardStore with Store {
   }
 
   void _playAudioAndRawBabyCard() async {
-    final assetsPath = [
-      babyCard.audio,
-      babyCard.raw,
-    ];
-    _audioPlayerService.setAndPlayAudioList(assetsPath);
+    final assetsSource = <AssetSource>[];
+
+    for (var path in babyCard.audioAndRaw()) {
+      assetsSource.add(AssetSource(path));
+    }
+
+    await _audioPlayer.play(assetsSource.first);
+    int i = 1;
+    _audioPlayer.onPlayerComplete.listen(
+      (_) async {
+        if (i < assetsSource.length) {
+          await _audioPlayer.play(assetsSource[i]);
+          i++;
+        }
+      },
+    );
   }
 
-  void playAudioBabyCard() => _audioPlayerService.setAndPlayAudio(babyCard.audio);
+  void playAudioBabyCard() {
+    final source = AssetSource(babyCard.audio);
+    _audioPlayer.play(source);
+  }
 
-  void playRawBabyCard() => _audioPlayerService.setAndPlayAudio(babyCard.raw!);
+  void playRawBabyCard() {
+    final source = AssetSource(babyCard.raw!);
+    _audioPlayer.play(source);
+  }
 
-  void dispose(){
-   _audioPlayerService.stop();
+  void disposeAudioPlayer() {
+    _audioPlayer.dispose();
   }
 }

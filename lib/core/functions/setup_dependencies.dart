@@ -1,9 +1,8 @@
-import 'package:busycards/core/constants/key.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:busycards/core/service/storage_local.dart';
 import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/repositories_impl/baby_card.dart';
 import 'package:busycards/data/repositories_impl/game.dart';
-import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/domain/entities/parental_control.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
@@ -26,17 +25,8 @@ Future<void> setupDependencies() async {
   sl.registerLazySingleton<StorageLocalService>(
     () => StorageLocalService(),
   );
-  sl.registerLazySingleton<AudioPlayerService>(
-    () => AudioPlayerService(),
-    instanceName: keyAudioPlayer,
-  );
-  sl.registerLazySingleton<AudioPlayerService>(
-    () => AudioPlayerService(),
-    instanceName: keyAudioPlayerGame,
-  );
-  sl.registerLazySingleton<AudioPlayerService>(
-    () => AudioPlayerService(),
-    instanceName: keyAudioPlayerBackground,
+  sl.registerFactory<AudioPlayer>(
+    () => AudioPlayer(),
   );
 
   //sqflite
@@ -58,26 +48,20 @@ Future<void> setupDependencies() async {
   sl.registerLazySingleton<AudioPlayerBackgroundStore>(
     () => AudioPlayerBackgroundStore(
       storageLocalService: sl(),
-      audioPlayerServiceBackground: sl.get(
-        instanceName: keyAudioPlayerBackground,
-      ),
+      audioPlayer: sl.get(),
     )..init(),
   );
   //stores screen
   sl.registerLazySingleton<HomeStore>(
     () => HomeStore(
       babyCardRepository: sl(),
-      audioPlayerService: sl.get(
-        instanceName: keyAudioPlayer,
-      ),
+      audioPlayer: sl.get(),
     )..init(),
   );
   sl.registerFactoryParam<BabyCardStore, BabyCard, void>(
     (babyCard, _) => BabyCardStore(
       babyCardRepository: sl(),
-      audioPlayerService: sl.get(
-        instanceName: keyAudioPlayer,
-      ),
+      audioPlayer: sl.get(),
       babyCard: babyCard,
     )..init(),
   );
@@ -96,9 +80,7 @@ Future<void> setupDependencies() async {
     (categoryId, _) => GameStore(
       babyCardRepository: sl(),
       gameRepository: sl(),
-      audioPlayerService: sl.get(
-        instanceName: keyAudioPlayerGame,
-      ),
+      audioPlayer: sl.get(),
       categoryId: categoryId,
     )..init(),
   );
