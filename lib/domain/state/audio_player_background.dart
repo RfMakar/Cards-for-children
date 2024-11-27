@@ -62,7 +62,9 @@ abstract class _AudioPlayerBackgroundStore with Store {
 
   Future<void> playAudioPlayerBackround() async {
     if (isAudioBackground) {
-      _audioPlayerServiceBackground.play();
+     _audioPlayerServiceBackground.setAndPlayAudioBacground(
+        AppAssetsAudio.audioBackground,
+      );
     }
   }
 
