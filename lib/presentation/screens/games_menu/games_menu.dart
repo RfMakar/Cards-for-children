@@ -40,12 +40,13 @@ class BodyGamesMenuScreen extends StatelessWidget {
 
 class GamesMenu extends StatelessWidget {
   const GamesMenu({super.key});
-
+  int crossAxisCount(double width) => width > 500 ? 3 : 2;
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount(width),
       ),
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
       children: [

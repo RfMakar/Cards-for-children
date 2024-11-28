@@ -44,8 +44,11 @@ class BodyBabyCardsFavorite extends StatelessWidget {
 class BabyCardsFvoriteList extends StatelessWidget {
   const BabyCardsFvoriteList({super.key});
 
+  int crossAxisCount(double width) => width > 500 ? 3 : 2;
+
   @override
   Widget build(BuildContext context) {
+     final width = MediaQuery.of(context).size.width;
     final babyCardsFavorite =
         Provider.of<BabyCardsFavoriteStore>(context).babyCardsFavorite;
 
@@ -64,8 +67,8 @@ class BabyCardsFvoriteList extends StatelessWidget {
             ],
           )
         : GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount(width),
               childAspectRatio: 0.80,
             ),
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),

@@ -47,9 +47,8 @@ class _BodyGameScreenState extends State<BodyGameScreen> {
   Widget build(BuildContext context) {
     store = Provider.of<GameStore>(context);
     return Observer(
-      builder: (_) => store.isLoading
-          ? const LoadingWidget()
-          : const BabyCardsList(),
+      builder: (_) =>
+          store.isLoading ? const LoadingWidget() : const BabyCardsList(),
     );
   }
 }
@@ -57,13 +56,16 @@ class _BodyGameScreenState extends State<BodyGameScreen> {
 class BabyCardsList extends StatelessWidget {
   const BabyCardsList({super.key});
 
+  int crossAxisCount(double width) => width > 500 ? 3 : 2;
+
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final store = Provider.of<GameStore>(context);
     return Observer(
       builder: (context) => GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount(width),
           childAspectRatio: 0.80,
         ),
         padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),

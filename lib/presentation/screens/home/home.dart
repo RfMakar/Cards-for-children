@@ -56,12 +56,15 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
 class CategoryCardsList extends StatelessWidget {
   const CategoryCardsList({super.key});
 
+  int crossAxisCount(double width) => width > 500 ? 3 : 2;
+
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final store = sl<HomeStore>();
     return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount:crossAxisCount(width) ,
         childAspectRatio: 0.80,
       ),
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
