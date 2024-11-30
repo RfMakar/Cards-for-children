@@ -22,4 +22,15 @@ class BabyCard {
   List<String> audioAndRaw() {
     return [audio, raw].whereType<String>().toList();
   }
+
+  BabyCard copyWith({ bool? isFavorite}) => BabyCard(
+        id: id,
+        name: name,
+        icon: icon,
+        image: image,
+        audio: audio,
+        color: color,
+        raw: raw,
+        isFavorite: isFavorite ?? this.isFavorite,
+      );
 }

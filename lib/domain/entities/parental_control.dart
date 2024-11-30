@@ -13,5 +13,7 @@ class ParentalControl {
     b = random.nextInt(10) + 5;
   }
 
+  String get textExample => '$a + $b = ?';
+
   bool checkingTheAmount(int sum) => a + b == sum;
 }

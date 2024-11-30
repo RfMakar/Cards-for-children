@@ -4,12 +4,13 @@ import 'package:busycards/core/constants/constants.dart';
 import 'package:busycards/core/functions/get_device.dart';
 import 'package:busycards/core/functions/open_url_in_browser.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
-import 'package:busycards/presentation/screens/settings/settings_store.dart';
+import 'package:busycards/presentation/screens/settings/bloc/settings_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
+import 'package:busycards/presentation/widgets/failed.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,9 +19,12 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const LayoutScreen(
-      body: BodySettingScreen(),
-      navigation: ButtomNavigation(),
+    return BlocProvider(
+      create: (context) => sl<SettingsBloc>()..add(SettingsInitialization()),
+      child: const LayoutScreen(
+        body: BodySettingScreen(),
+        navigation: ButtomNavigation(),
+      ),
     );
   }
 }
@@ -30,11 +34,17 @@ class BodySettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = sl<SettingsStore>();
-    return Observer(
-      builder: (context) => store.isLoading
-          ? const LoadingWidget()
-          : const ButtonsSettings(),
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        if (state is SettingsLoadInProgress) {
+          return LoadingWidget();
+        } else if (state is SettingsLoadSucces) {
+          return ButtonsSettings();
+        } else if (state is SettingsLoadFailed) {
+          return FailedWidget(message: state.message);
+        }
+        return Container();
+      },
     );
   }
 }
@@ -52,19 +62,30 @@ class ButtonsSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = sl<SettingsStore>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Observer(
-          builder: (context) => CardsSetting(
-            title: 'Музыка',
-            pathIcon: store.isAudioBackground
-                ? AppAssets.iconVolumeOn
-                : AppAssets.iconVolumeOff,
-            onTap: store.onOffAudioPlayerBackround,
-          ),
+        BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            if (state is SettingsLoadSucces) {
+              return CardsSetting(
+                title: 'Музыка',
+                pathIcon: state.isPlay
+                    ? AppAssets.iconVolumeOn
+                    : AppAssets.iconVolumeOff,
+                onTap: () {
+                  context.read<SettingsBloc>().add(
+                        SettingsSwitchPlayer(
+                          !state.isPlay,
+                        ),
+                      );
+                },
+              );
+            }
+            return Container();
+          },
         ),
+
         // CardsSetting(
         //   title: 'Язык',
         //   onTap: () {},

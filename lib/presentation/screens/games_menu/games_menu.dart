@@ -1,12 +1,14 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
-import 'package:busycards/presentation/screens/games_menu/games_menu_store.dart';
+import 'package:busycards/domain/entities/baby_card.dart';
+import 'package:busycards/presentation/screens/games_menu/bloc/games_menu_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
+import 'package:busycards/presentation/widgets/failed.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +17,18 @@ class GamesMenuScreen extends StatelessWidget {
   final int categoryId;
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (context) => sl<GamesMenuStore>(param1: categoryId),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<GamesMenuBloc>()
+            ..add(
+              GamesMenuInitialization(categoryId),
+            ),
+        ),
+        Provider(
+          create: (context) => categoryId,
+        ),
+      ],
       child: LayoutScreen(
         body: BodyGamesMenuScreen(),
         navigation: ButtomNavigationGameMenuScreen(),
@@ -30,16 +42,24 @@ class BodyGamesMenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = Provider.of<GamesMenuStore>(context);
-    return Observer(
-      builder: (_) =>
-          store.isLoading ? const LoadingWidget() : const GamesMenu(),
+    return BlocBuilder<GamesMenuBloc, GamesMenuState>(
+      builder: (context, state) {
+        if (state is GamesMenuLoadInProgress) {
+          return LoadingWidget();
+        } else if (state is GamesMenuLoadFailed) {
+          return FailedWidget(message: state.message);
+        } else if (state is GamesMenuLoadSucces) {
+          return GamesMenu(babyCards: state.babyCards);
+        }
+        return Container();
+      },
     );
   }
 }
 
 class GamesMenu extends StatelessWidget {
-  const GamesMenu({super.key});
+  const GamesMenu({super.key, required this.babyCards});
+  final List<BabyCard> babyCards;
   int crossAxisCount(double width) => width > 500 ? 3 : 2;
   @override
   Widget build(BuildContext context) {
@@ -50,7 +70,7 @@ class GamesMenu extends StatelessWidget {
       ),
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
       children: [
-        ButtonGameShowMe(),
+        ButtonGameShowMe(babyCards: babyCards),
         // ButtonGameShowMe(),
         // ButtonGameShowMe(),
       ],
@@ -59,18 +79,18 @@ class GamesMenu extends StatelessWidget {
 }
 
 class ButtonGameShowMe extends StatelessWidget {
-  const ButtonGameShowMe({super.key});
+  const ButtonGameShowMe({super.key, required this.babyCards});
+  final List<BabyCard> babyCards;
   final double borderRadius = 32;
   final double margin = 4;
   @override
   Widget build(BuildContext context) {
-    final store = Provider.of<GamesMenuStore>(context);
-    final color = store.babyCards.first.color;
+    final color = babyCards.first.color;
     return InkWell(
       borderRadius: BorderRadius.circular(borderRadius),
       onTap: () => context.pushNamed(
         RouterPath.pathGameShowMeScreen,
-        extra: store.categoryId,
+        extra: context.read<int>(),
       ),
       child: Container(
         margin: EdgeInsets.all(2),
@@ -90,19 +110,19 @@ class ButtonGameShowMe extends StatelessWidget {
           children: [
             _card(
               color: AppColor.colorSecondary,
-              assets: store.babyCards[2].icon,
+              assets: babyCards[2].icon,
             ),
             _card(
               color: Color(color),
-              assets: store.babyCards[0].icon,
+              assets: babyCards[0].icon,
             ),
             _card(
               color: Color(color),
-              assets: store.babyCards[1].icon,
+              assets: babyCards[1].icon,
             ),
             _card(
               color: Color(color),
-              assets: store.babyCards[2].icon,
+              assets: babyCards[2].icon,
             ),
           ],
         ),

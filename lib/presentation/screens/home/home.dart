@@ -1,18 +1,40 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
+import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/category_card.dart';
-import 'package:busycards/presentation/screens/home/home_store.dart';
+import 'package:busycards/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
+import 'package:busycards/presentation/widgets/failed.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late AudioPlayerService _audioPlayerService;
+
+  @override
+  void initState() {
+    _audioPlayerService = sl<AudioPlayerService>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _audioPlayerService.dispose();
+    super.dispose();
+  }
 
   void _initLocale(BuildContext context) {
     final locale = Localizations.localeOf(context);
@@ -22,56 +44,74 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _initLocale(context);
-    return const LayoutScreen(
-      body: BodyHomeScreen(),
-      navigation: ButtomNavigation(),
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<HomeBloc>()..add(HomeInitialization()),
+        ),
+        Provider(
+          create: (context) => _audioPlayerService,
+        ),
+      ],
+      child: const LayoutScreen(
+        body: BodyHomeScreen(),
+        navigation: ButtomNavigation(),
+      ),
     );
   }
 }
 
-class BodyHomeScreen extends StatefulWidget {
+class BodyHomeScreen extends StatelessWidget {
   const BodyHomeScreen({super.key});
 
   @override
-  State<BodyHomeScreen> createState() => _BodyHomeScreenState();
-}
-
-class _BodyHomeScreenState extends State<BodyHomeScreen> {
-  final store = sl<HomeStore>();
-  @override
-  void dispose() {
-    store.disposeAudioPlayer();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) =>
-          store.isLoading ? const LoadingWidget() : const CategoryCardsList(),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is HomeLoadInProgress) {
+          return LoadingWidget();
+        } else if (state is HomeLoadSucces) {
+          return CategoryCardsList(
+            categorysCards: state.categorysCards,
+          );
+        } else if (state is HomeLoadFailed) {
+          return FailedWidget(message: state.message);
+        }
+        return Container();
+      },
     );
   }
 }
 
 class CategoryCardsList extends StatelessWidget {
-  const CategoryCardsList({super.key});
+  const CategoryCardsList({super.key, required this.categorysCards});
+  final List<CategoryCard> categorysCards;
 
   int crossAxisCount(double width) => width > 500 ? 3 : 2;
 
   @override
   Widget build(BuildContext context) {
+    final audioPlayerService = context.read<AudioPlayerService>();
     final width = MediaQuery.of(context).size.width;
-    final store = sl<HomeStore>();
     return GridView.builder(
-      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount:crossAxisCount(width) ,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount(width),
         childAspectRatio: 0.80,
       ),
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
-      itemCount: store.categorysCards.length,
+      itemCount: categorysCards.length,
       itemBuilder: (context, index) {
+        final categoryCard = categorysCards[index];
         return CategoryCardWidget(
-          categoryCard: store.categorysCards[index],
+          categoryCard: categoryCard,
+          onTap: () {
+            audioPlayerService.play(categoryCard.audio);
+            context.pushNamed(
+              RouterPath.pathBabyCardsScreen,
+              extra: categoryCard.id,
+            );
+          },
         );
       },
     );
@@ -82,24 +122,19 @@ class CategoryCardWidget extends StatelessWidget {
   const CategoryCardWidget({
     super.key,
     required this.categoryCard,
+    required this.onTap,
   });
 
   final CategoryCard categoryCard;
+  final Function() onTap;
   final radius = 12.0;
   final borderWidht = 2.0;
 
   @override
   Widget build(BuildContext context) {
-    final store = sl<HomeStore>();
     return InkWell(
       borderRadius: BorderRadius.circular(radius),
-      onTap: () {
-        store.playAudioPlayer(categoryCard);
-        context.pushNamed(
-          RouterPath.pathBabyCardsScreen,
-          extra: categoryCard.id,
-        );
-      },
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(

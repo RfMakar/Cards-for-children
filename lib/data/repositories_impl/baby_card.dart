@@ -1,3 +1,4 @@
+import 'package:busycards/core/resources/data_state.dart';
 import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/model/baby_card.dart';
 import 'package:busycards/data/model/category_card.dart';
@@ -12,37 +13,61 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
   }) : _sqfliteClientApp = sqfliteClientApp;
 
   @override
-  Future<List<CategoryCardModel>> getCategoriesCards() async {
-    final data = await _sqfliteClientApp.getCategoriesCards();
-    return data.isNotEmpty
-        ? data.map((e) => CategoryCardModel.fromJson(e)).toList()
-        : [];
+  Future<DataState<List<CategoryCardModel>>> getCategoriesCards() async {
+    try {
+      final dataMap = await _sqfliteClientApp.getCategoriesCards();
+      final List<CategoryCardModel> data = dataMap.isNotEmpty
+          ? dataMap.map((e) => CategoryCardModel.fromJson(e)).toList()
+          : [];
+      return DataSuccess(data);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
   }
 
   @override
-  Future<List<BabyCardModel>> getBabyCards({required int categoryId}) async {
-    final data = await _sqfliteClientApp.getBabyCards(categoryId: categoryId);
-    return data.isNotEmpty
-        ? data.map((e) => BabyCardModel.fromJson(e)).toList()
-        : [];
+  Future<DataState<List<BabyCardModel>>> getBabyCards({
+    required int categoryId,
+  }) async {
+    try {
+      final dataMap =
+          await _sqfliteClientApp.getBabyCards(categoryId: categoryId);
+      final List<BabyCardModel> data = dataMap.isNotEmpty
+          ? dataMap.map((e) => BabyCardModel.fromJson(e)).toList()
+          : [];
+      return DataSuccess(data);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
   }
 
   @override
-  Future<List<BabyCard>> getBabyCardsFavorite() async {
-    final data = await _sqfliteClientApp.getBabyCardsFavorite();
-    return data.isNotEmpty
-        ? data.map((e) => BabyCardModel.fromJson(e)).toList()
-        : [];
+  Future<DataState<List<BabyCardModel>>> getBabyCardsFavorite() async {
+    try {
+      final dataMap = await _sqfliteClientApp.getBabyCardsFavorite();
+      final List<BabyCardModel> data = dataMap.isNotEmpty
+          ? dataMap.map((e) => BabyCardModel.fromJson(e)).toList()
+          : [];
+      return DataSuccess(data);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
   }
 
   @override
-  Future<bool> updateBabyCard(
-      {required int babyCardId, required bool isFavorite}) async {
-    final data = await _sqfliteClientApp.putBabyCard(
-      babyCardId,
-      isFavorite ? 1 : 0,
-    );
-    return data > 0 ? true : false;
+  Future<DataState<bool>> updateBabyCard({
+    required int babyCardId,
+    required bool isFavorite,
+  }) async {
+    try {
+      final data = await _sqfliteClientApp.putBabyCard(
+        babyCardId,
+        isFavorite ? 1 : 0,
+      );
+      return DataSuccess(data > 0 ? true : false);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
   }
 
   @override

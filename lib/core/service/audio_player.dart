@@ -1,8 +1,42 @@
 import 'package:audioplayers/audioplayers.dart';
 
 class AudioPlayerService {
-  final _audioPlayer = AudioPlayer();
+  final AudioPlayer _audioPlayer;
 
+  AudioPlayerService({required AudioPlayer audioPlayer})
+      : _audioPlayer = audioPlayer;
+
+  void play(String path) {
+    final source = AssetSource(path);
+    _audioPlayer.play(source);
+  }
+
+  void playList(List<String> paths) {
+    final assetsSource = <AssetSource>[];
+
+    for (var path in paths) {
+      assetsSource.add(AssetSource(path));
+    }
+
+    _audioPlayer.play(assetsSource.first);
+    int i = 1;
+    _audioPlayer.onPlayerComplete.listen(
+      (_) async {
+        if (i < assetsSource.length) {
+          await _audioPlayer.play(assetsSource[i]);
+          i++;
+        }
+      },
+    );
+  }
+
+  void dispose() {
+    _audioPlayer.dispose();
+  }
+}
+
+
+/*
   Future<void> setAndPlayAudio(String path) async {
     await _audioPlayer.stop();
     await _audioPlayer.play(AssetSource(path));
@@ -43,4 +77,4 @@ class AudioPlayerService {
   Future<void> dispose() async {
     await _audioPlayer.dispose();
   }
-}
+*/

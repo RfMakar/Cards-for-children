@@ -1,6 +1,7 @@
 import 'package:busycards/config/router/router.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
-import 'package:busycards/domain/state/audio_player_background.dart';
+import 'package:busycards/core/service/audio_background.dart';
+import 'package:busycards/core/service/storage_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -12,9 +13,33 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> with WidgetsBindingObserver {
-  final audioPlayerBackgroundStore = sl<AudioPlayerBackgroundStore>();
+  final _audioBackground = sl<AudioBackgroundService>();
+  final _storageLocalService = sl<StorageLocalService>();
+
+  Future _play() async {
+    final isPlay = await _storageLocalService.getAudioBackground();
+    if (isPlay) {
+      _audioBackground.play();
+    }
+  }
+
+  Future _pause() async {
+    final isPlay = await _storageLocalService.getAudioBackground();
+    if (isPlay) {
+      _audioBackground.pause();
+    }
+  }
+
+  Future _resume() async {
+    final isPlay = await _storageLocalService.getAudioBackground();
+    if (isPlay) {
+      _audioBackground.resume();
+    }
+  }
+
   @override
   void initState() {
+    _play();
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -22,17 +47,17 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.addObserver(this);
-    audioPlayerBackgroundStore.disposeAudioPlayer();
+    _audioBackground.dispose();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      audioPlayerBackgroundStore.pauseAudioPlayerBackround();
+      _pause();
     }
     if (state == AppLifecycleState.resumed) {
-      audioPlayerBackgroundStore.resumeAudioPlayerBackround();
+      _resume();
     }
     super.didChangeAppLifecycleState(state);
   }

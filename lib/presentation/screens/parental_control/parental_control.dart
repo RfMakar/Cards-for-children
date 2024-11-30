@@ -1,8 +1,7 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/UI/app_text_style.dart';
 import 'package:busycards/config/router/router_path.dart';
-import 'package:busycards/core/functions/setup_dependencies.dart';
-import 'package:busycards/presentation/screens/parental_control/parental_control_store.dart';
+import 'package:busycards/domain/entities/parental_control.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class ParentalControlScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (context) => sl<ParentalControlStore>(),
+      create: (context) => ParentalControl(),
       child: const LayoutScreen(
         body: BodyParentalControl(),
         navigation: ButtomNavigation(),
@@ -59,14 +58,14 @@ class ExampleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = context.read<ParentalControlStore>();
+    final parentalControl = context.read<ParentalControl>();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            store.textSum,
+            parentalControl.textExample,
             style: AppTextStyle.textStyle,
           ),
         ],
@@ -80,7 +79,7 @@ class AnswerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = context.read<ParentalControlStore>();
+    final parentalControl = context.read<ParentalControl>();
     return SizedBox(
       width: 150,
       child: TextField(
@@ -89,7 +88,12 @@ class AnswerWidget extends StatelessWidget {
         style: AppTextStyle.textStyle,
         cursorColor: AppColor.white,
         onChanged: (val) {
-          if (store.resultSum(val)) {
+          if (val.isEmpty) {
+            return;
+          }
+          final sum = int.parse(val);
+          final isResult = parentalControl.checkingTheAmount(sum);
+          if (isResult) {
             final location =
                 '${RouterPath.pathHomeScreen}/${RouterPath.pathParentalControlScreen}/${RouterPath.pathSettingsScreen}';
             context.replace(location);

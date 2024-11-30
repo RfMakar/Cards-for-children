@@ -22,9 +22,12 @@ dependencies:
   shared_preferences: ^2.3.3
   flutter_native_splash: ^2.4.3
   audioplayers: ^6.1.0
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.6
   
   flutter_localizations:
     sdk: flutter
+  meta: ^1.15.0
 
 dev_dependencies:
   flutter_test:

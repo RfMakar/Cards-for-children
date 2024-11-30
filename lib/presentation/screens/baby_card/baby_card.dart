@@ -1,47 +1,69 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
+import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
-import 'package:busycards/presentation/screens/baby_card/baby_card_store.dart';
-
+import 'package:busycards/presentation/screens/baby_card/bloc/baby_card_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class BabyCardScreen extends StatelessWidget {
+class BabyCardScreen extends StatefulWidget {
   const BabyCardScreen({super.key, required this.babyCard});
   final BabyCard babyCard;
 
   @override
-  Widget build(BuildContext context) {
-    final store = sl<BabyCardStore>(param1: babyCard);
-    return Provider(
-      create: (context) => store,
-      child: BodyBabyCardScreen(store: store),
-    );
-  }
+  State<BabyCardScreen> createState() => _BabyCardScreenState();
 }
 
-class BodyBabyCardScreen extends StatefulWidget {
-  const BodyBabyCardScreen({super.key, required this.store});
-  final BabyCardStore store;
-
+class _BabyCardScreenState extends State<BabyCardScreen> {
+  late AudioPlayerService _audioPlayerService;
   @override
-  State<BodyBabyCardScreen> createState() => _BodyBabyCardScreenState();
-}
+  void initState() {
+    _audioPlayerService = sl<AudioPlayerService>();
+    _audioPlayerService.playList(widget.babyCard.audioAndRaw());
+    super.initState();
+  }
 
-class _BodyBabyCardScreenState extends State<BodyBabyCardScreen> {
   @override
   void dispose() {
-    widget.store.disposeAudioPlayer();
+    _audioPlayerService.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<BabyCardBloc>()
+            ..add(
+              BabyCardInitialization(babyCard: widget.babyCard),
+            ),
+        ),
+        Provider(
+          create: (context) => widget.babyCard,
+        ),
+        Provider(
+          create: (context) => _audioPlayerService,
+        ),
+      ],
+      child: BodyBabyCardScreen(),
+    );
+  }
+}
+
+class BodyBabyCardScreen extends StatelessWidget {
+  const BodyBabyCardScreen({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final babyCard = context.read<BabyCard>();
     return Scaffold(
-      backgroundColor: Color(widget.store.babyCard.color).withOpacity(0.6),
+      backgroundColor: Color(babyCard.color).withOpacity(0.6),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 80,
@@ -84,7 +106,7 @@ class ImageWidgetBabyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = Provider.of<BabyCardStore>(context);
+    final babyCard = context.read<BabyCard>();
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -99,7 +121,7 @@ class ImageWidgetBabyCard extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(32.0),
             child: Image.asset(
-              store.babyCard.image,
+              babyCard.image,
               fit: BoxFit.fitHeight,
             ),
           ),
@@ -114,8 +136,8 @@ class BottomWidgetBabyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = context.read<BabyCardStore>();
-    final babyCard = store.babyCard;
+    final babyCard = context.read<BabyCard>();
+    final audioPlayerService = context.read<AudioPlayerService>();
     final isRaw = babyCard.raw != null;
     return Padding(
         padding: const EdgeInsets.only(top: 16),
@@ -123,31 +145,61 @@ class BottomWidgetBabyCard extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  AppButton.raw(onTap: store.playRawBabyCard),
+                  AppButton.raw(
+                    onTap: () => audioPlayerService.play(
+                      babyCard.raw!,
+                    ),
+                  ),
                   ButtonFavoriteBabyCard(),
-                  AppButton.audio(onTap: store.playAudioBabyCard),
+                  AppButton.audio(
+                    onTap: () => audioPlayerService.play(
+                      babyCard.audio,
+                    ),
+                  ),
                 ],
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ButtonFavoriteBabyCard(),
-                  AppButton.audio(onTap: store.playAudioBabyCard),
+                  AppButton.audio(
+                    onTap: () => audioPlayerService.play(
+                      babyCard.audio,
+                    ),
+                  ),
                 ],
               ));
   }
 }
+
 
 class ButtonFavoriteBabyCard extends StatelessWidget {
   const ButtonFavoriteBabyCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final store = context.read<BabyCardStore>();
-    return Observer(
-      builder: (context) => store.isFavoriteBabyCards
-          ? AppButton.favorite(onTap: store.updateFavoriteBabyCard)
-          : AppButton.notFavorite(onTap: store.updateFavoriteBabyCard),
+    return BlocBuilder<BabyCardBloc, BabyCardState>(
+      builder: (context, state) {
+        if (state is BabyCardLoadSucces) {
+          final babyCard = state.babyCard;
+          return babyCard.isFavorite
+              ? AppButton.favorite(
+                  onTap: () => context.read<BabyCardBloc>().add(
+                        BabyCardsIsFavorite(
+                          babyCard: babyCard,
+                        ),
+                      ),
+                )
+              : AppButton.notFavorite(
+                  onTap: () => context.read<BabyCardBloc>().add(
+                        BabyCardsIsFavorite(
+                          babyCard: babyCard,
+                        ),
+                      ),
+                );
+        }
+        return Container();
+      },
     );
   }
 }
