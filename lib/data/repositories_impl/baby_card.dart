@@ -2,7 +2,6 @@ import 'package:busycards/core/resources/data_state.dart';
 import 'package:busycards/data/data_sources/sqflite_client.dart';
 import 'package:busycards/data/model/baby_card.dart';
 import 'package:busycards/data/model/category_card.dart';
-import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
 
 class BabyCardRepositoryImpl implements BabyCardRepository {
@@ -71,16 +70,21 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
   }
 
   @override
-  Future<List<BabyCard>> getBabyCardsRandom({
+  Future<DataState<List<BabyCardModel>>> getBabyCardsRandom({
     required int categoryId,
     required int limit,
   }) async {
-    final data = await _sqfliteClientApp.getBabyCardsRandom(
-      categoryId: categoryId,
-      limit: limit,
-    );
-    return data.isNotEmpty
-        ? data.map((e) => BabyCardModel.fromJson(e)).toList()
-        : [];
+    try {
+      final dataMap = await _sqfliteClientApp.getBabyCardsRandom(
+        categoryId: categoryId,
+        limit: limit,
+      );
+      final List<BabyCardModel> data = dataMap.isNotEmpty
+          ? dataMap.map((e) => BabyCardModel.fromJson(e)).toList()
+          : [];
+      return DataSuccess(data);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
   }
 }

@@ -1,7 +1,7 @@
 name: busycards
 description: A new Flutter project.
 publish_to: 'none'
-version: 2.0.14+39
+version: 2.0.15+40
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -14,8 +14,6 @@ dependencies:
   flutter_launcher_icons: ^0.14.1
   provider: ^6.1.2
   url_launcher: ^6.3.1
-  mobx: ^2.4.0
-  flutter_mobx: ^2.2.1+1
   get_it: ^8.0.2
   go_router: ^14.6.0
   flutter_svg: ^2.0.14
@@ -34,7 +32,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   build_runner: ^2.4.13
-  mobx_codegen: ^2.6.2
 
 flutter:
   uses-material-design: true
@@ -52,6 +49,7 @@ flutter:
     - assets/app/images/
     - assets/games/audios/answers/ru/
     - assets/games/audios/questions/ru/
+    - assets/games/icons/
 
 flutter_launcher_icons:
   android: true

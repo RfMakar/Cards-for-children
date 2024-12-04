@@ -10,7 +10,8 @@ import 'package:busycards/domain/repositories/game.dart';
 import 'package:busycards/presentation/screens/baby_card/bloc/baby_card_bloc.dart';
 import 'package:busycards/presentation/screens/baby_cards/bloc/baby_cards_bloc.dart';
 import 'package:busycards/presentation/screens/baby_cards_favorite/bloc/baby_cards_favorite_bloc.dart';
-import 'package:busycards/presentation/screens/game/game_store.dart';
+import 'package:busycards/presentation/screens/game_show_me/baby_card_game/bloc/baby_card_game_bloc.dart';
+import 'package:busycards/presentation/screens/game_show_me/bloc/game_show_me_bloc.dart';
 import 'package:busycards/presentation/screens/games_menu/bloc/games_menu_bloc.dart';
 import 'package:busycards/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:busycards/presentation/screens/settings/bloc/settings_bloc.dart';
@@ -55,15 +56,6 @@ Future<void> setupDependencies() async {
       sqfliteClientApp: sl(),
     ),
   );
-  //stores screen
-  sl.registerFactoryParam<GameStore, int, void>(
-    (categoryId, _) => GameStore(
-      babyCardRepository: sl(),
-      gameRepository: sl(),
-      audioPlayer: sl.get(),
-      categoryId: categoryId,
-    )..init(),
-  );
 
   //bloc screen
   sl.registerLazySingleton(
@@ -96,5 +88,15 @@ Future<void> setupDependencies() async {
     () => GamesMenuBloc(
       sl(),
     ),
+  );
+  sl.registerFactory(
+    () => GameShowMeBloc(
+      sl(),
+      sl(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => BabyCardGameBloc(),
   );
 }

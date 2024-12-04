@@ -22,6 +22,9 @@ class AppAssets {
   static const iconVolumeOn = 'assets/app/icons/icon_volume_on.svg';
   static const iconVolumeOff = 'assets/app/icons/icon_volume_off.svg';
 
+  //games
+  static const iconYes = 'assets/games/icons/icon_yes.svg';
+  static const iconNo = 'assets/games/icons/icon_no.svg';
 }
 
 class AppAssetsAudio {

@@ -1,7 +1,7 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/UI/app_text_style.dart';
 import 'package:busycards/config/router/router_path.dart';
-import 'package:busycards/domain/entities/parental_control.dart';
+import 'package:busycards/core/objects/parental_control.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';

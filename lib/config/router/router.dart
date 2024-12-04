@@ -3,7 +3,7 @@ import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_card/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards.dart';
 import 'package:busycards/presentation/screens/baby_cards_favorite/baby_cards_favorite.dart';
-import 'package:busycards/presentation/screens/game/game.dart';
+import 'package:busycards/presentation/screens/game_show_me/game_show_me.dart';
 import 'package:busycards/presentation/screens/games_menu/games_menu.dart';
 import 'package:busycards/presentation/screens/home/home.dart';
 import 'package:busycards/presentation/screens/parental_control/parental_control.dart';
@@ -57,7 +57,7 @@ final router = GoRouter(
                     path: RouterPath.pathGameShowMeScreen,
                     builder: (context, state) {
                       final categoryId = state.extra as int;
-                      return GameScreen(
+                      return GameShowMeScreen(
                         categoryId: categoryId,
                       );
                     },

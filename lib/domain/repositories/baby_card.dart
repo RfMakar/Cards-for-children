@@ -10,7 +10,7 @@ abstract class BabyCardRepository {
     required int babyCardId,
     required bool isFavorite,
   });
-  Future<List<BabyCard>> getBabyCardsRandom({
+  Future<DataState<List<BabyCard>>> getBabyCardsRandom({
     required int categoryId,
     required int limit,
   });
