@@ -7,7 +7,7 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc(this._babyCardRepository) : super(HomeInitial()) {
+  HomeBloc(this._babyCardRepository) : super(HomeState()) {
     on<HomeInitialization>(_onInitialization);
   }
 
@@ -17,12 +17,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeInitialization event,
     Emitter<HomeState> emit,
   ) async {
-    emit(HomeLoadInProgress());
+    emit(state.copyWith(status: HomeStatus.loading));
     final res = await _babyCardRepository.getCategoriesCards();
     if (res.success) {
-      emit(HomeLoadSucces(categorysCards: res.data!));
+      emit(state.copyWith(
+        status: HomeStatus.success,
+        categorysCards: res.data,
+      ));
     } else {
-      emit(HomeLoadFailed(res.message!));
+      emit(state.copyWith(
+        status: HomeStatus.failure,
+        error: res.message,
+      ));
     }
   }
 }

@@ -4,6 +4,8 @@ import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_card/bloc/baby_card_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
+import 'package:busycards/presentation/widgets/failed.dart';
+import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -172,7 +174,6 @@ class BottomWidgetBabyCard extends StatelessWidget {
   }
 }
 
-
 class ButtonFavoriteBabyCard extends StatelessWidget {
   const ButtonFavoriteBabyCard({super.key});
 
@@ -180,8 +181,12 @@ class ButtonFavoriteBabyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BabyCardBloc, BabyCardState>(
       builder: (context, state) {
-        if (state is BabyCardLoadSucces) {
-          final babyCard = state.babyCard;
+        switch (state.status) {
+          case BabyCardStatus.initial:
+          case BabyCardStatus.loading:
+            return LoadingWidget();
+          case BabyCardStatus.success:
+          final babyCard = state.babyCard!;
           return babyCard.isFavorite
               ? AppButton.favorite(
                   onTap: () => context.read<BabyCardBloc>().add(
@@ -197,8 +202,10 @@ class ButtonFavoriteBabyCard extends StatelessWidget {
                         ),
                       ),
                 );
+          case BabyCardStatus.failure:
+          return FailedWidget(message: state.error!);
         }
-        return Container();
+       
       },
     );
   }

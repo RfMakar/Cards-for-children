@@ -1,24 +1,26 @@
 part of 'baby_cards_bloc.dart';
 
-@immutable
-sealed class BabyCardsState {
-  const BabyCardsState();
-}
+enum BabyCardStatus { initial, loading, success, failure }
 
-final class BabyCardsInitial extends BabyCardsState {
-  const BabyCardsInitial();
-}
-
-final class BabyCardsLoadInProgress extends BabyCardsState {
-  const BabyCardsLoadInProgress();
-}
-
-final class BabyCardsLoadSucces extends BabyCardsState {
-  const BabyCardsLoadSucces({required this.babyCards});
+final class BabyCardsState {
+  const BabyCardsState({
+    this.status = BabyCardStatus.initial,
+    this.babyCards = const [],
+    this.error,
+  });
+  final BabyCardStatus status;
   final List<BabyCard> babyCards;
-}
+  final String? error;
 
-final class BabyCardsLoadFailed extends BabyCardsState {
-  const BabyCardsLoadFailed(this.message);
-  final String message;
+  BabyCardsState copyWith({
+    BabyCardStatus? status,
+    List<BabyCard>? babyCards,
+    String? error,
+  }) {
+    return BabyCardsState(
+      status: status ?? this.status,
+      babyCards: babyCards ?? this.babyCards,
+      error: error ?? this.error,
+    );
+  }
 }

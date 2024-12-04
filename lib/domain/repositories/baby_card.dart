@@ -6,7 +6,7 @@ abstract class BabyCardRepository {
   Future<DataState<List<CategoryCard>>> getCategoriesCards();
   Future<DataState<List<BabyCard>>> getBabyCards({required int categoryId});
   Future<DataState<List<BabyCard>>> getBabyCardsFavorite();
-  Future<DataState<bool>> updateBabyCard({
+  Future<DataState<BabyCard>> updateBabyCard({
     required int babyCardId,
     required bool isFavorite,
   });

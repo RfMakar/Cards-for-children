@@ -1,24 +1,25 @@
 part of 'baby_cards_favorite_bloc.dart';
 
-@immutable
-sealed class BabyCardsFavoriteState {
-  const BabyCardsFavoriteState();
-}
+enum BabyCardsFavoriteStatus { initial, loading, success, failure }
 
-final class BabyCardsFavoriteInitial extends BabyCardsFavoriteState {
-  const BabyCardsFavoriteInitial();
-}
-
-final class BabyCardsFavoriteLoadInProgress extends BabyCardsFavoriteState {
-  const BabyCardsFavoriteLoadInProgress();
-}
-
-final class BabyCardsFavoriteLoadSucces extends BabyCardsFavoriteState {
-  const BabyCardsFavoriteLoadSucces({required this.babyCardsFavorite});
+final class BabyCardsFavoriteState {
+  const BabyCardsFavoriteState({
+    this.status = BabyCardsFavoriteStatus.initial,
+    this.babyCardsFavorite = const [],
+    this.error,
+  });
+  final BabyCardsFavoriteStatus status;
   final List<BabyCard> babyCardsFavorite;
-}
+  final String? error;
 
-final class BabyCardsFavoriteLoadFailed extends BabyCardsFavoriteState {
-  const BabyCardsFavoriteLoadFailed(this.message);
-  final String message;
+  BabyCardsFavoriteState copyWith(
+      {BabyCardsFavoriteStatus? status,
+      List<BabyCard>? babyCardsFavorite,
+      String? error}) {
+    return BabyCardsFavoriteState(
+      status: status ?? this.status,
+      babyCardsFavorite: babyCardsFavorite ?? this.babyCardsFavorite,
+      error: error ?? this.error,
+    );
+  }
 }

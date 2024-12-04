@@ -36,14 +36,15 @@ class BodySettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
-        if (state is SettingsLoadInProgress) {
-          return LoadingWidget();
-        } else if (state is SettingsLoadSucces) {
-          return ButtonsSettings();
-        } else if (state is SettingsLoadFailed) {
-          return FailedWidget(message: state.message);
+        switch (state.status) {
+          case SettingsStatus.initial:
+          case SettingsStatus.loading:
+            return LoadingWidget();
+          case SettingsStatus.success:
+            return ButtonsSettings();
+          case SettingsStatus.failure:
+            return FailedWidget(message: state.error!);
         }
-        return Container();
       },
     );
   }
@@ -67,16 +68,16 @@ class ButtonsSettings extends StatelessWidget {
       children: [
         BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
-            if (state is SettingsLoadSucces) {
+            if ( SettingsStatus.success == state.status) {
               return CardsSetting(
                 title: 'Музыка',
-                pathIcon: state.isPlay
+                pathIcon: state.isPlay!
                     ? AppAssets.iconVolumeOn
                     : AppAssets.iconVolumeOff,
                 onTap: () {
                   context.read<SettingsBloc>().add(
                         SettingsSwitchPlayer(
-                          !state.isPlay,
+                          !state.isPlay!,
                         ),
                       );
                 },

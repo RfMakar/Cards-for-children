@@ -38,18 +38,19 @@ class BodyBabyCardsFavorite extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BabyCardsFavoriteBloc, BabyCardsFavoriteState>(
       builder: (context, state) {
-        if (state is BabyCardsFavoriteLoadInProgress) {
-          return LoadingWidget();
-        } else if (state is BabyCardsFavoriteLoadFailed) {
-          return FailedWidget(message: state.message);
-        } else if (state is BabyCardsFavoriteLoadSucces) {
-          return state.babyCardsFavorite.isEmpty
-              ? BabyCardsFavoriteListIsEmpty()
-              : BabyCardsFavoriteList(
-                  babyCardsFavorite: state.babyCardsFavorite,
-                );
+        switch (state.status) {
+          case BabyCardsFavoriteStatus.initial:
+          case BabyCardsFavoriteStatus.loading:
+            return LoadingWidget();
+          case BabyCardsFavoriteStatus.success:
+            return state.babyCardsFavorite.isEmpty
+                ? BabyCardsFavoriteListIsEmpty()
+                : BabyCardsFavoriteList(
+                    babyCardsFavorite: state.babyCardsFavorite,
+                  );
+          case BabyCardsFavoriteStatus.failure:
+            return FailedWidget(message: state.error!);
         }
-        return Container();
       },
     );
   }

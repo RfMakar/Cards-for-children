@@ -8,21 +8,28 @@ part 'baby_cards_favorite_state.dart';
 
 class BabyCardsFavoriteBloc
     extends Bloc<BabyCardsFavoriteEvent, BabyCardsFavoriteState> {
-  BabyCardsFavoriteBloc(this._babyCardRepository) : super(BabyCardsFavoriteInitial()) {
+  BabyCardsFavoriteBloc(this._babyCardRepository)
+      : super(BabyCardsFavoriteState()) {
     on<BabyCardsFavoriteInitialization>(_onInitialization);
   }
-   final BabyCardRepository _babyCardRepository;
+  final BabyCardRepository _babyCardRepository;
 
   void _onInitialization(
     BabyCardsFavoriteInitialization event,
     Emitter<BabyCardsFavoriteState> emit,
   ) async {
-    emit(BabyCardsFavoriteLoadInProgress());
+    emit(state.copyWith(status: BabyCardsFavoriteStatus.loading));
     final res = await _babyCardRepository.getBabyCardsFavorite();
     if (res.success) {
-      emit(BabyCardsFavoriteLoadSucces(babyCardsFavorite: res.data!));
+      emit(state.copyWith(
+        status: BabyCardsFavoriteStatus.success,
+        babyCardsFavorite: res.data,
+      ));
     } else {
-      emit(BabyCardsFavoriteLoadFailed(res.message!));
+      emit(state.copyWith(
+        status: BabyCardsFavoriteStatus.failure,
+        error: res.message,
+      ));
     }
   }
 }

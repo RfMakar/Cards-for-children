@@ -1,24 +1,26 @@
 part of 'games_menu_bloc.dart';
 
-@immutable
-sealed class GamesMenuState {
-  const GamesMenuState();
-}
+enum GamesMenuStatus { initial, loading, success, failure }
 
-final class GamesMenuInitial extends GamesMenuState {
-  const GamesMenuInitial();
-}
-
-final class GamesMenuLoadInProgress extends GamesMenuState {
-  const GamesMenuLoadInProgress();
-}
-
-final class GamesMenuLoadSucces extends GamesMenuState {
-  const GamesMenuLoadSucces({required this.babyCards});
+final class GamesMenuState {
+  const GamesMenuState({
+    this.status = GamesMenuStatus.initial,
+    this.babyCards = const [],
+    this.error,
+  });
+  final GamesMenuStatus status;
   final List<BabyCard> babyCards;
-}
+  final String? error;
 
-final class GamesMenuLoadFailed extends GamesMenuState {
-  const GamesMenuLoadFailed(this.message);
-  final String message;
+  GamesMenuState copyWith({
+    GamesMenuStatus? status,
+    List<BabyCard>? babyCards,
+    String? error,
+  }) {
+    return GamesMenuState(
+      status: status ?? this.status,
+      babyCards: babyCards ?? this.babyCards,
+      error: error ?? this.error,
+    );
+  }
 }

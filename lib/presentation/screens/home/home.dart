@@ -69,16 +69,17 @@ class BodyHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state is HomeLoadInProgress) {
-          return LoadingWidget();
-        } else if (state is HomeLoadSucces) {
-          return CategoryCardsList(
-            categorysCards: state.categorysCards,
-          );
-        } else if (state is HomeLoadFailed) {
-          return FailedWidget(message: state.message);
+        switch (state.status) {
+          case HomeStatus.initial:
+          case HomeStatus.loading:
+            return LoadingWidget();
+          case HomeStatus.success:
+            return CategoryCardsList(
+              categorysCards: state.categorysCards,
+            );
+          case HomeStatus.failure:
+            return FailedWidget(message: state.error!);
         }
-        return Container();
       },
     );
   }

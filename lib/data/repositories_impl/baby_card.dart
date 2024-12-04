@@ -54,16 +54,22 @@ class BabyCardRepositoryImpl implements BabyCardRepository {
   }
 
   @override
-  Future<DataState<bool>> updateBabyCard({
+  Future<DataState<BabyCardModel>> updateBabyCard({
     required int babyCardId,
     required bool isFavorite,
   }) async {
     try {
-      final data = await _sqfliteClientApp.putBabyCard(
+      final data = await _sqfliteClientApp.updateBabyCard(
         babyCardId,
         isFavorite ? 1 : 0,
       );
-      return DataSuccess(data > 0 ? true : false);
+      if (data.isEmpty) {
+        return DataFailed('');
+      } else {
+        final babyCard =
+            data.map((e) => BabyCardModel.fromJson(e)).toList().first;
+        return DataSuccess(babyCard);
+      }
     } catch (e) {
       return DataFailed(e.toString());
     }

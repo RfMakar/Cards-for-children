@@ -7,8 +7,10 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc(this._storageLocalService, this._audioBackgroundService)
-      : super(SettingsInitial()) {
+  SettingsBloc(
+    this._storageLocalService,
+    this._audioBackgroundService,
+  ) : super(SettingsState()) {
     on<SettingsInitialization>(_onInitialization);
     on<SettingsSwitchPlayer>(_switchPlayer);
   }
@@ -20,12 +22,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsInitialization event,
     Emitter<SettingsState> emit,
   ) async {
-    emit(SettingsLoadInProgress());
+    emit(state.copyWith(status: SettingsStatus.loading));
     try {
       final isPlay = await _storageLocalService.getAudioBackground();
-      emit(SettingsLoadSucces(isPlay));
+      emit(state.copyWith(
+        status: SettingsStatus.success,
+        isPlay: isPlay,
+      ));
     } catch (e) {
-      emit(SettingsLoadFailed(e.toString()));
+      emit(state.copyWith(
+        status: SettingsStatus.failure,
+        error: '',
+      ));
     }
   }
 
@@ -34,16 +42,21 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     try {
-      if(event.isPlay){
+      if (event.isPlay) {
         _audioBackgroundService.play();
-      }else{
+      } else {
         _audioBackgroundService.stop();
       }
-      emit(SettingsLoadSucces(event.isPlay));
+      emit(state.copyWith(
+        status: SettingsStatus.success,
+        isPlay: event.isPlay,
+      ));
       await _storageLocalService.setAudioBackground(event.isPlay);
-
     } catch (e) {
-      emit(SettingsLoadFailed(e.toString()));
+      emit(state.copyWith(
+        status: SettingsStatus.failure,
+        error: '',
+      ));
     }
   }
 }

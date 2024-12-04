@@ -7,7 +7,7 @@ part 'games_menu_event.dart';
 part 'games_menu_state.dart';
 
 class GamesMenuBloc extends Bloc<GamesMenuEvent, GamesMenuState> {
-  GamesMenuBloc(this._babyCardRepository) : super(GamesMenuInitial()) {
+  GamesMenuBloc(this._babyCardRepository) : super(GamesMenuState()) {
     on<GamesMenuInitialization>(_onInitialization);
   }
 
@@ -17,14 +17,20 @@ class GamesMenuBloc extends Bloc<GamesMenuEvent, GamesMenuState> {
     GamesMenuInitialization event,
     Emitter<GamesMenuState> emit,
   ) async {
-    emit(GamesMenuLoadInProgress());
+    emit(state.copyWith(status: GamesMenuStatus.loading));
     final res = await _babyCardRepository.getBabyCards(
       categoryId: event.categoryId,
     );
     if (res.success) {
-      emit(GamesMenuLoadSucces(babyCards: res.data!));
+      emit(state.copyWith(
+        status: GamesMenuStatus.success,
+        babyCards: res.data,
+      ));
     } else {
-      emit(GamesMenuLoadFailed(res.message!));
+      emit(state.copyWith(
+        status: GamesMenuStatus.failure,
+        error: res.message,
+      ));
     }
   }
 }

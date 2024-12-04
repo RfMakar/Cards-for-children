@@ -1,24 +1,26 @@
 part of 'home_bloc.dart';
 
-@immutable
-sealed class HomeState {
-  const HomeState();
-}
+enum HomeStatus { initial, loading, success, failure }
 
-final class HomeInitial extends HomeState {
-  const HomeInitial();
-}
-
-final class HomeLoadInProgress extends HomeState {
-  const HomeLoadInProgress();
-}
-
-final class HomeLoadSucces extends HomeState {
-  const HomeLoadSucces({required this.categorysCards});
+final class HomeState {
+  const HomeState({
+    this.status = HomeStatus.initial,
+    this.categorysCards = const [],
+    this.error,
+  });
+  final HomeStatus status;
   final List<CategoryCard> categorysCards;
-}
+  final String? error;
 
-final class HomeLoadFailed extends HomeState {
-  const HomeLoadFailed(this.message);
-  final String message;
+  HomeState copyWith({
+    HomeStatus? status,
+    List<CategoryCard>? categorysCards,
+    String? error,
+  }) {
+    return HomeState(
+      status: status ?? this.status,
+      categorysCards: categorysCards ?? this.categorysCards,
+      error: error ?? this.error,
+    );
+  }
 }

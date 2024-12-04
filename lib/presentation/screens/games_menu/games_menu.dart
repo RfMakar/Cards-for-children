@@ -44,14 +44,15 @@ class BodyGamesMenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GamesMenuBloc, GamesMenuState>(
       builder: (context, state) {
-        if (state is GamesMenuLoadInProgress) {
-          return LoadingWidget();
-        } else if (state is GamesMenuLoadFailed) {
-          return FailedWidget(message: state.message);
-        } else if (state is GamesMenuLoadSucces) {
-          return GamesMenu(babyCards: state.babyCards);
+        switch (state.status) {
+          case GamesMenuStatus.initial:
+          case GamesMenuStatus.loading:
+            return LoadingWidget();
+          case GamesMenuStatus.success:
+            return GamesMenu(babyCards: state.babyCards);
+          case GamesMenuStatus.failure:
+            return FailedWidget(message: state.error!);
         }
-        return Container();
       },
     );
   }

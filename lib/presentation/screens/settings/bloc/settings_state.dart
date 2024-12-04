@@ -1,22 +1,26 @@
 part of 'settings_bloc.dart';
 
-@immutable
-sealed class SettingsState {
-  const SettingsState();
-}
+enum SettingsStatus { initial, loading, success, failure }
 
-final class SettingsInitial extends SettingsState {}
+final class SettingsState {
+  const SettingsState({
+    this.status = SettingsStatus.initial,
+    this.isPlay,
+    this.error,
+  });
+  final SettingsStatus status;
+  final bool? isPlay;
+  final String? error;
 
-final class SettingsLoadInProgress extends SettingsState {
-  const SettingsLoadInProgress();
-}
-
-final class SettingsLoadSucces extends SettingsState {
-  const SettingsLoadSucces(this.isPlay);
-  final bool isPlay;
-}
-
-final class SettingsLoadFailed extends SettingsState {
-  const SettingsLoadFailed(this.message);
-  final String message;
+  SettingsState copyWith({
+    SettingsStatus? status,
+    bool? isPlay,
+    String? error,
+  }) {
+    return SettingsState(
+      status: status ?? this.status,
+      isPlay: isPlay ?? this.isPlay,
+      error: error ?? this.error,
+    );
+  }
 }

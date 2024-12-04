@@ -7,7 +7,7 @@ part 'baby_cards_event.dart';
 part 'baby_cards_state.dart';
 
 class BabyCardsBloc extends Bloc<BabyCardsEvent, BabyCardsState> {
-  BabyCardsBloc(this._babyCardRepository) : super(BabyCardsInitial()) {
+  BabyCardsBloc(this._babyCardRepository) : super(BabyCardsState()) {
     on<BabyCardsInitialization>(_onInitialization);
   }
   final BabyCardRepository _babyCardRepository;
@@ -16,14 +16,20 @@ class BabyCardsBloc extends Bloc<BabyCardsEvent, BabyCardsState> {
     BabyCardsInitialization event,
     Emitter<BabyCardsState> emit,
   ) async {
-    emit(BabyCardsLoadInProgress());
+    emit(state.copyWith(status: BabyCardStatus.loading));
     final res = await _babyCardRepository.getBabyCards(
       categoryId: event.categoryId,
     );
     if (res.success) {
-      emit(BabyCardsLoadSucces(babyCards: res.data!));
+      emit(state.copyWith(
+        status: BabyCardStatus.success,
+        babyCards: res.data,
+      ));
     } else {
-      emit(BabyCardsLoadFailed(res.message!));
+      emit(state.copyWith(
+        status: BabyCardStatus.failure,
+        error: res.message,
+      ));
     }
   }
 }

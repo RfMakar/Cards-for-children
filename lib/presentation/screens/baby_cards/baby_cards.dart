@@ -36,14 +36,15 @@ class BodyBabyCardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BabyCardsBloc, BabyCardsState>(
       builder: (context, state) {
-        if (state is BabyCardsLoadInProgress) {
-          return LoadingWidget();
-        } else if (state is BabyCardsLoadSucces) {
-          return BabyCardsList(babyCards: state.babyCards);
-        } else if (state is BabyCardsLoadFailed) {
-          return FailedWidget(message: state.message);
+        switch (state.status) {
+          case BabyCardStatus.initial:
+          case BabyCardStatus.loading:
+            return LoadingWidget();
+          case BabyCardStatus.success:
+            return BabyCardsList(babyCards: state.babyCards);
+          case BabyCardStatus.failure:
+            return FailedWidget(message: state.error!);
         }
-        return Container();
       },
     );
   }

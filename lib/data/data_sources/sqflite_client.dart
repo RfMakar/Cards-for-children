@@ -84,14 +84,22 @@ class SqfliteClientApp {
     return await db.rawQuery(sql);
   }
 
-  Future<int> putBabyCard(int babyCardId, int isFavorite) async {
+  Future<List<Map<String, dynamic>>> updateBabyCard(int babyCardId, int isFavorite) async {
     final db = await _getDataBase;
-    final sql = '''
+    final sqlUpdate = '''
     UPDATE cards
     SET favorite = $isFavorite
-    WHERE id = $babyCardId 
+    WHERE id = $babyCardId ;
     ''';
-    return await db.rawUpdate(sql);
+    await db.rawUpdate(sqlUpdate);
+    final sqlQuery = '''
+    SELECT cards.id, cards.name, cards.icon, cards.image, cards.raw, cards.audio, colors.value AS color, cards.favorite
+    FROM cards
+    JOIN colors ON colors.id = cards.color_id
+    WHERE cards.id = $babyCardId;
+    ''';
+
+    return await db.rawQuery(sqlQuery);
   }
 
   //game
