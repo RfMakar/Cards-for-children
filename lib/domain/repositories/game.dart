@@ -7,6 +7,7 @@ abstract class GameRepository {
     required int gameId,
     required int result,
   });
+  
   Future<DataState<List<QuestionGame>>> getQuestionsGame({
     required int gameId,
   });

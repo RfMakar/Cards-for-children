@@ -6,6 +6,7 @@ import 'package:busycards/domain/entities/category_card.dart';
 import 'package:busycards/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
+import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: const LayoutScreen(
         body: BodyHomeScreen(),
-        navigation: ButtomNavigation(),
+        bottomNavigation: LayoutButtomNavigation(
+          children: [
+            ButtonNavigationHomeFavorite(),
+            ButtonNavigationHomeSettings(),
+          ],
+        ),
       ),
     );
   }
@@ -89,18 +95,21 @@ class CategoryCardsList extends StatelessWidget {
   const CategoryCardsList({super.key, required this.categorysCards});
   final List<CategoryCard> categorysCards;
 
-  int crossAxisCount(double width) => width > 500 ? 3 : 2;
-
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+    final height = MediaQuery.of(context).size.height;
     final audioPlayerService = context.read<AudioPlayerService>();
-    final width = MediaQuery.of(context).size.width;
     return GridView.builder(
+      scrollDirection:
+          orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount(width),
-        childAspectRatio: 0.80,
+        crossAxisCount: height > 1000 ? 3 : 2,
+        childAspectRatio: orientation == Orientation.portrait ? 0.80 : 1.2,
       ),
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+      padding: orientation == Orientation.portrait
+          ? const EdgeInsets.fromLTRB(8, 8, 8, 80)
+          : const EdgeInsets.fromLTRB(32, 8, 80, 8),
       itemCount: categorysCards.length,
       itemBuilder: (context, index) {
         final categoryCard = categorysCards[index];
@@ -190,34 +199,27 @@ class CategoryCardWidget extends StatelessWidget {
   }
 }
 
-class ButtomNavigation extends StatelessWidget {
-  const ButtomNavigation({super.key});
+class ButtonNavigationHomeFavorite extends StatelessWidget {
+  const ButtonNavigationHomeFavorite({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 8,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppButton.notFavorite(
-              onTap: () => context.pushNamed(
-                RouterPath.pathFavoriteBabyCardsScreen,
-              ),
-            ),
-            AppButton.settings(
-              onTap: () => context.pushNamed(
-                RouterPath.pathParentalControlScreen,
-              ),
-            ),
-          ],
-        ),
+    return AppButton.notFavorite(
+      onTap: () => context.pushNamed(
+        RouterPath.pathFavoriteBabyCardsScreen,
+      ),
+    );
+  }
+}
+
+class ButtonNavigationHomeSettings extends StatelessWidget {
+  const ButtonNavigationHomeSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppButton.settings(
+      onTap: () => context.pushNamed(
+        RouterPath.pathParentalControlScreen,
       ),
     );
   }

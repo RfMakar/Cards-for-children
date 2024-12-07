@@ -3,6 +3,7 @@ import 'package:busycards/config/UI/app_text_style.dart';
 import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/objects/parental_control.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
+import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +18,12 @@ class ParentalControlScreen extends StatelessWidget {
       create: (context) => ParentalControl(),
       child: const LayoutScreen(
         body: BodyParentalControl(),
-        navigation: ButtomNavigation(),
+        bottomNavigation: LayoutButtomNavigation(
+          children: [
+            ButtonNavigationParContHome(),
+            SizedBox(),
+          ],
+        ),
       ),
     );
   }
@@ -121,29 +127,13 @@ class AnswerWidget extends StatelessWidget {
   }
 }
 
-class ButtomNavigation extends StatelessWidget {
-  const ButtomNavigation({super.key});
+class ButtonNavigationParContHome extends StatelessWidget {
+  const ButtonNavigationParContHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 8,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppButton.home(
-              onTap: context.pop,
-            ),
-            const SizedBox(),
-          ],
-        ),
-      ),
+    return AppButton.home(
+      onTap: context.pop,
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/games_menu/bloc/games_menu_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
+import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,14 @@ class GamesMenuScreen extends StatelessWidget {
           create: (context) => categoryId,
         ),
       ],
-      child: LayoutScreen(
+      child: const LayoutScreen(
         body: BodyGamesMenuScreen(),
-        navigation: ButtomNavigationGameMenuScreen(),
+        bottomNavigation: LayoutButtomNavigation(
+          children: [
+            ButtonGameMenuFrom(),
+            SizedBox(),
+          ],
+        ),
       ),
     );
   }
@@ -64,17 +70,10 @@ class GamesMenu extends StatelessWidget {
   int crossAxisCount(double width) => width > 500 ? 3 : 2;
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return GridView(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount(width),
+    return Center(
+      child: ButtonGameShowMe(
+        babyCards: babyCards,
       ),
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
-      children: [
-        ButtonGameShowMe(babyCards: babyCards),
-        // ButtonGameShowMe(),
-        // ButtonGameShowMe(),
-      ],
     );
   }
 }
@@ -94,6 +93,8 @@ class ButtonGameShowMe extends StatelessWidget {
         extra: context.read<int>(),
       ),
       child: Container(
+        height: 200,
+        width: 200,
         margin: EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: AppColor.white.withOpacity(0.6),
@@ -149,29 +150,13 @@ class ButtonGameShowMe extends StatelessWidget {
   }
 }
 
-class ButtomNavigationGameMenuScreen extends StatelessWidget {
-  const ButtomNavigationGameMenuScreen({super.key});
+class ButtonGameMenuFrom extends StatelessWidget {
+  const ButtonGameMenuFrom({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 8,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppButton.from(
-              onTap: context.pop,
-            ),
-            const SizedBox(),
-          ],
-        ),
-      ),
+    return AppButton.from(
+      onTap: context.pop,
     );
   }
 }

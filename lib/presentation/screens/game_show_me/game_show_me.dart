@@ -5,6 +5,7 @@ import 'package:busycards/presentation/screens/game_show_me/baby_card_game/baby_
 import 'package:busycards/presentation/screens/game_show_me/bloc/game_show_me_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
+import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,12 @@ class _GameShowMeScreenState extends State<GameShowMeScreen> {
       ],
       child: const LayoutScreen(
         body: _BodyGameShowMeScreen(),
-        navigation: _ButtomNavigation(),
+        bottomNavigation: LayoutButtomNavigation(
+          children: [
+            ButtonNavigationGameShoweMeFrom(),
+            SizedBox(),
+          ],
+        ),
       ),
     );
   }
@@ -93,48 +99,91 @@ class _BabyCardsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+    switch (orientation) {
+      case Orientation.portrait:
+        return BabyCardsPortrait();
+      case Orientation.landscape:
+        return BabyCardsLandscape();
+    }
+  }
+}
+
+class BabyCardsPortrait extends StatelessWidget {
+  const BabyCardsPortrait({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     final selectedBabyCards = context.read<GameShowMe>().selectedBabyCards;
-    return Center(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
-        itemCount: selectedBabyCards.length,
-        itemBuilder: (context, index) {
-          final babyCard = selectedBabyCards[index];
-          return BabyCardGame(babyCard);
-        },
+    return SingleChildScrollView(
+      padding: height > 1000 ? EdgeInsets.all(140) : EdgeInsets.all(8),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              BabyCardGame(selectedBabyCards[0]),
+              BabyCardGame(selectedBabyCards[1]),
+            ],
+          ),
+          Row(
+            children: [
+              BabyCardGame(selectedBabyCards[2]),
+              BabyCardGame(selectedBabyCards[3]),
+            ],
+          ),
+          Row(
+            children: [
+              BabyCardGame(selectedBabyCards[4]),
+              BabyCardGame(selectedBabyCards[5]),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
 
-class _ButtomNavigation extends StatelessWidget {
-  const _ButtomNavigation();
+class BabyCardsLandscape extends StatelessWidget {
+  const BabyCardsLandscape({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final selectedBabyCards = context.read<GameShowMe>().selectedBabyCards;
     return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 8,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      alignment: Alignment.center,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 160, vertical: 8),
+        child: Column(
           children: [
-            AppButton.from(
-              onTap: context.pop,
+            Row(
+              children: [
+                BabyCardGame(selectedBabyCards[0]),
+                BabyCardGame(selectedBabyCards[1]),
+                BabyCardGame(selectedBabyCards[2]),
+              ],
             ),
-            SizedBox(),
+            Row(
+              children: [
+                BabyCardGame(selectedBabyCards[3]),
+                BabyCardGame(selectedBabyCards[4]),
+                BabyCardGame(selectedBabyCards[5]),
+              ],
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class ButtonNavigationGameShoweMeFrom extends StatelessWidget {
+  const ButtonNavigationGameShoweMeFrom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppButton.from(
+      onTap: context.pop,
     );
   }
 }

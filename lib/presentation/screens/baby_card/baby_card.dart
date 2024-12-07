@@ -63,22 +63,56 @@ class BodyBabyCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     final babyCard = context.read<BabyCard>();
     return Scaffold(
-      backgroundColor: Color(babyCard.color).withOpacity(0.6),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 80,
-          horizontal: 16,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TopWidgetBabyCard(),
-            ImageWidgetBabyCard(),
-            BottomWidgetBabyCard(),
-          ],
-        ),
+        backgroundColor: Color(babyCard.color).withOpacity(0.6),
+        body: switch (orientation) {
+          Orientation.portrait => BodyBabyCardPortrait(),
+          Orientation.landscape => BodyBabyCardLandscape(),
+        });
+  }
+}
+
+class BodyBabyCardPortrait extends StatelessWidget {
+  const BodyBabyCardPortrait({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 80,
+        horizontal: 8,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TopWidgetBabyCard(),
+          ImageWidgetBabyCard(),
+          BottomWidgetBabyCard(),
+        ],
+      ),
+    );
+  }
+}
+
+class BodyBabyCardLandscape extends StatelessWidget {
+  const BodyBabyCardLandscape({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 190,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TopWidgetBabyCard(),
+          ImageWidgetBabyCard(),
+          BottomWidgetBabyCard(),
+        ],
       ),
     );
   }
@@ -90,14 +124,9 @@ class TopWidgetBabyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          AppButton.close(
-            onTap: context.pop,
-          ),
-        ],
+      padding: const EdgeInsets.all(8),
+      child: AppButton.close(
+        onTap: context.pop,
       ),
     );
   }
@@ -108,6 +137,7 @@ class ImageWidgetBabyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     final babyCard = context.read<BabyCard>();
     return Expanded(
       child: Container(
@@ -124,7 +154,9 @@ class ImageWidgetBabyCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(32.0),
             child: Image.asset(
               babyCard.image,
-              fit: BoxFit.fitHeight,
+              fit: orientation == Orientation.portrait
+                  ? BoxFit.fitHeight
+                  : BoxFit.fitWidth,
             ),
           ),
         ),
@@ -138,39 +170,81 @@ class BottomWidgetBabyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+    final babyCard = context.read<BabyCard>();
+    final isRaw = babyCard.raw != null;
+    return switch (orientation) {
+      Orientation.portrait => _portrait(isRaw),
+      Orientation.landscape => _landscape(isRaw),
+    };
+  }
+
+  Widget _landscape(bool isRaw) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: isRaw
+            ? [
+                ButtonRawBabyCard(),
+                ButtonFavoriteBabyCard(),
+                ButtonAudioBabeCard(),
+              ]
+            : [
+                ButtonFavoriteBabyCard(),
+                ButtonAudioBabeCard(),
+              ],
+      ),
+    );
+  }
+
+  Widget _portrait(bool isRaw) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: isRaw
+            ? [
+                ButtonRawBabyCard(),
+                ButtonFavoriteBabyCard(),
+                ButtonAudioBabeCard(),
+              ]
+            : [
+                ButtonFavoriteBabyCard(),
+                ButtonAudioBabeCard(),
+              ],
+      ),
+    );
+  }
+}
+
+class ButtonRawBabyCard extends StatelessWidget {
+  const ButtonRawBabyCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     final babyCard = context.read<BabyCard>();
     final audioPlayerService = context.read<AudioPlayerService>();
-    final isRaw = babyCard.raw != null;
-    return Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: isRaw
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  AppButton.raw(
-                    onTap: () => audioPlayerService.play(
-                      babyCard.raw!,
-                    ),
-                  ),
-                  ButtonFavoriteBabyCard(),
-                  AppButton.audio(
-                    onTap: () => audioPlayerService.play(
-                      babyCard.audio,
-                    ),
-                  ),
-                ],
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ButtonFavoriteBabyCard(),
-                  AppButton.audio(
-                    onTap: () => audioPlayerService.play(
-                      babyCard.audio,
-                    ),
-                  ),
-                ],
-              ));
+    return AppButton.raw(
+      onTap: () => audioPlayerService.play(
+        babyCard.raw!,
+      ),
+    );
+  }
+}
+
+class ButtonAudioBabeCard extends StatelessWidget {
+  const ButtonAudioBabeCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final babyCard = context.read<BabyCard>();
+    final audioPlayerService = context.read<AudioPlayerService>();
+    return AppButton.audio(
+      onTap: () => audioPlayerService.play(
+        babyCard.audio,
+      ),
+    );
   }
 }
 
@@ -186,26 +260,25 @@ class ButtonFavoriteBabyCard extends StatelessWidget {
           case BabyCardStatus.loading:
             return LoadingWidget();
           case BabyCardStatus.success:
-          final babyCard = state.babyCard!;
-          return babyCard.isFavorite
-              ? AppButton.favorite(
-                  onTap: () => context.read<BabyCardBloc>().add(
-                        BabyCardsIsFavorite(
-                          babyCard: babyCard,
+            final babyCard = state.babyCard!;
+            return babyCard.isFavorite
+                ? AppButton.favorite(
+                    onTap: () => context.read<BabyCardBloc>().add(
+                          BabyCardsIsFavorite(
+                            babyCard: babyCard,
+                          ),
                         ),
-                      ),
-                )
-              : AppButton.notFavorite(
-                  onTap: () => context.read<BabyCardBloc>().add(
-                        BabyCardsIsFavorite(
-                          babyCard: babyCard,
+                  )
+                : AppButton.notFavorite(
+                    onTap: () => context.read<BabyCardBloc>().add(
+                          BabyCardsIsFavorite(
+                            babyCard: babyCard,
+                          ),
                         ),
-                      ),
-                );
+                  );
           case BabyCardStatus.failure:
-          return FailedWidget(message: state.error!);
+            return FailedWidget(message: state.error!);
         }
-       
       },
     );
   }

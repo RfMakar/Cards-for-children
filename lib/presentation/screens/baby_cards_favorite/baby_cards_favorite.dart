@@ -6,6 +6,7 @@ import 'package:busycards/presentation/screens/baby_cards_favorite/bloc/baby_car
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
+import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,12 @@ class BabyCardsFavoriteScreen extends StatelessWidget {
         ),
       child: const LayoutScreen(
         body: BodyBabyCardsFavorite(),
-        navigation: ButtomNavigation(),
+        bottomNavigation: LayoutButtomNavigation(
+          children: [
+            ButtonNavigationFavoriteHome(),
+            SizedBox(),
+          ],
+        ),
       ),
     );
   }
@@ -80,18 +86,21 @@ class BabyCardsFavoriteListIsEmpty extends StatelessWidget {
 class BabyCardsFavoriteList extends StatelessWidget {
   const BabyCardsFavoriteList({super.key, required this.babyCardsFavorite});
   final List<BabyCard> babyCardsFavorite;
-  int crossAxisCount(double width) => width > 500 ? 3 : 2;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
+    final orientation = MediaQuery.of(context).orientation;
+    final height = MediaQuery.of(context).size.height;
     return GridView.builder(
+      scrollDirection:
+          orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount(width),
-        childAspectRatio: 0.80,
+        crossAxisCount: height > 1000 ? 3 : 2,
+        childAspectRatio: orientation == Orientation.portrait ? 0.80 : 1.2,
       ),
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+      padding: orientation == Orientation.portrait
+          ? const EdgeInsets.fromLTRB(8, 8, 8, 80)
+          : const EdgeInsets.fromLTRB(32, 8, 80, 8),
       itemCount: babyCardsFavorite.length,
       itemBuilder: (context, index) {
         return BabyCardWidget(
@@ -106,29 +115,13 @@ class BabyCardsFavoriteList extends StatelessWidget {
   }
 }
 
-class ButtomNavigation extends StatelessWidget {
-  const ButtomNavigation({super.key});
+class ButtonNavigationFavoriteHome extends StatelessWidget {
+  const ButtonNavigationFavoriteHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 8,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppButton.home(
-              onTap: context.pop,
-            ),
-            const SizedBox(),
-          ],
-        ),
-      ),
+    return AppButton.home(
+      onTap: context.pop,
     );
   }
 }

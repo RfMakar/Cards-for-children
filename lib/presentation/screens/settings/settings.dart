@@ -7,6 +7,7 @@ import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/presentation/screens/settings/bloc/settings_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
+import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,12 @@ class SettingsScreen extends StatelessWidget {
       create: (context) => sl<SettingsBloc>()..add(SettingsInitialization()),
       child: const LayoutScreen(
         body: BodySettingScreen(),
-        navigation: ButtomNavigation(),
+        bottomNavigation: LayoutButtomNavigation(
+          children: [
+            ButtonNavigationSettingsHome(),
+            SizedBox(),
+          ],
+        ),
       ),
     );
   }
@@ -63,43 +69,46 @@ class ButtonsSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        BlocBuilder<SettingsBloc, SettingsState>(
-          builder: (context, state) {
-            if ( SettingsStatus.success == state.status) {
-              return CardsSetting(
-                title: 'Музыка',
-                pathIcon: state.isPlay!
-                    ? AppAssets.iconVolumeOn
-                    : AppAssets.iconVolumeOff,
-                onTap: () {
-                  context.read<SettingsBloc>().add(
-                        SettingsSwitchPlayer(
-                          !state.isPlay!,
-                        ),
-                      );
-                },
-              );
-            }
-            return Container();
-          },
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BlocBuilder<SettingsBloc, SettingsState>(
+            builder: (context, state) {
+              if (SettingsStatus.success == state.status) {
+                return CardsSetting(
+                  title: 'Музыка',
+                  pathIcon: state.isPlay!
+                      ? AppAssets.iconVolumeOn
+                      : AppAssets.iconVolumeOff,
+                  onTap: () {
+                    context.read<SettingsBloc>().add(
+                          SettingsSwitchPlayer(
+                            !state.isPlay!,
+                          ),
+                        );
+                  },
+                );
+              }
+              return Container();
+            },
+          ),
 
-        // CardsSetting(
-        //   title: 'Язык',
-        //   onTap: () {},
-        // ),
-        CardsSetting(
-          title: 'Оставить отзыв',
-          onTap: onTapReview,
-        ),
-        CardsSetting(
-          title: 'Политика конфиденциальности',
-          onTap: () => openUrlInBrowser(urlPrivacyPolicy),
-        ),
-      ],
+          // CardsSetting(
+          //   title: 'Язык',
+          //   onTap: () {},
+          // ),
+          CardsSetting(
+            title: 'Оставить отзыв',
+            onTap: onTapReview,
+          ),
+          CardsSetting(
+            title: 'Политика конфиденциальности',
+            onTap: () => openUrlInBrowser(urlPrivacyPolicy),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -162,29 +171,13 @@ class CardsSetting extends StatelessWidget {
   }
 }
 
-class ButtomNavigation extends StatelessWidget {
-  const ButtomNavigation({super.key});
+class ButtonNavigationSettingsHome extends StatelessWidget {
+  const ButtonNavigationSettingsHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 8,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppButton.home(
-              onTap: context.pop,
-            ),
-            const SizedBox(),
-          ],
-        ),
-      ),
+    return AppButton.home(
+      onTap: context.pop,
     );
   }
 }

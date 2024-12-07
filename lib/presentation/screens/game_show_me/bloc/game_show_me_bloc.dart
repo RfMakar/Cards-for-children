@@ -21,7 +21,6 @@ class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
     Emitter<GameShowMeState> emit,
   ) async {
     emit(state.copyWith(status: GameShowMeStatus.loading));
-
     try {
       final resBabuCardsRandom = await _babyCardRepository.getBabyCards(
         categoryId: event.categoryId,

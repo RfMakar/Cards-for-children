@@ -7,23 +7,27 @@ class LayoutScreen extends StatelessWidget {
   const LayoutScreen({
     super.key,
     required this.body,
-    required this.navigation,
+    required this.bottomNavigation,
   });
   final Widget body;
-  final Widget navigation;
+  final Widget bottomNavigation;
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       backgroundColor: AppColor.colorMain,
       body: SafeArea(
-        bottom: false,
+        top: orientation == Orientation.portrait ? true : false,
+        bottom:  false,
+        left: orientation == Orientation.portrait ? true : false,
+        right: orientation == Orientation.portrait ? true : false,
         child: Stack(
           children: [
             const CloudWidget(),
             const GrassWidget(),
             body,
-            navigation,
+            bottomNavigation,
           ],
         ),
       ),

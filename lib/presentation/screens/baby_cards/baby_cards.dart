@@ -5,25 +5,37 @@ import 'package:busycards/presentation/screens/baby_cards/bloc/baby_cards_bloc.d
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/baby_card_widget.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
+import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class BabyCardsScreen extends StatelessWidget {
   const BabyCardsScreen({super.key, required this.categoryId});
   final int categoryId;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<BabyCardsBloc>()
-        ..add(
-          BabyCardsInitialization(categoryId),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<BabyCardsBloc>()
+            ..add(
+              BabyCardsInitialization(categoryId),
+            ),
         ),
+        Provider(create: (context) => categoryId),
+      ],
       child: LayoutScreen(
         body: BodyBabyCardsScreen(),
-        navigation: ButtomNavigation(categoryId: categoryId),
+        bottomNavigation: LayoutButtomNavigation(
+          children: [
+            BottonNavigationBabyCardsHome(),
+            BottonNavigatiombabyCardsGame(),
+          ],
+        ),
       ),
     );
   }
@@ -54,18 +66,21 @@ class BabyCardsList extends StatelessWidget {
   const BabyCardsList({super.key, required this.babyCards});
   final List<BabyCard> babyCards;
 
-  int crossAxisCount(double width) => width > 500 ? 3 : 2;
-
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final orientation = MediaQuery.of(context).orientation;
+    final height = MediaQuery.of(context).size.height;
 
     return GridView.builder(
+      scrollDirection:
+          orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount(width),
-        childAspectRatio: 0.80,
+        crossAxisCount: height > 1000 ? 3 : 2,
+        childAspectRatio: orientation == Orientation.portrait ? 0.80 : 1.2,
       ),
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 70),
+      padding: orientation == Orientation.portrait
+          ? const EdgeInsets.fromLTRB(8, 8, 8, 80)
+          : const EdgeInsets.fromLTRB(32, 8, 80, 8),
       itemCount: babyCards.length,
       itemBuilder: (context, index) {
         return BabyCardWidget(
@@ -80,33 +95,27 @@ class BabyCardsList extends StatelessWidget {
   }
 }
 
-class ButtomNavigation extends StatelessWidget {
-  const ButtomNavigation({super.key, required this.categoryId});
-  final int categoryId;
+class BottonNavigationBabyCardsHome extends StatelessWidget {
+  const BottonNavigationBabyCardsHome({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 8,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppButton.home(
-              onTap: context.pop,
-            ),
-            AppButton.game(
-              onTap: () => context.pushNamed(
-                RouterPath.pathGamesMenuScreen,
-                extra: categoryId,
-              ),
-            ),
-          ],
-        ),
+    return AppButton.home(
+      onTap: context.pop,
+    );
+  }
+}
+
+class BottonNavigatiombabyCardsGame extends StatelessWidget {
+  const BottonNavigatiombabyCardsGame({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final categoryId = context.read<int>();
+    return AppButton.game(
+      onTap: () => context.pushNamed(
+        RouterPath.pathGamesMenuScreen,
+        extra: categoryId,
       ),
     );
   }
