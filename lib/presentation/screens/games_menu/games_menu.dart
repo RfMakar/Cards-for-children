@@ -53,7 +53,7 @@ class BodyGamesMenuScreen extends StatelessWidget {
         switch (state.status) {
           case GamesMenuStatus.initial:
           case GamesMenuStatus.loading:
-            return LoadingWidget();
+            return const LoadingWidget();
           case GamesMenuStatus.success:
             return GamesMenu(babyCards: state.babyCards);
           case GamesMenuStatus.failure:
@@ -67,13 +67,45 @@ class BodyGamesMenuScreen extends StatelessWidget {
 class GamesMenu extends StatelessWidget {
   const GamesMenu({super.key, required this.babyCards});
   final List<BabyCard> babyCards;
-  int crossAxisCount(double width) => width > 500 ? 3 : 2;
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     return Center(
-      child: ButtonGameShowMe(
-        babyCards: babyCards,
-      ),
+      child: orientation == Orientation.portrait ? _portrait() : _landscape(),
+    );
+  }
+
+  Widget _portrait() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ButtonGameShowMe(
+          babyCards: babyCards,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ButtonGameFindAPair(
+          babyCards: babyCards,
+        ),
+      ],
+    );
+  }
+
+  Widget _landscape() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ButtonGameShowMe(
+          babyCards: babyCards,
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        ButtonGameFindAPair(
+          babyCards: babyCards,
+        ),
+      ],
     );
   }
 }
@@ -81,8 +113,10 @@ class GamesMenu extends StatelessWidget {
 class ButtonGameShowMe extends StatelessWidget {
   const ButtonGameShowMe({super.key, required this.babyCards});
   final List<BabyCard> babyCards;
-  final double borderRadius = 32;
+  final double borderRadius = 25;
+  final double borderWidth = 4;
   final double margin = 4;
+
   @override
   Widget build(BuildContext context) {
     final color = babyCards.first.color;
@@ -95,23 +129,24 @@ class ButtonGameShowMe extends StatelessWidget {
       child: Container(
         height: 200,
         width: 200,
-        margin: EdgeInsets.all(2),
+        margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: AppColor.white.withOpacity(0.6),
           border: Border.all(
             color: Color(color),
-            width: 4,
+            width: borderWidth,
           ),
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             _card(
-              color: AppColor.colorSecondary,
+              color: AppColor.wrong,
               assets: babyCards[2].icon,
             ),
             _card(
@@ -136,7 +171,81 @@ class ButtonGameShowMe extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(margin),
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(borderRadius - borderWidth),
+        color: color,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Image.asset(
+          assets,
+          fit: BoxFit.fitHeight,
+        ),
+      ),
+    );
+  }
+}
+
+class ButtonGameFindAPair extends StatelessWidget {
+  const ButtonGameFindAPair({super.key, required this.babyCards});
+  final List<BabyCard> babyCards;
+  final double borderRadius = 25;
+  final double borderWidth = 4;
+  final double margin = 4;
+  @override
+  Widget build(BuildContext context) {
+    final color = babyCards.first.color;
+    return InkWell(
+      borderRadius: BorderRadius.circular(borderRadius),
+      onTap: () => context.pushNamed(
+        RouterPath.pathGameFindAPairScreen,
+        extra: context.read<int>(),
+      ),
+      child: Container(
+        height: 200,
+        width: 200,
+        margin: const EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          color: AppColor.white.withOpacity(0.6),
+          border: Border.all(
+            color: Color(color),
+            width: borderWidth,
+          ),
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: GridView(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+          ),
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            _card(
+              color: AppColor.right,
+              assets: babyCards[2].icon,
+            ),
+            _card(
+              color: AppColor.wrong,
+              assets: babyCards[0].icon,
+            ),
+            _card(
+              color: AppColor.right,
+              assets: babyCards[2].icon,
+            ),
+            _card(
+              color: AppColor.wrong,
+              assets: babyCards[1].icon,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _card({required Color color, required String assets}) {
+    return Container(
+      margin: EdgeInsets.all(margin),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadius - borderWidth),
         color: color,
       ),
       child: Padding(

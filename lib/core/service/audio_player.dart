@@ -30,6 +30,10 @@ class AudioPlayerService {
     );
   }
 
+  Future<void> stop() async {
+    await _audioPlayer.stop();
+  }
+
   void dispose() {
     _audioPlayer.dispose();
   }

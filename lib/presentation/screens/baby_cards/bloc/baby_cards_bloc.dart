@@ -7,7 +7,7 @@ part 'baby_cards_event.dart';
 part 'baby_cards_state.dart';
 
 class BabyCardsBloc extends Bloc<BabyCardsEvent, BabyCardsState> {
-  BabyCardsBloc(this._babyCardRepository) : super(BabyCardsState()) {
+  BabyCardsBloc(this._babyCardRepository) : super(const BabyCardsState()) {
     on<BabyCardsInitialization>(_onInitialization);
   }
   final BabyCardRepository _babyCardRepository;

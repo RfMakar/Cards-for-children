@@ -1,6 +1,6 @@
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/service/audio_player.dart';
-import 'package:busycards/core/objects/game_show_me.dart';
+import 'package:busycards/core/objects/game_show_me/game_show_me.dart';
 import 'package:busycards/presentation/screens/game_show_me/baby_card_game/baby_card_game.dart';
 import 'package:busycards/presentation/screens/game_show_me/bloc/game_show_me_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -79,12 +79,12 @@ class _BodyGameShowMeScreen extends StatelessWidget {
         switch (state.status) {
           case GameShowMeStatus.initial:
           case GameShowMeStatus.loading:
-            return LoadingWidget();
+            return const LoadingWidget();
           case GameShowMeStatus.success:
             audioPlayerService.playList(state.gameShowMe!.playQuestion());
             return Provider(
               create: (context) => state.gameShowMe,
-              child: _BabyCardsList(),
+              child: const _BabyCardsList(),
             );
           case GameShowMeStatus.failure:
             return FailedWidget(message: state.error!);
@@ -102,9 +102,9 @@ class _BabyCardsList extends StatelessWidget {
     final orientation = MediaQuery.of(context).orientation;
     switch (orientation) {
       case Orientation.portrait:
-        return BabyCardsPortrait();
+        return const BabyCardsPortrait();
       case Orientation.landscape:
-        return BabyCardsLandscape();
+        return const BabyCardsLandscape();
     }
   }
 }
@@ -117,7 +117,8 @@ class BabyCardsPortrait extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final selectedBabyCards = context.read<GameShowMe>().selectedBabyCards;
     return SingleChildScrollView(
-      padding: height > 1000 ? EdgeInsets.all(140) : EdgeInsets.all(8),
+      padding:
+          height > 1000 ? const EdgeInsets.all(140) : const EdgeInsets.all(8),
       child: Column(
         children: [
           Row(
@@ -153,7 +154,7 @@ class BabyCardsLandscape extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 160, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 160, vertical: 8),
         child: Column(
           children: [
             Row(

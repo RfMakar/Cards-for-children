@@ -21,7 +21,8 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<SettingsBloc>()..add(SettingsInitialization()),
+      create: (context) =>
+          sl<SettingsBloc>()..add(const SettingsInitialization()),
       child: const LayoutScreen(
         body: BodySettingScreen(),
         bottomNavigation: LayoutButtomNavigation(
@@ -45,9 +46,9 @@ class BodySettingScreen extends StatelessWidget {
         switch (state.status) {
           case SettingsStatus.initial:
           case SettingsStatus.loading:
-            return LoadingWidget();
+            return const LoadingWidget();
           case SettingsStatus.success:
-            return ButtonsSettings();
+            return const ButtonsSettings();
           case SettingsStatus.failure:
             return FailedWidget(message: state.error!);
         }
@@ -157,7 +158,7 @@ class CardsSetting extends StatelessWidget {
                   ? SvgPicture.asset(
                       pathIcon!,
                       fit: BoxFit.fill,
-                      colorFilter: ColorFilter.mode(
+                      colorFilter: const ColorFilter.mode(
                         AppColor.colorMain,
                         BlendMode.srcIn,
                       ),

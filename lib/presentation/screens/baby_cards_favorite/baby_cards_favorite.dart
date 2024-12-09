@@ -22,7 +22,7 @@ class BabyCardsFavoriteScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<BabyCardsFavoriteBloc>()
         ..add(
-          BabyCardsFavoriteInitialization(),
+          const BabyCardsFavoriteInitialization(),
         ),
       child: const LayoutScreen(
         body: BodyBabyCardsFavorite(),
@@ -47,10 +47,10 @@ class BodyBabyCardsFavorite extends StatelessWidget {
         switch (state.status) {
           case BabyCardsFavoriteStatus.initial:
           case BabyCardsFavoriteStatus.loading:
-            return LoadingWidget();
+            return const LoadingWidget();
           case BabyCardsFavoriteStatus.success:
             return state.babyCardsFavorite.isEmpty
-                ? BabyCardsFavoriteListIsEmpty()
+                ? const BabyCardsFavoriteListIsEmpty()
                 : BabyCardsFavoriteList(
                     babyCardsFavorite: state.babyCardsFavorite,
                   );
@@ -67,18 +67,13 @@ class BabyCardsFavoriteListIsEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: SvgPicture.asset(
-            height: 200,
-            AppAssets.imageEmpty,
-            fit: BoxFit.fill,
-          ),
-        ),
-      ],
+    return Align(
+      alignment: Alignment.center,
+      child: SvgPicture.asset(
+        height: 300,
+        AppAssets.imageEmpty,
+        fit: BoxFit.fill,
+      ),
     );
   }
 }

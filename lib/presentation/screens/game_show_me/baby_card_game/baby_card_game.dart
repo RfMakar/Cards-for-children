@@ -2,7 +2,7 @@ import 'package:busycards/config/UI/app_assets.dart';
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
-import 'package:busycards/core/objects/game_show_me.dart';
+import 'package:busycards/core/objects/game_show_me/game_show_me.dart';
 import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/game_show_me/baby_card_game/bloc/baby_card_game_bloc.dart';
@@ -24,11 +24,11 @@ class BabyCardGame extends StatelessWidget {
       key: UniqueKey(),
       create: (context) => sl<BabyCardGameBloc>()
         ..add(
-          BabyCardGameInitialization(),
+          const BabyCardGameInitialization(),
         ),
       child: Expanded(
         child: Container(
-          margin: EdgeInsets.all(4),
+          margin: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: AppColor.white.withOpacity(0.8),
             borderRadius: BorderRadius.circular(25),
@@ -42,7 +42,7 @@ class BabyCardGame extends StatelessWidget {
               switch (state.status) {
                 case BabyCardGameStatus.initial:
                 case BabyCardGameStatus.failure:
-                  // return LoadingWidget();
+                // return LoadingWidget();
                 case BabyCardGameStatus.disabled:
                   return _BabyCardButton(
                     babyCard: babyCard,
@@ -59,21 +59,20 @@ class BabyCardGame extends StatelessWidget {
                         audioPlayerService.play(gameShowMe.playAnswerYes());
                         context
                             .read<BabyCardGameBloc>()
-                            .add(BabyCardGameOnTapRight());
-                        await Future.delayed(Duration(milliseconds: 800));
+                            .add(const BabyCardGameOnTapRight());
+                        await Future.delayed(const Duration(milliseconds: 800));
                         if (context.mounted) {
                           await context.pushNamed(
-                            RouterPath.pathBabyCardScreen,
-                            extra: babyCard,
-                          );
+                              RouterPath.pathCongratulationScreen,
+                              extra: babyCard.color);
 
-                          bloc.add(GameShowMeRestart());
+                          bloc.add(const GameShowMeRestart());
                         }
                       } else {
                         audioPlayerService.play(gameShowMe.playAnswerNo());
                         context
                             .read<BabyCardGameBloc>()
-                            .add(BabyCardGameOnTapWrong());
+                            .add(const BabyCardGameOnTapWrong());
                       }
                     },
                   );

@@ -9,7 +9,7 @@ part 'baby_cards_favorite_state.dart';
 class BabyCardsFavoriteBloc
     extends Bloc<BabyCardsFavoriteEvent, BabyCardsFavoriteState> {
   BabyCardsFavoriteBloc(this._babyCardRepository)
-      : super(BabyCardsFavoriteState()) {
+      : super(const BabyCardsFavoriteState()) {
     on<BabyCardsFavoriteInitialization>(_onInitialization);
   }
   final BabyCardRepository _babyCardRepository;

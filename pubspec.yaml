@@ -50,6 +50,7 @@ flutter:
     - assets/games/audios/answers/ru/
     - assets/games/audios/questions/ru/
     - assets/games/icons/
+    - assets/games/audios/correctly/
 
 flutter_launcher_icons:
   android: true

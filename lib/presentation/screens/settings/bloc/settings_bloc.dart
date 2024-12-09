@@ -10,7 +10,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc(
     this._storageLocalService,
     this._audioBackgroundService,
-  ) : super(SettingsState()) {
+  ) : super(const SettingsState()) {
     on<SettingsInitialization>(_onInitialization);
     on<SettingsSwitchPlayer>(_switchPlayer);
   }

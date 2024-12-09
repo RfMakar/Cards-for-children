@@ -3,6 +3,8 @@ import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_card/baby_card.dart';
 import 'package:busycards/presentation/screens/baby_cards/baby_cards.dart';
 import 'package:busycards/presentation/screens/baby_cards_favorite/baby_cards_favorite.dart';
+import 'package:busycards/presentation/screens/congratulation/congratulation.dart';
+import 'package:busycards/presentation/screens/game_find_a_pair/game_find_a_pair.dart';
 import 'package:busycards/presentation/screens/game_show_me/game_show_me.dart';
 import 'package:busycards/presentation/screens/games_menu/games_menu.dart';
 import 'package:busycards/presentation/screens/home/home.dart';
@@ -43,26 +45,37 @@ final router = GoRouter(
               },
             ),
             GoRoute(
-                name: RouterPath.pathGamesMenuScreen,
-                path: RouterPath.pathGamesMenuScreen,
-                builder: (context, state) {
-                  final categoryId = state.extra as int;
-                  return GamesMenuScreen(
-                    categoryId: categoryId,
-                  );
-                },
-                routes: [
-                  GoRoute(
-                    name: RouterPath.pathGameShowMeScreen,
-                    path: RouterPath.pathGameShowMeScreen,
-                    builder: (context, state) {
-                      final categoryId = state.extra as int;
-                      return GameShowMeScreen(
-                        categoryId: categoryId,
-                      );
-                    },
-                  ),
-                ]),
+              name: RouterPath.pathGamesMenuScreen,
+              path: RouterPath.pathGamesMenuScreen,
+              builder: (context, state) {
+                final categoryId = state.extra as int;
+                return GamesMenuScreen(
+                  categoryId: categoryId,
+                );
+              },
+              routes: [
+                GoRoute(
+                  name: RouterPath.pathGameShowMeScreen,
+                  path: RouterPath.pathGameShowMeScreen,
+                  builder: (context, state) {
+                    final categoryId = state.extra as int;
+                    return GameShowMeScreen(
+                      categoryId: categoryId,
+                    );
+                  },
+                ),
+                GoRoute(
+                  name: RouterPath.pathGameFindAPairScreen,
+                  path: RouterPath.pathGameFindAPairScreen,
+                  builder: (context, state) {
+                    final categoryId = state.extra as int;
+                    return GameFindAPairScreen(
+                      categoryId: categoryId,
+                    );
+                  },
+                ),
+              ],
+            ),
           ],
         ),
         GoRoute(
@@ -83,6 +96,19 @@ final router = GoRouter(
           name: RouterPath.pathFavoriteBabyCardsScreen,
           path: RouterPath.pathFavoriteBabyCardsScreen,
           builder: (context, state) => const BabyCardsFavoriteScreen(),
+        ),
+        GoRoute(
+          name: RouterPath.pathCongratulationScreen,
+          path: RouterPath.pathCongratulationScreen,
+          pageBuilder: (context, state) {
+            final color = state.extra as int;
+            return CustomTransitionPage(
+              fullscreenDialog: true,
+              opaque: false,
+              transitionsBuilder: (_, __, ___, child) => child,
+              child: CongratulationScreen(color: color),
+            );
+          },
         ),
       ],
     ),

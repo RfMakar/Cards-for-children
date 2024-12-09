@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => sl<HomeBloc>()..add(HomeInitialization()),
+          create: (context) => sl<HomeBloc>()..add(const HomeInitialization()),
         ),
         Provider(
           create: (context) => _audioPlayerService,
@@ -78,7 +78,7 @@ class BodyHomeScreen extends StatelessWidget {
         switch (state.status) {
           case HomeStatus.initial:
           case HomeStatus.loading:
-            return LoadingWidget();
+            return const LoadingWidget();
           case HomeStatus.success:
             return CategoryCardsList(
               categorysCards: state.categorysCards,

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:busycards/core/objects/game_show_me.dart';
+import 'package:busycards/core/objects/game_show_me/game_show_me.dart';
 import 'package:busycards/domain/repositories/baby_card.dart';
 import 'package:busycards/domain/repositories/game.dart';
 import 'package:meta/meta.dart';
@@ -9,7 +9,7 @@ part 'game_show_me_state.dart';
 
 class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
   GameShowMeBloc(this._babyCardRepository, this._gameRepository)
-      : super(GameShowMeState()) {
+      : super(const GameShowMeState()) {
     on<GameShowMeInitialization>(_onInitialization);
     on<GameShowMeRestart>(_onRestartGame);
   }
@@ -22,7 +22,7 @@ class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
   ) async {
     emit(state.copyWith(status: GameShowMeStatus.loading));
     try {
-      final resBabuCardsRandom = await _babyCardRepository.getBabyCards(
+      final resBabyCards = await _babyCardRepository.getBabyCards(
         categoryId: event.categoryId,
       );
 
@@ -39,13 +39,13 @@ class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
         result: 1,
       );
 
-      final res = resBabuCardsRandom.success &&
+      final res = resBabyCards.success &&
           resQuestions.success &&
           resAnswerNo.success &&
           resAnswerYes.success;
       if (res) {
         final gameShowMe = GameShowMe(
-          babyCards: resBabuCardsRandom.data!,
+          babyCards: resBabyCards.data!,
           questionsGame: resQuestions.data!,
           answersGameYes: resAnswerYes.data!,
           answersGameNo: resAnswerNo.data!,

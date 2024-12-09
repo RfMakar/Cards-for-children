@@ -7,7 +7,7 @@ part 'games_menu_event.dart';
 part 'games_menu_state.dart';
 
 class GamesMenuBloc extends Bloc<GamesMenuEvent, GamesMenuState> {
-  GamesMenuBloc(this._babyCardRepository) : super(GamesMenuState()) {
+  GamesMenuBloc(this._babyCardRepository) : super(const GamesMenuState()) {
     on<GamesMenuInitialization>(_onInitialization);
   }
 

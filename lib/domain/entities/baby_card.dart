@@ -6,9 +6,9 @@ class BabyCard {
   final String audio;
   final int color;
   final String? raw;
-  bool isFavorite;
+  final bool isFavorite;
 
-  BabyCard({
+  const BabyCard({
     required this.id,
     required this.name,
     required this.icon,
@@ -23,7 +23,7 @@ class BabyCard {
     return [audio, raw].whereType<String>().toList();
   }
 
-  BabyCard copyWith({ bool? isFavorite}) => BabyCard(
+  BabyCard copyWith({bool? isFavorite}) => BabyCard(
         id: id,
         name: name,
         icon: icon,

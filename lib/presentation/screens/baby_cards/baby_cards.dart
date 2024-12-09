@@ -28,7 +28,7 @@ class BabyCardsScreen extends StatelessWidget {
         ),
         Provider(create: (context) => categoryId),
       ],
-      child: LayoutScreen(
+      child: const LayoutScreen(
         body: BodyBabyCardsScreen(),
         bottomNavigation: LayoutButtomNavigation(
           children: [
@@ -51,7 +51,7 @@ class BodyBabyCardsScreen extends StatelessWidget {
         switch (state.status) {
           case BabyCardStatus.initial:
           case BabyCardStatus.loading:
-            return LoadingWidget();
+            return const LoadingWidget();
           case BabyCardStatus.success:
             return BabyCardsList(babyCards: state.babyCards);
           case BabyCardStatus.failure:

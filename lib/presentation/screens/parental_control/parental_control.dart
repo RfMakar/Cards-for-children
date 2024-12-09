@@ -34,7 +34,7 @@ class BodyParentalControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TopWidget(),
@@ -50,7 +50,7 @@ class TopWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text(
         'Родительский контроль',
         style: AppTextStyle.textStyle,
@@ -108,15 +108,16 @@ class AnswerWidget extends StatelessWidget {
         decoration: InputDecoration(
           hintText: 'Ответ',
           hintStyle: AppTextStyle.textStyle,
-          contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 width: 3,
                 color: AppColor.white,
               ),
               borderRadius: BorderRadius.circular(16)),
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 width: 3,
                 color: AppColor.white,
               ),

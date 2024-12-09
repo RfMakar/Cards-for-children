@@ -2,6 +2,8 @@ class AppAssets {
   static const imageGrass = 'assets/app/images/image_grass.svg';
   static const imageCloud = 'assets/app/images/image_cloud.svg';
   static const imageEmpty = 'assets/app/images/image_empty.svg';
+  static const imageCongratulation =
+      'assets/app/images/image_congratulation.svg';
 
   static const iconAudio = 'assets/app/icons/icon_audio.svg';
   static const iconClose = 'assets/app/icons/icon_close.svg';
@@ -29,4 +31,9 @@ class AppAssets {
 
 class AppAssetsAudio {
   static const audioBackground = 'assets/app/audios/audio_background.mp3';
+
+  static const audioGameFalse = 'assets/games/audios/correctly/false.mp3';
+  static const audioGameTrue = 'assets/games/audios/correctly/true.mp3';
+  static const audioGameCongratulation =
+      'assets/games/audios/correctly/congratulation.mp3';
 }

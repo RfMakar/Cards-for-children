@@ -5,7 +5,7 @@ part 'baby_card_game_event.dart';
 part 'baby_card_game_state.dart';
 
 class BabyCardGameBloc extends Bloc<BabyCardGameEvent, BabyCardGameState> {
-  BabyCardGameBloc() : super(BabyCardGameState()) {
+  BabyCardGameBloc() : super(const BabyCardGameState()) {
     on<BabyCardGameInitialization>(_onInitialization);
     on<BabyCardGameOnTapWrong>(_onTapWrong);
     on<BabyCardGameOnTapRight>(_onTapRight);
@@ -16,7 +16,7 @@ class BabyCardGameBloc extends Bloc<BabyCardGameEvent, BabyCardGameState> {
     Emitter<BabyCardGameState> emit,
   ) async {
     emit(state.copyWith(status: BabyCardGameStatus.disabled));
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     emit(state.copyWith(status: BabyCardGameStatus.enabled));
   }
 

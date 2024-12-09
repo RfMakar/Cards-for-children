@@ -51,7 +51,7 @@ class _BabyCardScreenState extends State<BabyCardScreen> {
           create: (context) => _audioPlayerService,
         ),
       ],
-      child: BodyBabyCardScreen(),
+      child: const BodyBabyCardScreen(),
     );
   }
 }
@@ -68,8 +68,8 @@ class BodyBabyCardScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color(babyCard.color).withOpacity(0.6),
         body: switch (orientation) {
-          Orientation.portrait => BodyBabyCardPortrait(),
-          Orientation.landscape => BodyBabyCardLandscape(),
+          Orientation.portrait => const BodyBabyCardPortrait(),
+          Orientation.landscape => const BodyBabyCardLandscape(),
         });
   }
 }
@@ -79,8 +79,8 @@ class BodyBabyCardPortrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
+    return const Padding(
+      padding: EdgeInsets.symmetric(
         vertical: 80,
         horizontal: 8,
       ),
@@ -101,8 +101,8 @@ class BodyBabyCardLandscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
+    return const Padding(
+      padding: EdgeInsets.symmetric(
         vertical: 8,
         horizontal: 190,
       ),
@@ -185,12 +185,12 @@ class BottomWidgetBabyCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: isRaw
-            ? [
+            ? const [
                 ButtonRawBabyCard(),
                 ButtonFavoriteBabyCard(),
                 ButtonAudioBabeCard(),
               ]
-            : [
+            : const [
                 ButtonFavoriteBabyCard(),
                 ButtonAudioBabeCard(),
               ],
@@ -204,12 +204,12 @@ class BottomWidgetBabyCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: isRaw
-            ? [
+            ? const [
                 ButtonRawBabyCard(),
                 ButtonFavoriteBabyCard(),
                 ButtonAudioBabeCard(),
               ]
-            : [
+            : const [
                 ButtonFavoriteBabyCard(),
                 ButtonAudioBabeCard(),
               ],
@@ -258,7 +258,7 @@ class ButtonFavoriteBabyCard extends StatelessWidget {
         switch (state.status) {
           case BabyCardStatus.initial:
           case BabyCardStatus.loading:
-            return LoadingWidget();
+            return const LoadingWidget();
           case BabyCardStatus.success:
             final babyCard = state.babyCard!;
             return babyCard.isFavorite

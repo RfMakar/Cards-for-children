@@ -1,7 +1,7 @@
 import 'package:busycards/domain/entities/baby_card.dart';
 
 class BabyCardModel extends BabyCard {
-  BabyCardModel({
+ const BabyCardModel({
     required super.id,
     required super.name,
     required super.icon,
