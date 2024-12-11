@@ -115,7 +115,7 @@ class ButtonGameShowMe extends StatelessWidget {
   final List<BabyCard> babyCards;
   final double borderRadius = 25;
   final double borderWidth = 4;
-  final double margin = 4;
+  final double margin = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -127,16 +127,20 @@ class ButtonGameShowMe extends StatelessWidget {
         extra: context.read<int>(),
       ),
       child: Container(
-        height: 200,
-        width: 200,
+        height: 150,
+        width: 150,
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: AppColor.white.withOpacity(0.6),
-          border: Border.all(
-            color: Color(color),
-            width: borderWidth,
-          ),
+          color: AppColor.white,
           borderRadius: BorderRadius.circular(borderRadius),
+          boxShadow: [
+            BoxShadow(
+              color: Color(color).withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(2, 2),
+            ),
+          ],
         ),
         child: GridView(
           shrinkWrap: true,
@@ -146,7 +150,7 @@ class ButtonGameShowMe extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             _card(
-              color: AppColor.wrong,
+              color: AppColor.right,
               assets: babyCards[2].icon,
             ),
             _card(
@@ -171,8 +175,11 @@ class ButtonGameShowMe extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(margin),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius - borderWidth),
-        color: color,
+        border: Border.all(
+          color: color,
+          width: 2,
+        ),
+        shape: BoxShape.circle,
       ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -190,7 +197,7 @@ class ButtonGameFindAPair extends StatelessWidget {
   final List<BabyCard> babyCards;
   final double borderRadius = 25;
   final double borderWidth = 4;
-  final double margin = 4;
+  final double margin = 2;
   @override
   Widget build(BuildContext context) {
     final color = babyCards.first.color;
@@ -201,16 +208,20 @@ class ButtonGameFindAPair extends StatelessWidget {
         extra: context.read<int>(),
       ),
       child: Container(
-        height: 200,
-        width: 200,
+        height: 150,
+        width: 150,
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: AppColor.white.withOpacity(0.6),
-          border: Border.all(
-            color: Color(color),
-            width: borderWidth,
-          ),
+          color: AppColor.white,
           borderRadius: BorderRadius.circular(borderRadius),
+          boxShadow: [
+            BoxShadow(
+              color: Color(color).withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(2, 2),
+            ),
+          ],
         ),
         child: GridView(
           shrinkWrap: true,
@@ -225,7 +236,7 @@ class ButtonGameFindAPair extends StatelessWidget {
             ),
             _card(
               color: AppColor.wrong,
-              assets: babyCards[0].icon,
+              assets: babyCards[1].icon,
             ),
             _card(
               color: AppColor.right,
@@ -233,7 +244,7 @@ class ButtonGameFindAPair extends StatelessWidget {
             ),
             _card(
               color: AppColor.wrong,
-              assets: babyCards[1].icon,
+              assets: babyCards[3].icon,
             ),
           ],
         ),
@@ -245,8 +256,11 @@ class ButtonGameFindAPair extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(margin),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius - borderWidth),
-        color: color,
+        border: Border.all(
+          color: color,
+          width: 2,
+        ),
+        shape: BoxShape.circle,
       ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),

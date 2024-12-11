@@ -1,10 +1,14 @@
 class AppAssets {
+  //bg
   static const imageGrass = 'assets/app/images/image_grass.svg';
   static const imageCloud = 'assets/app/images/image_cloud.svg';
-  static const imageEmpty = 'assets/app/images/image_empty.svg';
-  static const imageCongratulation =
-      'assets/app/images/image_congratulation.svg';
-
+  //star
+  static const imageStarEmpty = 'assets/app/images/image_star_empty.svg';
+  static const imageStarCongratulation = 'assets/app/images/image_star_congratulation.svg';
+  static const imageStarError = 'assets/app/images/image_star_error.svg';
+  static const imageStarFavorite = 'assets/app/images/image_star_favorite.svg';
+  static const imageStarNotFavorite = 'assets/app/images/image_star_not_favorite.svg';
+  //icon
   static const iconAudio = 'assets/app/icons/icon_audio.svg';
   static const iconClose = 'assets/app/icons/icon_close.svg';
   static const iconFrom = 'assets/app/icons/icon_from.svg';

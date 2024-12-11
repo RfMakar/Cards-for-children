@@ -1,4 +1,3 @@
-import 'package:busycards/config/UI/app_assets.dart';
 import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
@@ -9,9 +8,9 @@ import 'package:busycards/presentation/widgets/failed.dart';
 import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
 import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
+import 'package:busycards/presentation/widgets/star.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class BabyCardsFavoriteScreen extends StatelessWidget {
@@ -50,7 +49,7 @@ class BodyBabyCardsFavorite extends StatelessWidget {
             return const LoadingWidget();
           case BabyCardsFavoriteStatus.success:
             return state.babyCardsFavorite.isEmpty
-                ? const BabyCardsFavoriteListIsEmpty()
+                ? const ImageStarWidget.empty()
                 : BabyCardsFavoriteList(
                     babyCardsFavorite: state.babyCardsFavorite,
                   );
@@ -62,21 +61,6 @@ class BodyBabyCardsFavorite extends StatelessWidget {
   }
 }
 
-class BabyCardsFavoriteListIsEmpty extends StatelessWidget {
-  const BabyCardsFavoriteListIsEmpty({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: SvgPicture.asset(
-        height: 300,
-        AppAssets.imageEmpty,
-        fit: BoxFit.fill,
-      ),
-    );
-  }
-}
 
 class BabyCardsFavoriteList extends StatelessWidget {
   const BabyCardsFavoriteList({super.key, required this.babyCardsFavorite});

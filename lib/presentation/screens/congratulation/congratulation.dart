@@ -2,8 +2,8 @@ import 'package:busycards/config/UI/app_assets.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
+import 'package:busycards/presentation/widgets/star.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,6 @@ class CongratulationScreen extends StatefulWidget {
 }
 
 class _CongratulationScreenState extends State<CongratulationScreen> {
-
   late AudioPlayerService _audioPlayerService;
   @override
   void initState() {
@@ -30,6 +29,7 @@ class _CongratulationScreenState extends State<CongratulationScreen> {
     _audioPlayerService.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Provider(
@@ -51,14 +51,7 @@ class BodyCongratulationScreen extends StatelessWidget {
         backgroundColor: Color(color).withOpacity(0.6),
         body: Stack(
           children: [
-            Align(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                height: 300,
-                AppAssets.imageCongratulation,
-                fit: BoxFit.fill,
-              ),
-            ),
+            const ImageStarWidget.congratulation(),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Align(
