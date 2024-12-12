@@ -1,6 +1,6 @@
 part of 'game_show_me_bloc.dart';
 
-enum GameShowMeStatus { initial, loading, success, failure }
+enum GameShowMeStatus { initial, loading, success, congratulation, failure }
 
 final class GameShowMeState {
   const GameShowMeState({

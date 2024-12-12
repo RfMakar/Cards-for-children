@@ -11,6 +11,11 @@ final class GameShowMeInitialization extends GameShowMeEvent {
   final int gameId = 0;
 }
 
+final class GameShowMeOnTapCard extends GameShowMeEvent {
+  const GameShowMeOnTapCard({required this.gameShowMeCardId});
+  final int gameShowMeCardId;
+}
+
 final class GameShowMeRestart extends GameShowMeEvent {
   const GameShowMeRestart();
 }

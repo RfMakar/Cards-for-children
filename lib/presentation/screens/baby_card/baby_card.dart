@@ -66,11 +66,12 @@ class BodyBabyCardScreen extends StatelessWidget {
     final orientation = MediaQuery.of(context).orientation;
     final babyCard = context.read<BabyCard>();
     return Scaffold(
-        backgroundColor: Color(babyCard.color).withOpacity(0.6),
-        body: switch (orientation) {
-          Orientation.portrait => const BodyBabyCardPortrait(),
-          Orientation.landscape => const BodyBabyCardLandscape(),
-        });
+      backgroundColor: Color(babyCard.color).withOpacity(0.6),
+      body: switch (orientation) {
+        Orientation.portrait => const BodyBabyCardPortrait(),
+        Orientation.landscape => const BodyBabyCardLandscape(),
+      },
+    );
   }
 }
 
