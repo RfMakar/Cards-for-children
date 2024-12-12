@@ -1,6 +1,6 @@
 part of 'game_find_a_pair_bloc.dart';
 
-enum GameFindAPairStatus { initial, loading, success, congratulation, failure }
+enum GameFindAPairStatus { initial, success, congratulation, failure }
 
 final class GameFindAPairState {
   const GameFindAPairState({

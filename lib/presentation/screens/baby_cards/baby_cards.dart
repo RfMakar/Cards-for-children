@@ -11,23 +11,17 @@ import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class BabyCardsScreen extends StatelessWidget {
   const BabyCardsScreen({super.key, required this.categoryId});
   final int categoryId;
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => sl<BabyCardsBloc>()
-            ..add(
-              BabyCardsInitialization(categoryId),
-            ),
+    return BlocProvider(
+      create: (context) => sl<BabyCardsBloc>()
+        ..add(
+          BabyCardsInitialization(categoryId),
         ),
-        Provider(create: (context) => categoryId),
-      ],
       child: const LayoutScreen(
         body: BodyBabyCardsScreen(),
         bottomNavigation: LayoutButtomNavigation(
@@ -111,12 +105,14 @@ class BottonNavigatiombabyCardsGame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryId = context.read<int>();
-    return AppButton.game(
-      onTap: () => context.pushNamed(
-        RouterPath.pathGamesMenuScreen,
-        extra: categoryId,
-      ),
-    );
+    return AppButton.game(onTap: () {
+      final status = context.read<BabyCardsBloc>().state.status;
+      if (status == BabyCardStatus.success) {
+        context.pushNamed(
+          RouterPath.pathGamesMenuScreen,
+          extra: context.read<BabyCardsBloc>().state.babyCards,
+        );
+      }
+    });
   }
 }

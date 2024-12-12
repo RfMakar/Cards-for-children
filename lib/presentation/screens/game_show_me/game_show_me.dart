@@ -3,6 +3,7 @@ import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/objects/game_show_me/game_show_me_card.dart';
+import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/game_show_me/bloc/game_show_me_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
@@ -15,17 +16,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class GameShowMeScreen extends StatelessWidget {
-  const GameShowMeScreen({super.key, required this.categoryId});
-  final int categoryId;
+  const GameShowMeScreen({super.key, required this.babyCards});
+  final List<BabyCard> babyCards;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<GameShowMeBloc>()
         ..add(
-          GameShowMeInitialization(
-            categoryId,
-          ),
+          GameShowMeInitialization(babyCards),
         ),
       child: const LayoutScreen(
         body: BodyGameShowMeScreen(),
@@ -164,7 +163,8 @@ class ShowMeCard extends StatelessWidget {
               ? () async {
                   context.read<GameShowMeBloc>().add(
                         GameShowMeOnTapCard(
-                            gameShowMeCardId: gameShowMeCard.id),
+                          gameShowMeCardId: gameShowMeCard.id,
+                        ),
                       );
                 }
               : null,

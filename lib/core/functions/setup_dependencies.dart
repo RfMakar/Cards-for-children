@@ -12,7 +12,6 @@ import 'package:busycards/presentation/screens/baby_cards/bloc/baby_cards_bloc.d
 import 'package:busycards/presentation/screens/baby_cards_favorite/bloc/baby_cards_favorite_bloc.dart';
 import 'package:busycards/presentation/screens/game_find_a_pair/bloc/game_find_a_pair_bloc.dart';
 import 'package:busycards/presentation/screens/game_show_me/bloc/game_show_me_bloc.dart';
-import 'package:busycards/presentation/screens/games_menu/bloc/games_menu_bloc.dart';
 import 'package:busycards/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:busycards/presentation/screens/settings/bloc/settings_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -85,13 +84,7 @@ Future<void> setupDependencies() async {
     ),
   );
   sl.registerFactory(
-    () => GamesMenuBloc(
-      sl(),
-    ),
-  );
-  sl.registerFactory(
     () => GameShowMeBloc(
-      sl(),
       sl(),
       sl(),
     ),
@@ -99,7 +92,6 @@ Future<void> setupDependencies() async {
 
   sl.registerFactory(
     () => GameFindAPairBloc(
-      sl(),
       sl(),
     ),
   );

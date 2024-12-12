@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:busycards/core/objects/game_show_me/game_show_me.dart';
 import 'package:busycards/core/service/audio_player.dart';
-import 'package:busycards/domain/repositories/baby_card.dart';
+import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/domain/repositories/game.dart';
 import 'package:meta/meta.dart';
 
@@ -10,7 +10,6 @@ part 'game_show_me_state.dart';
 
 class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
   GameShowMeBloc(
-    this._babyCardRepository,
     this._gameRepository,
     this._audioPlayerService,
   ) : super(const GameShowMeState()) {
@@ -18,7 +17,6 @@ class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
     on<GameShowMeRestart>(_onRestartGame);
     on<GameShowMeOnTapCard>(_onTapCardGame);
   }
-  final BabyCardRepository _babyCardRepository;
   final GameRepository _gameRepository;
   final AudioPlayerService _audioPlayerService;
 
@@ -28,10 +26,6 @@ class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
   ) async {
     emit(state.copyWith(status: GameShowMeStatus.loading));
     try {
-      final resBabyCards = await _babyCardRepository.getBabyCards(
-        categoryId: event.categoryId,
-      );
-
       final resQuestions = await _gameRepository.getQuestionsGame(
         gameId: event.gameId,
       );
@@ -45,13 +39,11 @@ class GameShowMeBloc extends Bloc<GameShowMeEvent, GameShowMeState> {
         result: 1,
       );
 
-      final res = resBabyCards.success &&
-          resQuestions.success &&
-          resAnswerNo.success &&
-          resAnswerYes.success;
+      final res =
+          resQuestions.success && resAnswerNo.success && resAnswerYes.success;
       if (res) {
         final gameShowMe = GameShowMe(
-          babyCards: resBabyCards.data!,
+          babyCards: event.babyCards,
           questionsGame: resQuestions.data!,
           answersGameYes: resAnswerYes.data!,
           answersGameNo: resAnswerNo.data!,

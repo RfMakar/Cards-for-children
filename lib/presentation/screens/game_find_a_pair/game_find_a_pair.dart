@@ -2,6 +2,7 @@ import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/router/router_path.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/objects/game_find_a_pair/game_find_a_pair_card.dart';
+import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/game_find_a_pair/bloc/game_find_a_pair_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
@@ -13,14 +14,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class GameFindAPairScreen extends StatelessWidget {
-  const GameFindAPairScreen({super.key, required this.categoryId});
-  final int categoryId;
+  const GameFindAPairScreen({super.key, required this.babyCards});
+  final List<BabyCard> babyCards;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<GameFindAPairBloc>()
         ..add(
-          GameFindAPairInitialization(categoryId),
+          GameFindAPairInitialization(babyCards),
         ),
       child: const LayoutScreen(
         body: BodyGameFindAPair(),
@@ -56,7 +57,6 @@ class BodyGameFindAPair extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case GameFindAPairStatus.initial:
-          case GameFindAPairStatus.loading:
             return const LoadingWidget();
           case GameFindAPairStatus.congratulation:
           case GameFindAPairStatus.success:

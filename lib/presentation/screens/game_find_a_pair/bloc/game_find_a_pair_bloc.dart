@@ -3,7 +3,6 @@ import 'package:busycards/config/UI/app_assets.dart';
 import 'package:busycards/core/objects/game_find_a_pair/game_find_a_pair.dart';
 import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
-import 'package:busycards/domain/repositories/baby_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
@@ -11,48 +10,27 @@ part 'game_find_a_pair_event.dart';
 part 'game_find_a_pair_state.dart';
 
 class GameFindAPairBloc extends Bloc<GameFindAPairEvent, GameFindAPairState> {
-  GameFindAPairBloc(this._babyCardRepository, this._audioPlayerService)
+  GameFindAPairBloc(this._audioPlayerService)
       : super(const GameFindAPairState()) {
     on<GameFindAPairInitialization>(_onInitialization);
     on<GameFindAPairOnTap>(_onTapGameCard);
     on<GameFindAPairRestartGame>(_onRestartGame);
   }
-  final BabyCardRepository _babyCardRepository;
   final AudioPlayerService _audioPlayerService;
 
   void _onInitialization(
     GameFindAPairInitialization event,
     Emitter<GameFindAPairState> emit,
   ) async {
-    emit(state.copyWith(status: GameFindAPairStatus.loading));
-    try {
-      final resBabyCards = await _babyCardRepository.getBabyCards(
-        categoryId: event.categoryId,
-      );
-      if (resBabyCards.success) {
-        emit(
-          state.copyWith(
-            status: GameFindAPairStatus.success,
-            babyCards: resBabyCards.data,
-            gameFindAPair: GameFindAPair(babyCards: resBabyCards.data!),
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            status: GameFindAPairStatus.failure,
-            error: resBabyCards.message,
-          ),
-        );
-      }
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: GameFindAPairStatus.failure,
-          error: e.toString(),
+    emit(
+      state.copyWith(
+        status: GameFindAPairStatus.success,
+        babyCards: event.babyCards,
+        gameFindAPair: GameFindAPair(
+          babyCards: event.babyCards,
         ),
-      );
-    }
+      ),
+    );
   }
 
   void _onTapGameCard(
@@ -90,7 +68,9 @@ class GameFindAPairBloc extends Bloc<GameFindAPairEvent, GameFindAPairState> {
     final game = state.gameFindAPair!;
     game.restartGame();
     emit(state.copyWith(
-        status: GameFindAPairStatus.success, gameFindAPair: game));
+      status: GameFindAPairStatus.success,
+      gameFindAPair: game,
+    ));
   }
 
   Future<void> _playTrue() async {

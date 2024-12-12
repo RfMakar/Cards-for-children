@@ -6,8 +6,8 @@ sealed class GameFindAPairEvent {
 }
 
 final class GameFindAPairInitialization extends GameFindAPairEvent {
-  const GameFindAPairInitialization(this.categoryId);
-  final int categoryId;
+  const GameFindAPairInitialization(this.babyCards);
+  final List<BabyCard> babyCards;
 }
 
 final class GameFindAPairOnTap extends GameFindAPairEvent {
@@ -15,6 +15,6 @@ final class GameFindAPairOnTap extends GameFindAPairEvent {
   final int gameFindAPairId;
 }
 
-final class GameFindAPairRestartGame extends GameFindAPairEvent{
+final class GameFindAPairRestartGame extends GameFindAPairEvent {
   const GameFindAPairRestartGame();
 }

@@ -48,12 +48,12 @@ final router = GoRouter(
               name: RouterPath.pathGamesMenuScreen,
               path: RouterPath.pathGamesMenuScreen,
               pageBuilder: (context, state) {
-                final categoryId = state.extra as int;
+                final babyCards = state.extra as List<BabyCard>;
                 return CustomTransitionPage(
                   fullscreenDialog: true,
                   opaque: false,
                   transitionsBuilder: (_, __, ___, child) => child,
-                  child: GamesMenuScreen(categoryId: categoryId),
+                  child: GamesMenuScreen(babyCards: babyCards),
                 );
               },
               routes: [
@@ -61,9 +61,9 @@ final router = GoRouter(
                   name: RouterPath.pathGameShowMeScreen,
                   path: RouterPath.pathGameShowMeScreen,
                   builder: (context, state) {
-                    final categoryId = state.extra as int;
+                    final babyCards = state.extra as List<BabyCard>;
                     return GameShowMeScreen(
-                      categoryId: categoryId,
+                      babyCards: babyCards,
                     );
                   },
                 ),
@@ -71,9 +71,9 @@ final router = GoRouter(
                   name: RouterPath.pathGameFindAPairScreen,
                   path: RouterPath.pathGameFindAPairScreen,
                   builder: (context, state) {
-                    final categoryId = state.extra as int;
+                    final babyCards = state.extra as List<BabyCard>;
                     return GameFindAPairScreen(
-                      categoryId: categoryId,
+                      babyCards: babyCards,
                     );
                   },
                 ),

@@ -1,38 +1,23 @@
 import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/config/router/router_path.dart';
-import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/domain/entities/baby_card.dart';
-import 'package:busycards/presentation/screens/games_menu/bloc/games_menu_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
-import 'package:busycards/presentation/widgets/failed.dart';
-import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class GamesMenuScreen extends StatelessWidget {
-  const GamesMenuScreen({super.key, required this.categoryId});
-  final int categoryId;
+  const GamesMenuScreen({super.key, required this.babyCards});
+  final List<BabyCard> babyCards;
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => sl<GamesMenuBloc>()
-            ..add(
-              GamesMenuInitialization(categoryId),
-            ),
-        ),
-        Provider(
-          create: (context) => categoryId,
-        ),
-      ],
+    return Provider(
+      create: (context) => babyCards,
       child: Scaffold(
-        backgroundColor:  AppColor.backgroundColor,
+        backgroundColor: AppColor.backgroundColor,
         body: const Stack(
           children: [
-            BodyGamesMenuScreen(),
+            GamesMenu(),
             ButtonGameMenuFrom(),
           ],
         ),
@@ -41,30 +26,8 @@ class GamesMenuScreen extends StatelessWidget {
   }
 }
 
-class BodyGamesMenuScreen extends StatelessWidget {
-  const BodyGamesMenuScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<GamesMenuBloc, GamesMenuState>(
-      builder: (context, state) {
-        switch (state.status) {
-          case GamesMenuStatus.initial:
-          case GamesMenuStatus.loading:
-            return const LoadingWidget();
-          case GamesMenuStatus.success:
-            return GamesMenu(babyCards: state.babyCards);
-          case GamesMenuStatus.failure:
-            return FailedWidget(message: state.error!);
-        }
-      },
-    );
-  }
-}
-
 class GamesMenu extends StatelessWidget {
-  const GamesMenu({super.key, required this.babyCards});
-  final List<BabyCard> babyCards;
+  const GamesMenu({super.key});
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
@@ -75,55 +38,44 @@ class GamesMenu extends StatelessWidget {
   }
 
   Widget _portrait() {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ButtonGameShowMe(
-          babyCards: babyCards,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        ButtonGameFindAPair(
-          babyCards: babyCards,
-        ),
+        ButtonGameShowMe(),
+        SizedBox(height: 20),
+        ButtonGameFindAPair(),
       ],
     );
   }
 
   Widget _landscape() {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ButtonGameShowMe(
-          babyCards: babyCards,
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        ButtonGameFindAPair(
-          babyCards: babyCards,
-        ),
+        ButtonGameShowMe(),
+        SizedBox(width: 20),
+        ButtonGameFindAPair(),
       ],
     );
   }
 }
 
 class ButtonGameShowMe extends StatelessWidget {
-  const ButtonGameShowMe({super.key, required this.babyCards});
-  final List<BabyCard> babyCards;
+  const ButtonGameShowMe({super.key});
+
   final double borderRadius = 25;
   final double borderWidth = 4;
   final double margin = 6;
 
   @override
   Widget build(BuildContext context) {
+    final babyCards = context.read<List<BabyCard>>();
     final color = babyCards.first.color;
     return InkWell(
       borderRadius: BorderRadius.circular(borderRadius),
       onTap: () => context.pushNamed(
         RouterPath.pathGameShowMeScreen,
-        extra: context.read<int>(),
+        extra: babyCards
       ),
       child: Container(
         height: 150,
@@ -189,19 +141,19 @@ class ButtonGameShowMe extends StatelessWidget {
 }
 
 class ButtonGameFindAPair extends StatelessWidget {
-  const ButtonGameFindAPair({super.key, required this.babyCards});
-  final List<BabyCard> babyCards;
+  const ButtonGameFindAPair({super.key});
   final double borderRadius = 25;
   final double borderWidth = 4;
   final double margin = 6;
   @override
   Widget build(BuildContext context) {
+    final babyCards = context.read<List<BabyCard>>();
     final color = babyCards.first.color;
     return InkWell(
       borderRadius: BorderRadius.circular(borderRadius),
       onTap: () => context.pushNamed(
         RouterPath.pathGameFindAPairScreen,
-        extra: context.read<int>(),
+        extra: babyCards,
       ),
       child: Container(
         height: 150,

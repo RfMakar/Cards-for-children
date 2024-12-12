@@ -6,8 +6,8 @@ sealed class GameShowMeEvent {
 }
 
 final class GameShowMeInitialization extends GameShowMeEvent {
-  const GameShowMeInitialization(this.categoryId);
-  final int categoryId;
+  const GameShowMeInitialization(this.babyCards);
+  final List<BabyCard> babyCards;
   final int gameId = 0;
 }
 
