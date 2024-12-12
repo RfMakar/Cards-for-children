@@ -1,4 +1,5 @@
 import 'package:busycards/config/UI/app_assets.dart';
+import 'package:busycards/config/UI/app_color.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/service/audio_player.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
@@ -44,11 +45,10 @@ class BodyCongratulationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = context.read<int>();
     return GestureDetector(
       onTap: context.pop,
       child: Scaffold(
-        backgroundColor: Color(color).withOpacity(0.6),
+        backgroundColor:  AppColor.backgroundColor,
         body: Stack(
           children: [
             const ImageStarWidget.congratulation(),

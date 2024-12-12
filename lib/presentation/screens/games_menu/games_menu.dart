@@ -5,8 +5,6 @@ import 'package:busycards/domain/entities/baby_card.dart';
 import 'package:busycards/presentation/screens/games_menu/bloc/games_menu_bloc.dart';
 import 'package:busycards/presentation/widgets/app_button.dart';
 import 'package:busycards/presentation/widgets/failed.dart';
-import 'package:busycards/presentation/widgets/layout_bottom_navigation.dart';
-import 'package:busycards/presentation/widgets/layout_screen.dart';
 import 'package:busycards/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,12 +28,12 @@ class GamesMenuScreen extends StatelessWidget {
           create: (context) => categoryId,
         ),
       ],
-      child: const LayoutScreen(
-        body: BodyGamesMenuScreen(),
-        bottomNavigation: LayoutButtomNavigation(
+      child: Scaffold(
+        backgroundColor:  AppColor.backgroundColor,
+        body: const Stack(
           children: [
+            BodyGamesMenuScreen(),
             ButtonGameMenuFrom(),
-            SizedBox(),
           ],
         ),
       ),
@@ -70,7 +68,8 @@ class GamesMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
-    return Center(
+    return Align(
+      alignment: Alignment.center,
       child: orientation == Orientation.portrait ? _portrait() : _landscape(),
     );
   }
@@ -115,7 +114,7 @@ class ButtonGameShowMe extends StatelessWidget {
   final List<BabyCard> babyCards;
   final double borderRadius = 25;
   final double borderWidth = 4;
-  final double margin = 2;
+  final double margin = 6;
 
   @override
   Widget build(BuildContext context) {
@@ -131,18 +130,15 @@ class ButtonGameShowMe extends StatelessWidget {
         width: 150,
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: AppColor.white,
+          color: AppColor.white.withOpacity(0.9),
           borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: [
-            BoxShadow(
-              color: Color(color).withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 7,
-              offset: const Offset(2, 2),
-            ),
-          ],
+          border: Border.all(
+            color: Color(color),
+            width: 2,
+          ),
         ),
         child: GridView(
+          padding: EdgeInsets.zero,
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -150,7 +146,7 @@ class ButtonGameShowMe extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             _card(
-              color: AppColor.right,
+              color: AppColor.wrong,
               assets: babyCards[2].icon,
             ),
             _card(
@@ -182,7 +178,7 @@ class ButtonGameShowMe extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(4),
         child: Image.asset(
           assets,
           fit: BoxFit.fitHeight,
@@ -197,7 +193,7 @@ class ButtonGameFindAPair extends StatelessWidget {
   final List<BabyCard> babyCards;
   final double borderRadius = 25;
   final double borderWidth = 4;
-  final double margin = 2;
+  final double margin = 6;
   @override
   Widget build(BuildContext context) {
     final color = babyCards.first.color;
@@ -212,18 +208,14 @@ class ButtonGameFindAPair extends StatelessWidget {
         width: 150,
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: AppColor.white,
-          borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: [
-            BoxShadow(
-              color: Color(color).withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 7,
-              offset: const Offset(2, 2),
-            ),
-          ],
-        ),
+            color: AppColor.white.withOpacity(0.9),
+            borderRadius: BorderRadius.circular(borderRadius),
+            border: Border.all(
+              color: Color(color),
+              width: 2,
+            )),
         child: GridView(
+          padding: EdgeInsets.zero,
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -263,7 +255,7 @@ class ButtonGameFindAPair extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(4.0),
         child: Image.asset(
           assets,
           fit: BoxFit.fitHeight,
@@ -278,8 +270,17 @@ class ButtonGameMenuFrom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppButton.from(
-      onTap: context.pop,
+    final orientation = MediaQuery.of(context).orientation;
+    return Align(
+      alignment: orientation == Orientation.portrait
+          ? Alignment.bottomLeft
+          : Alignment.bottomRight,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: AppButton.from(
+          onTap: context.pop,
+        ),
+      ),
     );
   }
 }

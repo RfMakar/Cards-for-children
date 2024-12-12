@@ -47,10 +47,13 @@ final router = GoRouter(
             GoRoute(
               name: RouterPath.pathGamesMenuScreen,
               path: RouterPath.pathGamesMenuScreen,
-              builder: (context, state) {
+              pageBuilder: (context, state) {
                 final categoryId = state.extra as int;
-                return GamesMenuScreen(
-                  categoryId: categoryId,
+                return CustomTransitionPage(
+                  fullscreenDialog: true,
+                  opaque: false,
+                  transitionsBuilder: (_, __, ___, child) => child,
+                  child: GamesMenuScreen(categoryId: categoryId),
                 );
               },
               routes: [

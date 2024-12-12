@@ -64,9 +64,8 @@ class BodyBabyCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
-    final babyCard = context.read<BabyCard>();
     return Scaffold(
-      backgroundColor: Color(babyCard.color).withOpacity(0.6),
+      backgroundColor: AppColor.backgroundColor,
       body: switch (orientation) {
         Orientation.portrait => const BodyBabyCardPortrait(),
         Orientation.landscape => const BodyBabyCardLandscape(),
