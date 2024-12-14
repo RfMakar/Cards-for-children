@@ -148,7 +148,7 @@ class CategoryCardWidget extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: Color(categoryCard.color),
+          color: Color(categoryCard.color).withOpacity(0.9),
           borderRadius: BorderRadius.circular(radius),
           border: Border.all(
             color: AppColor.white,
@@ -156,39 +156,31 @@ class CategoryCardWidget extends StatelessWidget {
           ),
         ),
         child: Column(
+        
           children: [
             Expanded(
-              child: Center(
-                child: Image.asset(
-                  categoryCard.icon,
-                ),
+              child: Image.asset(
+                categoryCard.icon,
               ),
             ),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(radius - borderWidht),
-                  bottomRight: Radius.circular(radius - borderWidht),
-                ),
-                border: Border.all(
-                  color: AppColor.white,
-                ),
-                color: AppColor.white,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 2,
+                right: 2,
+                top: 8,
+                bottom: 8,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Text(
-                  categoryCard.name,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  softWrap: true,
-                  style: TextStyle(
-                    color: Color(categoryCard.color),
-                    //fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                  ),
+              child: Text(
+                categoryCard.name,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                softWrap: true,
+                style: const TextStyle(
+                  color: AppColor.white,
+                  // color: Color(categoryCard.color),
+                  // fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  // fontStyle: FontStyle.normal,
                 ),
               ),
             )

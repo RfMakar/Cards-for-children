@@ -253,6 +253,7 @@ class ButtonFavoriteBabyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<BabyCardBloc>();
     return BlocBuilder<BabyCardBloc, BabyCardState>(
       builder: (context, state) {
         switch (state.status) {
@@ -263,18 +264,12 @@ class ButtonFavoriteBabyCard extends StatelessWidget {
             final babyCard = state.babyCard!;
             return babyCard.isFavorite
                 ? AppButton.favorite(
-                    onTap: () => context.read<BabyCardBloc>().add(
-                          BabyCardsIsFavorite(
-                            babyCard: babyCard,
-                          ),
-                        ),
+                    onTap: () =>
+                        bloc.add(BabyCardsIsFavorite(babyCard: babyCard)),
                   )
                 : AppButton.notFavorite(
-                    onTap: () => context.read<BabyCardBloc>().add(
-                          BabyCardsIsFavorite(
-                            babyCard: babyCard,
-                          ),
-                        ),
+                    onTap: () =>
+                        bloc.add(BabyCardsIsFavorite(babyCard: babyCard)),
                   );
           case BabyCardStatus.failure:
             return FailedWidget(message: state.error!);
