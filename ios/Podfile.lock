@@ -1,9 +1,79 @@
 PODS:
+  - AppMetricaCore (5.8.2):
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaEncodingUtils (= 5.8.2)
+    - AppMetricaFMDB (= 5.8.2)
+    - AppMetricaHostState (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
+    - AppMetricaNetwork (= 5.8.2)
+    - AppMetricaPlatform (= 5.8.2)
+    - AppMetricaProtobuf (= 5.8.2)
+    - AppMetricaProtobufUtils (= 5.8.2)
+    - AppMetricaStorageUtils (= 5.8.2)
+  - AppMetricaCoreExtension (5.8.2):
+    - AppMetricaCore (= 5.8.2)
+    - AppMetricaStorageUtils (= 5.8.2)
+  - AppMetricaCoreUtils (5.8.2):
+    - AppMetricaLog (= 5.8.2)
+  - AppMetricaCrashes (5.8.2):
+    - AppMetricaCore (= 5.8.2)
+    - AppMetricaCoreExtension (= 5.8.2)
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaEncodingUtils (= 5.8.2)
+    - AppMetricaHostState (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
+    - AppMetricaPlatform (= 5.8.2)
+    - AppMetricaProtobufUtils (= 5.8.2)
+    - AppMetricaStorageUtils (= 5.8.2)
+    - KSCrash/Recording (< 2.1.0, >= 2.0.0-rc.1)
+  - AppMetricaEncodingUtils (5.8.2):
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
+    - AppMetricaPlatform (= 5.8.2)
+  - AppMetricaFMDB (5.8.2)
+  - AppMetricaHostState (5.8.2):
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
+  - AppMetricaLibraryAdapter (5.8.2):
+    - AppMetricaCore (= 5.8.2)
+    - AppMetricaCoreExtension (= 5.8.2)
+  - AppMetricaLog (5.8.2)
+  - AppMetricaNetwork (5.8.2):
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
+    - AppMetricaPlatform (= 5.8.2)
+  - AppMetricaPlatform (5.8.2):
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
+  - AppMetricaProtobuf (5.8.2)
+  - AppMetricaProtobufUtils (5.8.2):
+    - AppMetricaProtobuf (= 5.8.2)
+  - AppMetricaStorageUtils (5.8.2):
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
   - audioplayers_darwin (0.0.1):
     - Flutter
+  - DivKit (30.33.0):
+    - DivKit_LayoutKit (= 30.33.0)
+    - DivKit_Serialization (= 30.33.0)
+    - VGSL (~> 6.0)
+  - DivKit_LayoutKit (30.33.0):
+    - DivKit_LayoutKitInterface (= 30.33.0)
+    - VGSL (~> 6.0)
+  - DivKit_LayoutKitInterface (30.33.0):
+    - VGSL (~> 6.0)
+  - DivKit_Serialization (30.33.0):
+    - VGSL (~> 6.0)
+  - DivKitBinaryCompatibilityFacade (4.5.0):
+    - DivKit (~> 30.9)
   - Flutter (1.0.0)
   - flutter_native_splash (2.4.3):
     - Flutter
+  - KSCrash/Core (2.0.0-rc.8)
+  - KSCrash/Recording (2.0.0-rc.8):
+    - KSCrash/RecordingCore
+  - KSCrash/RecordingCore (2.0.0-rc.8):
+    - KSCrash/Core
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -15,6 +85,24 @@ PODS:
     - FlutterMacOS
   - url_launcher_ios (0.0.1):
     - Flutter
+  - VGSL (6.18.0):
+    - VGSLFundamentals (= 6.18.0)
+    - VGSLNetworking (= 6.18.0)
+    - VGSLUI (= 6.18.0)
+  - VGSLFundamentals (6.18.0)
+  - VGSLNetworking (6.18.0):
+    - VGSLFundamentals (= 6.18.0)
+    - VGSLUI (= 6.18.0)
+  - VGSLUI (6.18.0):
+    - VGSLFundamentals (= 6.18.0)
+  - yandex_mobileads (7.8.0):
+    - Flutter
+    - YandexMobileAds (~> 7.9.0)
+  - YandexMobileAds (7.9.0):
+    - AppMetricaCore (< 6.0.0, >= 5.8.0)
+    - AppMetricaCrashes (< 6.0.0, >= 5.8.0)
+    - AppMetricaLibraryAdapter (< 6.0.0, >= 5.8.0)
+    - DivKitBinaryCompatibilityFacade (= 4.5.0)
 
 DEPENDENCIES:
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
@@ -24,6 +112,35 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - yandex_mobileads (from `.symlinks/plugins/yandex_mobileads/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AppMetricaCore
+    - AppMetricaCoreExtension
+    - AppMetricaCoreUtils
+    - AppMetricaCrashes
+    - AppMetricaEncodingUtils
+    - AppMetricaFMDB
+    - AppMetricaHostState
+    - AppMetricaLibraryAdapter
+    - AppMetricaLog
+    - AppMetricaNetwork
+    - AppMetricaPlatform
+    - AppMetricaProtobuf
+    - AppMetricaProtobufUtils
+    - AppMetricaStorageUtils
+    - DivKit
+    - DivKit_LayoutKit
+    - DivKit_LayoutKitInterface
+    - DivKit_Serialization
+    - DivKitBinaryCompatibilityFacade
+    - KSCrash
+    - VGSL
+    - VGSLFundamentals
+    - VGSLNetworking
+    - VGSLUI
+    - YandexMobileAds
 
 EXTERNAL SOURCES:
   audioplayers_darwin:
@@ -40,16 +157,44 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite_darwin/darwin"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
+  yandex_mobileads:
+    :path: ".symlinks/plugins/yandex_mobileads/ios"
 
 SPEC CHECKSUMS:
+  AppMetricaCore: bf95c826ec74260b8c81cca9fc21efb8aea52a70
+  AppMetricaCoreExtension: 9cf386437072bb2bb578eb0b7654b3e3f53f3abf
+  AppMetricaCoreUtils: e272b7ae0d4da73e178cc9d7cf391ce67c713d61
+  AppMetricaCrashes: 2a47cc39a691f9751c2a73e20ce5e06f5a9cdc64
+  AppMetricaEncodingUtils: ee11733ecad85bf10d513920ef091bbc0ae5f2c7
+  AppMetricaFMDB: 44ffa4aa173513c04af2a1fbf6dfc180f266872a
+  AppMetricaHostState: c6a10727120cdd4d7eaaabf57f9e562ec9cd6b0f
+  AppMetricaLibraryAdapter: 8911b7ad37709505d6143158126ff7896d2834a2
+  AppMetricaLog: 49eb3d5ef7d4288a388cc34eaa53cbcd42241b8a
+  AppMetricaNetwork: f29d5bedc1abb6dff4be1f89422e5403dcda7dee
+  AppMetricaPlatform: f3423676add2e9a61b6b67f2692f385b62bf87a8
+  AppMetricaProtobuf: d895f7478c9e90ac3a50bd2f2ae8bd022205dbd1
+  AppMetricaProtobufUtils: 2e4134f486620a27306940347265c824784c906c
+  AppMetricaStorageUtils: d4b1470acba258fe9a07d9860defdeb93096b89b
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
+  DivKit: 5b176400aa1667fddc9fb30530f1c5a5ef93a7e5
+  DivKit_LayoutKit: 052ae0577535f6be202aeb64184fe98bcda1972c
+  DivKit_LayoutKitInterface: d6f4493c7bf5823f989795a2189934541596df3b
+  DivKit_Serialization: 37160aa27d0be33347d24d2667af886c5b66cc27
+  DivKitBinaryCompatibilityFacade: 3de9fa5c024e2a8c1b798711c4c9aafd0be9b5c8
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_native_splash: e8a1e01082d97a8099d973f919f57904c925008a
+  flutter_native_splash: f71420956eb811e6d310720fee915f1d42852e7a
+  KSCrash: 946472c56073afdaf6bae37d886e3f562027075c
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  VGSL: a46194be2ec6afc2d385b8855b4015f0488b782f
+  VGSLFundamentals: 28991319b0819971a33e2a120b2d13f54f6bbc96
+  VGSLNetworking: 66714a0dea9611e2f8418b5196e11e4a66d14289
+  VGSLUI: bb4553a81e975c0777f19838fb90798aac748e5a
+  yandex_mobileads: 3eb0ae0e6bd632fec5b9bd7c4179e0220b862f74
+  YandexMobileAds: 1560300b24b700dfcc335e9de4ac66bbb148299a
 
-PODFILE CHECKSUM: 30f8ec3cb135c39a41dbdc3f40009442f2639040
+PODFILE CHECKSUM: bb55de01455c7263bf99308124a8f49875a932e9
 
 COCOAPODS: 1.16.2

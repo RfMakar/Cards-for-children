@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:busycards/application.dart';
 import 'package:busycards/core/functions/setup_audio.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
@@ -11,4 +13,3 @@ Future<void> main() async {
   await setupDependencies();
   runApp(const Application());
 }
-

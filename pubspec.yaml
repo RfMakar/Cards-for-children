@@ -1,7 +1,7 @@
 name: busycards
 description: A new Flutter project.
 publish_to: 'none'
-version: 2.0.15+43
+version: 2.0.19+47
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -22,6 +22,7 @@ dependencies:
   audioplayers: ^6.1.0
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
+  yandex_mobileads: ^7.8.0
   
   flutter_localizations:
     sdk: flutter

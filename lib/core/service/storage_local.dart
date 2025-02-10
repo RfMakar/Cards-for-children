@@ -8,8 +8,8 @@ class StorageLocalService {
   Future<bool> getAudioBackground() async {
     final isRes = await _prefs.getBool(keyAudioPlayerBackground);
     if (isRes == null) {
-      await setAudioBackground(true);
-      return true;
+      await setAudioBackground(false);
+      return false;
     } else {
       return isRes;
     }

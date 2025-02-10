@@ -39,8 +39,8 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _play();
     super.initState();
+    _play();
     WidgetsBinding.instance.addObserver(this);
   }
 
