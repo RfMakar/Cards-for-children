@@ -1,4 +1,15 @@
 PODS:
+  - appmetrica_plugin (3.1.0):
+    - AppMetricaAnalytics (~> 5.8)
+    - Flutter
+  - AppMetricaAdSupport (5.8.2):
+    - AppMetricaCore (= 5.8.2)
+    - AppMetricaCoreExtension (= 5.8.2)
+  - AppMetricaAnalytics (5.8.2):
+    - AppMetricaAdSupport (= 5.8.2)
+    - AppMetricaCore (= 5.8.2)
+    - AppMetricaCrashes (= 5.8.2)
+    - AppMetricaWebKit (= 5.8.2)
   - AppMetricaCore (5.8.2):
     - AppMetricaCoreUtils (= 5.8.2)
     - AppMetricaEncodingUtils (= 5.8.2)
@@ -49,6 +60,10 @@ PODS:
   - AppMetricaProtobufUtils (5.8.2):
     - AppMetricaProtobuf (= 5.8.2)
   - AppMetricaStorageUtils (5.8.2):
+    - AppMetricaCoreUtils (= 5.8.2)
+    - AppMetricaLog (= 5.8.2)
+  - AppMetricaWebKit (5.8.2):
+    - AppMetricaCore (= 5.8.2)
     - AppMetricaCoreUtils (= 5.8.2)
     - AppMetricaLog (= 5.8.2)
   - audioplayers_darwin (0.0.1):
@@ -105,6 +120,7 @@ PODS:
     - DivKitBinaryCompatibilityFacade (= 4.5.0)
 
 DEPENDENCIES:
+  - appmetrica_plugin (from `.symlinks/plugins/appmetrica_plugin/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
@@ -116,6 +132,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppMetricaAdSupport
+    - AppMetricaAnalytics
     - AppMetricaCore
     - AppMetricaCoreExtension
     - AppMetricaCoreUtils
@@ -130,6 +148,7 @@ SPEC REPOS:
     - AppMetricaProtobuf
     - AppMetricaProtobufUtils
     - AppMetricaStorageUtils
+    - AppMetricaWebKit
     - DivKit
     - DivKit_LayoutKit
     - DivKit_LayoutKitInterface
@@ -143,6 +162,8 @@ SPEC REPOS:
     - YandexMobileAds
 
 EXTERNAL SOURCES:
+  appmetrica_plugin:
+    :path: ".symlinks/plugins/appmetrica_plugin/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   Flutter:
@@ -161,6 +182,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/yandex_mobileads/ios"
 
 SPEC CHECKSUMS:
+  appmetrica_plugin: 22d4d1eb9d070509fce428774b7f0d0686564010
+  AppMetricaAdSupport: 6fd6e54fc9d330f152e97c38cd92775071e353b8
+  AppMetricaAnalytics: 93374c9f748f85f4d62f2ed2714eeb058eee1d33
   AppMetricaCore: bf95c826ec74260b8c81cca9fc21efb8aea52a70
   AppMetricaCoreExtension: 9cf386437072bb2bb578eb0b7654b3e3f53f3abf
   AppMetricaCoreUtils: e272b7ae0d4da73e178cc9d7cf391ce67c713d61
@@ -175,6 +199,7 @@ SPEC CHECKSUMS:
   AppMetricaProtobuf: d895f7478c9e90ac3a50bd2f2ae8bd022205dbd1
   AppMetricaProtobufUtils: 2e4134f486620a27306940347265c824784c906c
   AppMetricaStorageUtils: d4b1470acba258fe9a07d9860defdeb93096b89b
+  AppMetricaWebKit: 900bc1bdc8c35d0605a3dfe9ba8b8b69a77f73b8
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   DivKit: 5b176400aa1667fddc9fb30530f1c5a5ef93a7e5
   DivKit_LayoutKit: 052ae0577535f6be202aeb64184fe98bcda1972c

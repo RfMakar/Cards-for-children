@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:busycards/application.dart';
+import 'package:busycards/core/functions/setup_app_metrica.dart';
 import 'package:busycards/core/functions/setup_audio.dart';
 import 'package:busycards/core/functions/setup_dependencies.dart';
 import 'package:busycards/core/functions/setup_system_ui.dart';
@@ -11,5 +12,6 @@ Future<void> main() async {
   await setupSystemUI();
   await setupAudio();
   await setupDependencies();
+  await setupAppMetrica(); //только для ios и android
   runApp(const Application());
 }
