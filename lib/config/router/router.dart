@@ -17,7 +17,8 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: RouterPath.pathHomeScreen,
-      builder: (context, state) => const HomeScreen(),
+      // builder: (context, state) => const HomeScreen(), // c рекламой
+      builder: (context, state) => const HomeNoAdsScreen(), //без рекламы
       routes: [
         GoRoute(
           name: RouterPath.pathBabyCardsScreen,

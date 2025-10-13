@@ -14,33 +14,173 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:yandex_mobileads/mobile_ads.dart';
+// import 'package:yandex_mobileads/mobile_ads.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+//Домашняя страница с рекламой
+// class HomeScreen extends StatefulWidget {
+//   const HomeScreen({super.key});
+
+//   @override
+//   State<HomeScreen> createState() => _HomeScreenState();
+// }
+
+// class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+//   late AudioPlayerService _audioPlayerService;
+
+//   //ad
+//   late final Future<AppOpenAdLoader> _appOpenAdLoader; // загрузчик
+//   AppOpenAd? _appOpenAd; //рекламное обьявление
+//   static var isAdShowing = false; //state показа
+//   static var isColdStartAdShow =
+//       false; //state холодного показа холодного старта
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     MobileAds.initialize();
+//     _appOpenAdLoader = _createAppOpenAdLoader();
+//     _loadAppOpenAd();
+//     _audioPlayerService = sl<AudioPlayerService>();
+
+//     WidgetsBinding.instance.addObserver(this);
+//   }
+
+//   @override
+//   void dispose() {
+//     _audioPlayerService.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   void didChangeAppLifecycleState(AppLifecycleState state) {
+//     if (state == AppLifecycleState.resumed) {
+//       _showAdIfAvailable();
+//     }
+//     super.didChangeAppLifecycleState(state);
+//   }
+
+//   void _initLocale(BuildContext context) {
+//     final locale = Localizations.localeOf(context);
+//     Intl.defaultLocale = locale.languageCode;
+//   }
+
+//   Future<void> _loadAppOpenAd() async {
+//     final adLoader = await _appOpenAdLoader;
+//     adLoader.loadAd(adRequestConfiguration: _adRequestConfiguration());
+//   }
+
+//   AdRequestConfiguration _adRequestConfiguration() {
+//     final adUnitId = 'demo-appopenad-yandex';
+//     // final adUnitId = 'R-M-13983257-1'; //ru store
+//     // final adUnitId = 'R-M-13836573-1'; //app store
+//     // final adUnitId = 'R-M-13836524-1'; //play store
+//     return AdRequestConfiguration(adUnitId: adUnitId);
+//   }
+
+//   //создание рекламного блока
+//   Future<AppOpenAdLoader> _createAppOpenAdLoader() {
+//     return AppOpenAdLoader.create(
+//       onAdLoaded: (AppOpenAd appOpenAd) {
+//         _appOpenAd = appOpenAd;
+//         print('>>> реклама загружена');
+
+//         if (!isColdStartAdShow) {
+//           _showAdIfAvailable();
+//           isColdStartAdShow = true;
+//         }
+//       },
+//       onAdFailedToLoad: (error) {},
+//     );
+//   }
+
+//   Future<void> _showAdIfAvailable() async {
+//     var appOpenAd = _appOpenAd;
+//     if (appOpenAd != null && !isAdShowing) {
+//       _setAdEventListener(appOpenAd: appOpenAd);
+//       await appOpenAd.show();
+//       await appOpenAd.waitForDismiss();
+//     } else {
+//       _loadAppOpenAd();
+//     }
+//   }
+
+//   //подписка на жизненый цикл обьявления
+//   void _setAdEventListener({required AppOpenAd appOpenAd}) {
+//     appOpenAd.setAdEventListener(
+//       eventListener: AppOpenAdEventListener(
+//         onAdShown: () {
+//           debugPrint('>>>onAdShown');
+//           isAdShowing = true;
+//         },
+//         onAdFailedToShow: (error) {
+//           debugPrint('>>>onAdFailedToShow');
+//           isAdShowing = false;
+//           _clearAppOpenAd();
+//         },
+//         onAdDismissed: () {
+//           debugPrint('>>>onAdDismissed');
+//           isAdShowing = false;
+//           _clearAppOpenAd();
+//           _loadAppOpenAd();
+//         },
+//         onAdClicked: () {
+//           debugPrint('>>>onAdClicked');
+//         },
+//         onAdImpression: (data) {
+//           debugPrint('>>>onAdImpression');
+//         },
+//       ),
+//     );
+//   }
+
+//   void _clearAppOpenAd() {
+//     _appOpenAd?.destroy();
+//     _appOpenAd = null;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     _initLocale(context);
+
+//     return MultiBlocProvider(
+//       providers: [
+//         BlocProvider(
+//           create: (context) => sl<HomeBloc>()..add(const HomeInitialization()),
+//         ),
+//         Provider(
+//           create: (context) => _audioPlayerService,
+//         ),
+//       ],
+//       child: const LayoutScreen(
+//         body: BodyHomeScreen(),
+//         bottomNavigation: LayoutButtomNavigation(
+//           children: [
+//             ButtonNavigationHomeFavorite(),
+//             ButtonNavigationHomeSettings(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+////Домашняя страница без рекламой
+class HomeNoAdsScreen extends StatefulWidget {
+  const HomeNoAdsScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeNoAdsScreen> createState() => _HomeNoAdsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+class _HomeNoAdsScreenState extends State<HomeNoAdsScreen> with WidgetsBindingObserver {
   late AudioPlayerService _audioPlayerService;
 
-  //ad
-  late final Future<AppOpenAdLoader> _appOpenAdLoader; // загрузчик
-  AppOpenAd? _appOpenAd; //рекламное обьявление
-  static var isAdShowing = false; //state показа
-  static var isColdStartAdShow =
-      false; //state холодного показа холодного старта
 
   @override
   void initState() {
     super.initState();
-    MobileAds.initialize();
-    _appOpenAdLoader = _createAppOpenAdLoader();
-    _loadAppOpenAd();
     _audioPlayerService = sl<AudioPlayerService>();
-
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -50,92 +190,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _showAdIfAvailable();
-    }
-    super.didChangeAppLifecycleState(state);
-  }
-
   void _initLocale(BuildContext context) {
     final locale = Localizations.localeOf(context);
     Intl.defaultLocale = locale.languageCode;
   }
 
-  Future<void> _loadAppOpenAd() async {
-    final adLoader = await _appOpenAdLoader;
-    adLoader.loadAd(adRequestConfiguration: _adRequestConfiguration());
-  }
 
-  AdRequestConfiguration _adRequestConfiguration() {
-    final adUnitId = 'demo-appopenad-yandex';
-    // final adUnitId = 'R-M-13983257-1'; //ru store
-    // final adUnitId = 'R-M-13836573-1'; //app store
-    // final adUnitId = 'R-M-13836524-1'; //play store
-    return AdRequestConfiguration(adUnitId: adUnitId);
-  }
-
-  //создание рекламного блока
-  Future<AppOpenAdLoader> _createAppOpenAdLoader() {
-    return AppOpenAdLoader.create(
-      onAdLoaded: (AppOpenAd appOpenAd) {
-        _appOpenAd = appOpenAd;
-        print('>>> реклама загружена');
-
-        if (!isColdStartAdShow) {
-          _showAdIfAvailable();
-          isColdStartAdShow = true;
-        }
-      },
-      onAdFailedToLoad: (error) {},
-    );
-  }
-
-  Future<void> _showAdIfAvailable() async {
-    var appOpenAd = _appOpenAd;
-    if (appOpenAd != null && !isAdShowing) {
-      _setAdEventListener(appOpenAd: appOpenAd);
-      await appOpenAd.show();
-      await appOpenAd.waitForDismiss();
-    } else {
-      _loadAppOpenAd();
-    }
-  }
-
-  //подписка на жизненый цикл обьявления
-  void _setAdEventListener({required AppOpenAd appOpenAd}) {
-    appOpenAd.setAdEventListener(
-      eventListener: AppOpenAdEventListener(
-        onAdShown: () {
-          debugPrint('>>>onAdShown');
-          isAdShowing = true;
-        },
-        onAdFailedToShow: (error) {
-          debugPrint('>>>onAdFailedToShow');
-          isAdShowing = false;
-          _clearAppOpenAd();
-        },
-        onAdDismissed: () {
-          debugPrint('>>>onAdDismissed');
-          isAdShowing = false;
-          _clearAppOpenAd();
-          _loadAppOpenAd();
-        },
-        onAdClicked: () {
-          debugPrint('>>>onAdClicked');
-        },
-        onAdImpression: (data) {
-          debugPrint('>>>onAdImpression');
-        },
-      ),
-    );
-  }
-
-  void _clearAppOpenAd() {
-    _appOpenAd?.destroy();
-    _appOpenAd = null;
-  }
 
   @override
   Widget build(BuildContext context) {
