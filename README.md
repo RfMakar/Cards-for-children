@@ -44,10 +44,82 @@
 
 ## Структура проекта
 ```
-lib/
-├── data/          # Источники данных 
-├── domain/        # Бизнес-логика 
-└── presentation/  # UI, состояние 
+lib
+ ┣ config
+ ┃ ┣ UI
+ ┃ ┃ ┣ app_assets.dart
+ ┃ ┃ ┣ app_color.dart
+ ┃ ┃ ┗ app_text_style.dart
+ ┃ ┗ router
+ ┃ ┃ ┣ router.dart
+ ┃ ┃ ┗ router_path.dart
+ ┣ core
+ ┃ ┣ constants
+ ┃ ┃ ┣ constants.dart
+ ┃ ┃ ┗ key.dart
+ ┃ ┣ functions
+ ┃ ┃ ┣ get_device.dart
+ ┃ ┃ ┣ open_url_in_browser.dart
+ ┃ ┃ ┣ setup_audio.dart
+ ┃ ┃ ┣ setup_dependencies.dart
+ ┃ ┃ ┗ setup_system_ui.dart
+ ┃ ┣ objects
+ ┃ ┃ ┣ game_find_a_pair
+ ┃ ┃ ┃ ┣ game_find_a_pair.dart
+ ┃ ┃ ┃ ┗ game_find_a_pair_card.dart
+ ┃ ┃ ┣ game_show_me
+ ┃ ┃ ┃ ┣ game_show_me.dart
+ ┃ ┃ ┃ ┗ game_show_me_card.dart
+ ┃ ┃ ┗ parental_control.dart
+ ┃ ┣ resources
+ ┃ ┃ ┗ data_state.dart
+ ┃ ┗ service
+ ┃ ┃ ┣ audio_background.dart
+ ┃ ┃ ┣ audio_player.dart
+ ┃ ┃ ┗ storage_local.dart
+ ┣ data
+ ┃ ┣ data_sources
+ ┃ ┃ ┗ sqflite_client.dart
+ ┃ ┣ model
+ ┃ ┃ ┣ answer_game.dart
+ ┃ ┃ ┣ baby_card.dart
+ ┃ ┃ ┣ category_card.dart
+ ┃ ┃ ┗ qustion_game.dart
+ ┃ ┗ repositories_impl
+ ┃ ┃ ┣ baby_card.dart
+ ┃ ┃ ┗ game.dart
+ ┣ domain
+ ┃ ┣ entities
+ ┃ ┃ ┣ answer_game.dart
+ ┃ ┃ ┣ baby_card.dart
+ ┃ ┃ ┣ category_card.dart
+ ┃ ┃ ┗ question_game.dart
+ ┃ ┣ repositories
+ ┃ ┃ ┣ baby_card.dart
+ ┃ ┃ ┗ game.dart
+ ┃ ┗ state
+ ┣ presentation
+ ┃ ┣ screens
+ ┃ ┃ ┣ baby_card
+ ┃ ┃ ┃ ┣ bloc
+ ┃ ┃ ┃ ┃ ┣ baby_card_bloc.dart
+ ┃ ┃ ┃ ┃ ┣ baby_card_event.dart
+ ┃ ┃ ┃ ┃ ┗ baby_card_state.dart
+ ┃ ┃ ┃ ┗ baby_card.dart
+ ┃ ┃ ┣ baby_cards
+ ┃ ┃ ┣ baby_cards_favorite
+ ┃ ┃ ┣ congratulation
+ ┃ ┃ ┃ ┗ congratulation.dart
+ ┃ ┃ ┣ game_find_a_pair
+ ┃ ┃ ┣ game_show_me
+ ┃ ┃ ┣ games_menu
+ ┃ ┃ ┣ home
+ ┃ ┃ ┣ parental_control
+ ┃ ┃ ┗ settings
+ ┃ ┗ widgets
+ ┣ .DS_Store
+ ┣ application.dart
+ ┗ main.dart
 ```
 
 ## Автор
