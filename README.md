@@ -2,6 +2,15 @@
 
 Карточки для детей — обучающее мобильное приложение для детей с интерактивными карточками и озвучкой. Приложение помогает развивать память, внимание и словарный запас через игру и повторение.
 
+## Скриншоты
+
+<p align="center">
+  <img src="assets/screens/1.png" width="24%">
+  <img src="assets/screens/2.png" width="24%">
+  <img src="assets/screens/3.png" width="24%">
+  <img src="assets/screens/4.png" width="24%">
+</p>
+
 ## Описание
 
 Карточки для детей — полностью офлайн-приложение, где все изображения, звуки и тексты хранятся локально. Интерфейс адаптирован под детей и поддерживает озвучку категорий и карточек на русском языке. В приложении реализованы мини-игры для проверки знаний.
@@ -15,11 +24,12 @@
 - Поддержка локализации и пользовательских настроек  
 - Адаптивный дизайн для смартфонов и планшетов  
 
-## Архитектура и стек
+## Архитектура и стек 
 
 Приложение разработано на **Flutter 3.x** с использованием современных инструментов и принципов **Clean Architecture**.
 
-**Технологии:**
+## Технологии:
+
 - Язык: Dart  
 - Архитектура: Clean Architecture (data, domain, presentation)  
 - State Management: flutter_bloc, provider  
@@ -47,9 +57,3 @@ lib/
 [App Store](https://apps.apple.com/ru/app/%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D0%BC%D0%B0%D0%BB%D1%8B%D1%88%D0%B5%D0%B9/id6529673021)  
 [RuStore](https://www.rustore.ru/catalog/app/com.dom.busycards)
 
-<p align="center">
-  <img src="assets/screens/1.png" width="24%">
-  <img src="assets/screens/2.png" width="24%">
-  <img src="assets/screens/3.png" width="24%">
-  <img src="assets/screens/4.png" width="24%">
-</p>
